@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PROJET TIA INFOS
 
 Plateforme de gestion de formations, paiements mobiles, certificats PDF, notifications et plus, pour TIA INFOS Toamasina.
@@ -105,3 +106,6 @@ PROJET TIA INFOS/
 ---
 
 Pour toute question, contacter l'équipe TIA INFOS.
+=======
+# PROJET-TIA-INFOS
+>>>>>>> 89fe29374fe8518d5ee28fc3d73c1632eea1190d
