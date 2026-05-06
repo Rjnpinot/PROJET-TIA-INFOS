@@ -1,0 +1,556 @@
+/* ============================================================
+   TIA INFO — DASHBOARD ÉTUDIANT — ULTRA MODERN V3
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* --- Mesh Gradient Aura Animation --- */
+@keyframes aura-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.15), 0 20px 60px rgba(0, 0, 0, 0.6); }
+  50% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.25), 0 20px 60px rgba(0, 0, 0, 0.6); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2.5rem;
+    padding: 2rem 2.5rem;
+    padding-top: 110px;
+    max-width: 1500px;
+    margin: 0 auto;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ============================================================
+   SIDEBAR ULTRA-MODERNE
+   ============================================================ */
+.dash-sidebar {
+    position: sticky;
+    top: 110px;
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
+    overflow: hidden;
+    z-index: 100;
+    animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Mesh gradient background layers */
+.dash-sidebar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        rgba(212, 175, 55, 0.08) 0%, 
+        rgba(10, 10, 10, 0.95) 30%,
+        rgba(20, 10, 30, 0.97) 60%,
+        rgba(212, 175, 55, 0.05) 100%);
+    background-size: 300% 300%;
+    animation: aura-shift 8s ease infinite;
+    z-index: 0;
+}
+
+/* Holographic glass overlay */
+.dash-sidebar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        rgba(255,255,255,0.04) 0%, 
+        transparent 40%, 
+        rgba(255,255,255,0.02) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.dash-sidebar-inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.2rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 32px;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 -1px 0 rgba(0,0,0,0.3);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.dash-sidebar-inner::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- User Badge --- */
+.dash-user-badge {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    animation: float-badge 4s ease-in-out infinite;
+}
+
+.dash-avatar-wrap {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 0.8rem;
+}
+
+.dash-avatar {
+    width: 75px;
+    height: 75px;
+    background: var(--gold-gradient);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #000;
+    position: relative;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.3);
+}
+
+.dash-avatar:hover {
+    border-radius: 50%;
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5);
+}
+
+/* Pulsing ring around avatar */
+.dash-avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    border-radius: 35px;
+    animation: pulse-glow 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.dash-user-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.dash-user-role {
+    font-size: 0.7rem;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* --- Divider --- */
+.dash-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+    margin: 0 0 1rem;
+}
+
+/* --- Nav Section Label --- */
+.dash-nav-label {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    padding: 0 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- Nav Menu --- */
+.dash-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    position: relative;
+}
+
+/* Sliding indicator */
+.dash-nav-indicator {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: var(--gold-gradient);
+    border-radius: 14px;
+    transition: top 0.4s cubic-bezier(0.23, 1, 0.32, 1), height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+}
+
+.dash-nav-item {
+    position: relative;
+    margin-bottom: 0.4rem;
+}
+
+.dash-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    border-radius: 14px;
+    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    font-weight: 500;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.2px;
+}
+
+.dash-nav-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.dash-nav-text {
+    flex-grow: 1;
+}
+
+.dash-nav-badge {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-primary);
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.dash-nav-link:hover {
+    color: rgba(255, 255, 255, 0.85);
+    transform: translateX(4px);
+}
+
+.dash-nav-link:hover .dash-nav-icon {
+    transform: scale(1.15);
+}
+
+.dash-nav-link.active {
+    color: #000;
+    font-weight: 700;
+}
+
+.dash-nav-link.active .dash-nav-badge {
+    background: rgba(0,0,0,0.15);
+    color: #000;
+}
+
+.dash-nav-link.active .dash-nav-icon {
+    transform: scale(1.1);
+}
+
+/* Active background (simulated via CSS class) */
+.dash-nav-item.active-item .dash-nav-link {
+    background: var(--gold-gradient);
+    color: #000;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    font-weight: 700;
+}
+
+/* --- Bottom Section --- */
+.dash-sidebar-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.dash-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 80, 80, 0.7);
+    text-decoration: none;
+    border-radius: 14px;
+    transition: 0.3s;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.dash-logout-btn:hover {
+    color: #ff5050;
+    background: rgba(255, 80, 80, 0.08);
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.dash-main-content {
+    padding: 0.5rem 0;
+    animation: slide-in-left 0.5s ease-out;
+}
+
+.dash-main-content > div {
+    animation: slide-in-left 0.3s ease-out;
+}
+
+/* --- Course Cards --- */
+.course-progress-card {
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem;
+    border-radius: 24px;
+    margin-bottom: 1.5rem;
+    transition: 0.4s;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.course-progress-card:hover {
+    border-color: rgba(212, 175, 55, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.progress-wrap {
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    margin: 1.2rem 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gold-gradient);
+    border-radius: 10px;
+    transition: width 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* --- Resources --- */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.resource-card {
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.resource-card:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.resource-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.resource-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.resource-details h4 {
+    font-size: 1rem;
+    margin: 0;
+    color: #fff;
+    font-weight: 600;
+}
+
+.resource-details p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 4px 0 0 0;
+}
+
+.resource-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.file-size {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.btn-download {
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.2s;
+}
+
+.btn-download:hover {
+    color: #fff;
+    transform: translateX(3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+/* --- Messagerie Chat bubbles --- */
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+}
+
+.chat-message {
+    max-width: 80%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    position: relative;
+    animation: slide-in-left 0.3s ease-out;
+}
+
+.chat-message.admin {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #eee;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-message.student {
+    align-self: flex-end;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.msg-time {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    opacity: 0.5;
+}
+
+/* --- Notifications --- */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+}
+
+.notification-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-item.unread {
+    background: rgba(212, 175, 55, 0.05);
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+.notif-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold-primary);
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px var(--gold-primary);
+}
+
+.notification-item.read .notif-dot {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+.notif-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.notif-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        padding-top: 100px;
+    }
+}
+

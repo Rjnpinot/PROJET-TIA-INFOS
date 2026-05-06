@@ -1,0 +1,35 @@
+/* --- Formations Styles --- */
+.hero-formations {
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../img/nos-formations.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.formations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.formation-card {
+    background: var(--bg-dark-secondary);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.formation-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold-primary);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+}
+
+.fcard-img { height: 200px; background-size: cover; background-position: center; }
+.fcard-content { padding: 2rem; }
+.fcard-cat { color: var(--gold-primary); font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+.fcard-title { margin: 0.5rem 0 1rem; font-size: 1.4rem; }
+.fcard-meta { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.9rem; }

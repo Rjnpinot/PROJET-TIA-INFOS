@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>VÃ©rification Email - TIA INFO</title>
+  <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+  <div class="auth-container">
+    <h2>VÃ©rification de votre email</h2>
+    <div id="verify-message">VÃ©rification en cours...</div>
+    <a href="login.html">Retour Ã  la connexion</a>
+  </div>
+    <!-- FOOTER -->
+      <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="../../" class="footer-logo" style="text-decoration:none">
+          <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="../../">Accueil</a>
+          <a href="about.html">À Propos</a>
+          <a href="formations.html">Formations</a>
+          <a href="evenements.html">Événements</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+            <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="formations.html?cat=tech">???? Tech & Code</a>
+          <a href="formations.html?cat=langues">?? Langues</a>
+          <a href="formations.html?cat=gestion">?? Gestion</a>
+          <a href="formations.html?cat=design">?? Design</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2026 TIA INFO Toamasina · Tous droits réservés · Toamasina, Madagascar</p>
+    </div>
+  </footer>
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      if (!token) {
+        document.getElementById('verify-message').textContent = 'Lien de vÃ©rification invalide.';
+        return;
+      }
+      try {
+        const result = await window.authManager.verifyEmail(token);
+        document.getElementById('verify-message').textContent = result.message;
+      } catch (e) {
+        document.getElementById('verify-message').textContent = e.message || 'Erreur lors de la vÃ©rification.';
+      }
+    })();
+  </script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>
+
+

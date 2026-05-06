@@ -1,0 +1,155 @@
+/* --- Modern Authentication Styles (Login / Register) --- */
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                #050505;
+    margin: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3.5rem;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: authFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes authFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold-gradient);
+}
+
+.auth-logo {
+    height: 70px;
+    margin-bottom: 2rem;
+    border-radius: 14px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.auth-card h1 {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.auth-card h1 span {
+    display: block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--gold-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.form-group input { 
+    width: 100%; 
+    padding: 1.1rem; 
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 12px; 
+    color: white; 
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.form-group input:focus { 
+    border-color: var(--gold-primary); 
+    background: rgba(255, 255, 255, 0.06);
+    outline: none; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+    transform: scale(1.01);
+}
+
+.btn-gold {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.auth-footer {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-footer p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.auth-footer a {
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.auth-footer a:hover {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+/* Responsive fixes */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 2.5rem 1.5rem;
+    }
+}

@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration — TIA INFO</title>
+  <meta name="description" content="Panneau d'administration TIA INFO Toamasina — Gestion globale de la plateforme.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <a href="../../" class="sidebar-logo">
+        <img src="../img/Logo_Tia_Infos.jpg" alt="Logo TIA INFO" />
+        <div class="sidebar-logo-text">
+          <span class="logo-name">TIA INFO</span>
+          <span class="logo-badge">GÉRANCE</span>
+        </div>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire le menu">
+        ◀
+      </button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">👤</div>
+      <div class="sidebar-user-info">
+        <span class="sidebar-user-name" id="sidebar-user-name">Administrateur</span>
+        <span class="sidebar-user-role">Contrôle Total</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-label">Tableau de bord</span>
+      <a href="#" class="sidebar-link active" onclick="switchAdminTab('stats', this)">
+        <span class="sidebar-icon">📊</span>
+        <span class="sidebar-label">Statistiques</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('finances', this)">
+        <span class="sidebar-icon">💰</span>
+        <span class="sidebar-label">Finances</span>
+      </a>
+
+      <span class="sidebar-section-label">Gestion</span>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('students', this)">
+        <span class="sidebar-icon">👥</span>
+        <span class="sidebar-label">Étudiants</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('courses', this)">
+        <span class="sidebar-icon">📘</span>
+        <span class="sidebar-label">Catalogue</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('formateurs', this)">
+        <span class="sidebar-icon">🎓</span>
+        <span class="sidebar-label">Formateurs</span>
+      </a>
+
+      <span class="sidebar-section-label">Système</span>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('newsletter', this)">
+        <span class="sidebar-icon">📢</span>
+        <span class="sidebar-label">Newsletter</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="switchAdminTab('settings', this)">
+        <span class="sidebar-icon">⚙️</span>
+        <span class="sidebar-label">Configuration</span>
+      </a>
+    </nav>
+
+    <button onclick="logout()" class="sidebar-logout">
+      <span>🚪</span>
+      <span class="sidebar-label">Déconnexion</span>
+    </button>
+  </aside>
+
+  <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+  <div class="admin-main" id="adminMain">
+
+    <!-- TOP BAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" id="topbarMenuBtn" aria-label="Ouvrir le menu">☰</button>
+        <div class="topbar-breadcrumb">
+          <span id="topbar-page-title">Statistiques Globales</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <span>🔍</span>
+          <input type="text" id="global-search" placeholder="Rechercher..." aria-label="Rechercher" oninput="handleGlobalSearch(this.value)" />
+        </div>
+        <div class="topbar-notif" id="notif-btn" title="Notifications">
+          <span>🔔</span>
+          <span class="notif-dot" id="notif-dot" style="display:none;"></span>
+          <!-- Dropdown Notifications -->
+          <div class="notif-dropdown" id="notif-dropdown">
+            <div class="notif-header">
+              <h3>Notifications</h3>
+              <button class="mark-read-btn" onclick="markAllNotifsRead(event)">Tout marquer comme lu</button>
+            </div>
+            <div class="notif-list" id="notif-list">
+              <!-- JS Injected -->
+            </div>
+          </div>
+        </div>
+        <div class="topbar-user">
+          <div class="topbar-user-avatar">A</div>
+          <span class="topbar-user-name" id="user-display-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════ TAB: STATISTIQUES ═══════ -->
+    <section class="admin-tab-content" id="tab-stats">
+      <div class="admin-page-header">
+        <div>
+          <h1>Tableau de <span class="text-gold">Bord Exécutif</span></h1>
+          <p class="text-muted">Aperçu en temps réel des performances de TIA INFO Toamasina.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn-admin-outline" onclick="showToast('Rapport en cours de génération...')">📥 Exporter</button>
+          <button class="btn-admin-gold" onclick="showToast('Données mises à jour !')">🔄 Actualiser</button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-green">💰</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Revenus Totaux</span>
+            <span class="kpi-value">12 450 000 Ar</span>
+            <span class="kpi-trend trend-up">▲ +12% ce mois</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-blue">👥</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Étudiants Actifs</span>
+            <span class="kpi-value">158</span>
+            <span class="kpi-trend trend-up">▲ 5 nouveaux inscrits</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">📈</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Taux de Complétion</span>
+            <span class="kpi-value">68.5%</span>
+            <span class="kpi-trend">— Stable</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-purple">📘</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Formations Actives</span>
+            <span class="kpi-value">14</span>
+            <span class="kpi-trend trend-up">▲ 2 nouvelles</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts & Tables Row -->
+      <div class="admin-content-row">
+        <!-- Bar Chart -->
+        <div class="admin-card admin-chart-card">
+          <div class="card-header">
+            <h2>Revenus <span class="text-gold">Mensuels</span></h2>
+            <span class="card-badge">2026</span>
+          </div>
+          <div class="bar-chart-container">
+            <div class="bar-chart">
+              <div class="bar-col"><div class="bar" style="height:40%"></div><span>Jan</span></div>
+              <div class="bar-col"><div class="bar" style="height:65%"></div><span>Fév</span></div>
+              <div class="bar-col"><div class="bar" style="height:55%"></div><span>Mar</span></div>
+              <div class="bar-col"><div class="bar active-bar" style="height:95%"></div><span>Avr</span></div>
+              <div class="bar-col"><div class="bar" style="height:70%"></div><span>Mai</span></div>
+              <div class="bar-col"><div class="bar" style="height:85%"></div><span>Jun</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="admin-card admin-quickstats">
+          <div class="card-header">
+            <h2>Activité <span class="text-gold">Récente</span></h2>
+          </div>
+          <ul class="activity-list">
+            <li class="activity-item">
+              <div class="activity-dot dot-green"></div>
+              <div class="activity-content">
+                <span class="activity-text">Nicolas R. inscrit en Web Fullstack</span>
+                <span class="activity-time">Il y a 2h</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-dot dot-gold"></div>
+              <div class="activity-content">
+                <span class="activity-text">Paiement de 350 000 Ar reçu (MVOLA)</span>
+                <span class="activity-time">Il y a 4h</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-dot dot-blue"></div>
+              <div class="activity-content">
+                <span class="activity-text">Nouveaux cours d'IA ajoutés au catalogue</span>
+                <span class="activity-time">Hier</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-dot dot-green"></div>
+              <div class="activity-content">
+                <span class="activity-text">Lova F. a terminé le module Python</span>
+                <span class="activity-time">Hier</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Recent Enrollments -->
+      <div class="admin-card">
+        <div class="card-header">
+          <h2>Derniers <span class="text-gold">Inscrit(e)s</span></h2>
+          <button class="btn-admin-outline-sm" onclick="switchAdminTab('students', document.querySelector('[onclick*=students]'))">Voir tout</button>
+        </div>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Étudiant</th>
+                <th>Email</th>
+                <th>Formation</th>
+                <th>Date</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="table-user"><div class="table-avatar">N</div> Nicolas Razakamahefa</div></td>
+                <td class="text-muted">nihcolah512@gmail.com</td>
+                <td>Web Fullstack</td>
+                <td>Aujourd'hui</td>
+                <td><span class="status-badge status-active">Actif</span></td>
+              </tr>
+              <tr>
+                <td><div class="table-user"><div class="table-avatar">L</div> Lova Fenitra</div></td>
+                <td class="text-muted">lova@gmail.com</td>
+                <td>Intelligence Artificielle</td>
+                <td>Hier</td>
+                <td><span class="status-badge status-active">Actif</span></td>
+              </tr>
+              <tr>
+                <td><div class="table-user"><div class="table-avatar">S</div> Sahaza Andri</div></td>
+                <td class="text-muted">sahaza@outlook.com</td>
+                <td>Anglais Parler-Écrire</td>
+                <td>28/02</td>
+                <td><span class="status-badge status-pending">En attente</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ TAB: FINANCES ═══════ -->
+    <section class="admin-tab-content" id="tab-finances" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Gestion <span class="text-gold">Financière</span></h1>
+          <p class="text-muted">Historique des transactions et validation des paiements mobiles.</p>
+        </div>
+        <button class="btn-admin-gold" onclick="showToast('Export Excel en cours...')">📥 Exporter le Rapport</button>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Étudiant</th>
+                <th>Montant</th>
+                <th>Opérateur</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-mono">TX-MV-9345</td>
+                <td>Nicolas R.</td>
+                <td class="text-gold-value">350 000 Ar</td>
+                <td><span class="op-badge op-mvola">MVOLA</span></td>
+                <td><span class="status-badge status-active">Validé</span></td>
+                <td><button class="btn-admin-outline-sm" onclick="showToast('Reçu généré !')">📄 Reçu</button></td>
+              </tr>
+              <tr>
+                <td class="text-mono">TX-OR-2281</td>
+                <td>Lova F.</td>
+                <td class="text-gold-value">300 000 Ar</td>
+                <td><span class="op-badge op-orange">ORANGE</span></td>
+                <td><span class="status-badge status-active">Validé</span></td>
+                <td><button class="btn-admin-outline-sm" onclick="showToast('Reçu généré !')">📄 Reçu</button></td>
+              </tr>
+              <tr>
+                <td class="text-mono">TX-AI-1052</td>
+                <td>Sahaza A.</td>
+                <td class="text-gold-value">100 000 Ar</td>
+                <td><span class="op-badge op-airtel">AIRTEL</span></td>
+                <td><span class="status-badge status-pending">En attente</span></td>
+                <td><button class="btn-admin-gold-sm" onclick="showToast('Transaction approuvée ✅')">✅ Approuver</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ TAB: ÉTUDIANTS ═══════ -->
+    <section class="admin-tab-content" id="tab-students" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Base de données <span class="text-gold">Étudiants</span></h1>
+          <p class="text-muted">Gérez tous les profils étudiants et leurs progressions.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn-admin-outline" onclick="exportStudents()">📥 Exporter</button>
+          <button class="btn-admin-gold" onclick="openStudentModal()">➕ Ajouter un Étudiant</button>
+        </div>
+      </div>
+
+      <!-- KPI Étudiants -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:2rem">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Total Étudiants</span>
+            <span id="kpi-total-students" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Étudiants Actifs</span>
+            <span id="kpi-active-students" class="kpi-value" style="color:var(--gold-primary)">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Certifications</span>
+            <span id="kpi-completions" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Taux Réussite</span>
+            <span id="kpi-success-rate" class="kpi-value">...%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="formateur-toolbar">
+        <div class="formateur-search">
+          <span>🔍</span>
+          <input type="text" id="student-search-input" placeholder="Rechercher un nom ou email..." oninput="filterStudents(this.value)" aria-label="Rechercher un étudiant">
+        </div>
+        <div class="formateur-filters">
+          <button class="filter-chip active" onclick="filterStudentsByStatus(this, 'all')">Tous</button>
+          <button class="filter-chip" onclick="filterStudentsByStatus(this, 'actif')">Actifs</button>
+          <button class="filter-chip" onclick="filterStudentsByStatus(this, 'inactif')">Inactifs</button>
+          <button class="filter-chip" onclick="filterStudentsByStatus(this, 'suspendu')">Suspendus</button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Étudiant</th>
+                <th>Email</th>
+                <th>Inscriptions</th>
+                <th>Progression Moyenne</th>
+                <th>Statut</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <!-- Students injected here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="noStudentResult" style="display:none; text-align:center; padding:4rem; color:var(--text-muted)">
+        <p style="font-size:3rem; margin-bottom:1rem">👥</p>
+        <p>Aucun étudiant trouvé.</p>
+      </div>
+    </section>
+
+    <!-- ════ MODAL: AJOUTER / MODIFIER ÉTUDIANT ════ -->
+    <div class="fmt-modal-overlay" id="studentModal">
+      <div class="fmt-modal">
+        <div class="fmt-modal-header">
+          <h2 id="studentModalTitle">➕ Nouvel Étudiant</h2>
+          <button class="fmt-modal-close" onclick="closeStudentModal()">✕</button>
+        </div>
+        <form class="fmt-modal-form" onsubmit="handleStudentSubmit(event)" id="studentForm">
+          <input type="hidden" id="student-id">
+          
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Prénom *</label>
+              <input type="text" id="std-prenom" placeholder="Nicolas" required>
+            </div>
+            <div class="fmt-form-group">
+              <label>Nom *</label>
+              <input type="text" id="std-nom" placeholder="Razakamahefa" required>
+            </div>
+          </div>
+
+          <div class="fmt-form-group">
+            <label>Email *</label>
+            <input type="email" id="std-email" placeholder="etudiant@tia.mg" required>
+          </div>
+
+          <div class="fmt-form-row">
+              <div class="fmt-form-group">
+                <label>Statut</label>
+                <select id="std-statut" title="Statut de l'étudiant">
+                  <option value="actif">Actif</option>
+                  <option value="inactif">Inactif</option>
+                  <option value="suspendu">Suspendu</option>
+                </select>
+              </div>
+              <div class="fmt-form-group">
+                <label>Date d'inscription</label>
+                <input type="date" id="std-date" value="2026-04-04">
+              </div>
+          </div>
+
+          <div class="fmt-form-group">
+            <label>Inscriptions (Formations)</label>
+            <div class="enrollment-selector" id="std-enrollment-list">
+              <!-- Courses checkboxed here -->
+            </div>
+          </div>
+
+          <div class="fmt-modal-actions">
+            <button type="button" class="btn-admin-outline" onclick="closeStudentModal()">Annuler</button>
+            <button type="submit" class="btn-admin-gold">💾 Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- ═══════ TAB: CATALOGUE ═══════ -->
+    <section class="admin-tab-content" id="tab-courses" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Gérer le <span class="text-gold">Catalogue</span></h1>
+          <p class="text-muted">Gérez l'offre de formation de TIA INFO Toamasina.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn-admin-outline" onclick="exportCatalog()">📥 Exporter CSV</button>
+          <button class="btn-admin-gold" onclick="openCourseModal()">➕ Nouvelle Formation</button>
+        </div>
+      </div>
+
+      <!-- KPI Catalogue -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:2rem">
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">📘</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Total Formations</span>
+            <span id="kpi-total-courses" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-blue">⭐</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Populaires</span>
+            <span id="kpi-popular-courses" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-green">🏷️</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Catégories</span>
+            <span id="kpi-categories-count" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-purple">💰</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Prix Moyen</span>
+            <span id="kpi-avg-price" class="kpi-value">...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="formateur-toolbar">
+        <div class="formateur-search">
+          <span>🔍</span>
+          <input type="text" id="course-search-input" placeholder="Chercher une formation..." oninput="filterCourses(this.value)" aria-label="Rechercher une formation">
+        </div>
+        <div class="formateur-filters" id="course-category-filters">
+          <button class="filter-chip active" onclick="filterCoursesByCategory(this, 'all')">Toutes</button>
+          <!-- Categories will be injected here -->
+        </div>
+      </div>
+
+      <!-- Course Grid -->
+      <div class="course-grid" id="courseGrid">
+        <!-- Courses injected here -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="noCourseResult" style="display:none; text-align:center; padding:5rem; color:var(--text-muted)">
+        <p style="font-size:3rem">📂</p>
+        <p>Aucune formation ne correspond à vos critères.</p>
+      </div>
+
+    </section>
+
+    <!-- ════ MODAL: AJOUTER / MODIFIER FORMATION ════ -->
+    <div class="fmt-modal-overlay" id="courseModal">
+      <div class="fmt-modal">
+        <div class="fmt-modal-header">
+          <h2 id="courseModalTitle">➕ Nouvelle Formation</h2>
+          <button class="fmt-modal-close" onclick="closeCourseModal()">✕</button>
+        </div>
+        <form class="fmt-modal-form" onsubmit="handleCourseSubmit(event)" id="courseForm">
+          <input type="hidden" id="course-id">
+          
+          <div class="fmt-form-group">
+            <label>Titre de la formation *</label>
+            <input type="text" id="course-titre" placeholder="Ex: Développement Web Fullstack" required>
+          </div>
+
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Catégorie *</label>
+              <select id="course-categorie" title="Sélectionner une catégorie de formation" required>
+                <!-- Categories injected here -->
+              </select>
+            </div>
+            <div class="fmt-form-group">
+                <label>Statut / Badge</label>
+                <div class="switch-group" style="padding: 10px 0;">
+                    <input type="checkbox" id="course-populaire" class="switch-input">
+                    <label for="course-populaire">Mettre en avant (Populaire)</label>
+                </div>
+            </div>
+          </div>
+
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Prix (Ar) *</label>
+              <input type="text" id="course-prix" placeholder="Ex: 350000 Ar" required>
+            </div>
+            <div class="fmt-form-group">
+              <label>Durée *</label>
+              <input type="text" id="course-duree" placeholder="Ex: 4 mois" required>
+            </div>
+          </div>
+
+          <div class="fmt-form-group">
+            <label>Description courte *</label>
+            <textarea id="course-description" style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); color:var(--text-main); padding:10px; border-radius:10px; font-family:inherit; min-height:80px; resize:vertical; outline:none;" placeholder="Décrivez brièvement le contenu de la formation..." required></textarea>
+          </div>
+
+          <div class="fmt-form-group">
+            <label>Lien de l'image (URL ou chemin local)</label>
+            <input type="text" id="course-image" placeholder="Ex: img/course-web.png" oninput="updateCoursePreview(this.value)">
+            <div class="img-preview-container" id="course-img-preview">
+                <span>Aperçu de l'image</span>
+            </div>
+          </div>
+
+          <div class="fmt-modal-actions">
+            <button type="button" class="btn-admin-outline" onclick="closeCourseModal()">Annuler</button>
+            <button type="submit" class="btn-admin-gold">💾 Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- ═══════ TAB: FORMATEURS ═══════ -->
+    <section class="admin-tab-content" id="tab-formateurs" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Gestion des <span class="text-gold">Formateurs</span></h1>
+          <p class="text-muted">Gérez l'équipe pédagogique de TIA INFO Toamasina.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn-admin-outline" onclick="toggleFormateurView()">⊞ Vue Grille</button>
+          <button class="btn-admin-gold" onclick="openFormateurModal()">➕ Ajouter un Formateur</button>
+        </div>
+      </div>
+
+      <!-- KPI Formateurs -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:2rem">
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">🎓</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Formateurs actifs</span>
+            <span class="kpi-value">6</span>
+            <span class="kpi-trend trend-up">▲ +1 ce mois</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-blue">📘</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Modules enseignés</span>
+            <span class="kpi-value">14</span>
+            <span class="kpi-trend trend-up">▲ 2 nouveaux</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-green">⭐</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Note moyenne</span>
+            <span class="kpi-value">4.7/5</span>
+            <span class="kpi-trend">— Excellent</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-purple">👥</div>
+          <div class="kpi-info">
+            <span class="kpi-label">Étudiants encadrés</span>
+            <span class="kpi-value">158</span>
+            <span class="kpi-trend trend-up">▲ 5 inscrits</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barre de recherche -->
+      <div class="formateur-toolbar">
+        <div class="formateur-search">
+          <span>🔍</span>
+          <input type="text" id="formateur-search-input" placeholder="Rechercher un formateur..." oninput="filterFormateurs(this.value)" aria-label="Rechercher un formateur">
+        </div>
+        <div class="formateur-filters">
+          <button class="filter-chip active" onclick="filterBySpecialite(this, 'all')">Tous</button>
+          <button class="filter-chip" onclick="filterBySpecialite(this, 'informatique')">💻 Informatique</button>
+          <button class="filter-chip" onclick="filterBySpecialite(this, 'langues')">🌍 Langues</button>
+          <button class="filter-chip" onclick="filterBySpecialite(this, 'gestion')">📊 Gestion</button>
+          <button class="filter-chip" onclick="filterBySpecialite(this, 'design')">🎨 Design</button>
+        </div>
+      </div>
+
+      <!-- Grille de cartes formateurs -->
+      <div class="formateur-grid" id="formateurGrid">
+
+        <!-- Formateur 1 -->
+        <div class="formateur-card" data-specialite="informatique" data-nom="rakoto jean">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-blue">JR</div>
+              <div class="formateur-status-dot dot-green" title="Actif"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(1)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(1, 'Jean Rakoto')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Jean Rakoto</h3>
+            <span class="formateur-title">Expert Développement Web</span>
+            <div class="formateur-tags">
+              <span class="ftag">HTML/CSS</span>
+              <span class="ftag">JavaScript</span>
+              <span class="ftag">Node.js</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">3</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">42</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.9★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 jean.rakoto@tia.mg</span>
+            <span class="status-badge status-active">Actif</span>
+          </div>
+        </div>
+
+        <!-- Formateur 2 -->
+        <div class="formateur-card" data-specialite="langues" data-nom="marie claudine razanajatovo">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-gold">MC</div>
+              <div class="formateur-status-dot dot-green" title="Actif"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(2)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(2, 'Marie-Claudine Razanajatovo')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Marie-Claudine Razanajatovo</h3>
+            <span class="formateur-title">Professeure de Langues</span>
+            <div class="formateur-tags">
+              <span class="ftag">Anglais</span>
+              <span class="ftag">Français Pro</span>
+              <span class="ftag">Communication</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">2</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">35</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.8★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 mc.razana@tia.mg</span>
+            <span class="status-badge status-active">Actif</span>
+          </div>
+        </div>
+
+        <!-- Formateur 3 -->
+        <div class="formateur-card" data-specialite="gestion" data-nom="hery andrianasolo">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-green">HA</div>
+              <div class="formateur-status-dot dot-green" title="Actif"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(3)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(3, 'Hery Andrianasolo')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Hery Andrianasolo</h3>
+            <span class="formateur-title">Consultant Gestion & Finance</span>
+            <div class="formateur-tags">
+              <span class="ftag">Comptabilité</span>
+              <span class="ftag">SAGE</span>
+              <span class="ftag">Marketing</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">3</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">28</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.6★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 hery.a@tia.mg</span>
+            <span class="status-badge status-active">Actif</span>
+          </div>
+        </div>
+
+        <!-- Formateur 4 -->
+        <div class="formateur-card" data-specialite="design" data-nom="soa rakotondrabe">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-purple">SR</div>
+              <div class="formateur-status-dot dot-grey" title="Congé"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(4)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(4, 'Soa Rakotondrabe')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Soa Rakotondrabe</h3>
+            <span class="formateur-title">Designer UX/UI & Multimédia</span>
+            <div class="formateur-tags">
+              <span class="ftag">Figma</span>
+              <span class="ftag">Photoshop</span>
+              <span class="ftag">UX/UI</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">2</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">19</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.7★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 soa.r@tia.mg</span>
+            <span class="status-badge status-pending">Congé</span>
+          </div>
+        </div>
+
+        <!-- Formateur 5 -->
+        <div class="formateur-card" data-specialite="informatique" data-nom="nirina rabearison">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-red">NR</div>
+              <div class="formateur-status-dot dot-green" title="Actif"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(5)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(5, 'Nirina Rabearison')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Nirina Rabearison</h3>
+            <span class="formateur-title">Spécialiste IA & Data Science</span>
+            <div class="formateur-tags">
+              <span class="ftag">Python</span>
+              <span class="ftag">Machine Learning</span>
+              <span class="ftag">Data</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">2</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">22</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.9★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 nirina.r@tia.mg</span>
+            <span class="status-badge status-active">Actif</span>
+          </div>
+        </div>
+
+        <!-- Formateur 6 -->
+        <div class="formateur-card" data-specialite="informatique" data-nom="lanto rakotoarivelo">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar fmt-teal">LR</div>
+              <div class="formateur-status-dot dot-green" title="Actif"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(6)" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(6, 'Lanto Rakotoarivelo')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">Lanto Rakotoarivelo</h3>
+            <span class="formateur-title">Formateur Bureautique & Réseaux</span>
+            <div class="formateur-tags">
+              <span class="ftag">Word/Excel</span>
+              <span class="ftag">Réseaux</span>
+              <span class="ftag">Windows Server</span>
+            </div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">2</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">12</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">4.5★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 lanto.r@tia.mg</span>
+            <span class="status-badge status-active">Actif</span>
+          </div>
+        </div>
+
+      </div><!-- /formateur-grid -->
+
+      <!-- Message si aucun résultat -->
+      <div id="noFormateurResult" style="display:none; text-align:center; padding:3rem; color:var(--text-muted)">
+        <p style="font-size:2rem">🔍</p>
+        <p>Aucun formateur trouvé pour cette recherche.</p>
+      </div>
+
+    </section>
+
+    <!-- ════ MODAL: AJOUTER / MODIFIER FORMATEUR ════ -->
+    <div class="fmt-modal-overlay" id="formateurModal">
+      <div class="fmt-modal">
+        <div class="fmt-modal-header">
+          <h2 id="formateurModalTitle">➕ Nouveau Formateur</h2>
+          <button class="fmt-modal-close" onclick="closeFormateurModal()">✕</button>
+        </div>
+        <form class="fmt-modal-form" onsubmit="saveFormateur(event)" id="formateurForm">
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Prénom *</label>
+              <input type="text" id="fmt-prenom" placeholder="Ex: Jean" required />
+            </div>
+            <div class="fmt-form-group">
+              <label>Nom *</label>
+              <input type="text" id="fmt-nom" placeholder="Ex: Rakoto" required />
+            </div>
+          </div>
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Email professionnel *</label>
+              <input type="email" id="fmt-email" placeholder="prenom.nom@tia.mg" required />
+            </div>
+            <div class="fmt-form-group">
+              <label>Téléphone</label>
+              <input type="tel" id="fmt-telephone" placeholder="034 XX XXX XX" />
+            </div>
+          </div>
+          <div class="fmt-form-group">
+            <label>Titre / Poste *</label>
+            <input type="text" id="fmt-titre" placeholder="Ex: Expert Développement Web" required />
+          </div>
+          <div class="fmt-form-row">
+            <div class="fmt-form-group">
+              <label>Spécialité principale *</label>
+              <select id="fmt-specialite" title="Sélectionner la spécialité du formateur" required>
+                <option value="">Choisir...</option>
+                <option value="informatique">💻 Informatique & Dev</option>
+                <option value="langues">🌍 Langues Étrangères</option>
+                <option value="gestion">📊 Gestion & Marketing</option>
+                <option value="design">🎨 Design & Multimédia</option>
+                <option value="ia">🤖 Intelligence Artificielle</option>
+              </select>
+            </div>
+            <div class="fmt-form-group">
+              <label>Statut</label>
+              <select id="fmt-statut" title="Sélectionner le statut du formateur">
+                <option value="actif">Actif</option>
+                <option value="conge">En congé</option>
+                <option value="inactif">Inactif</option>
+              </select>
+            </div>
+          </div>
+          <div class="fmt-form-group">
+            <label>Compétences (séparées par des virgules)</label>
+            <input type="text" id="fmt-competences" placeholder="Ex: HTML, CSS, JavaScript, React" />
+          </div>
+          <div class="fmt-modal-actions">
+            <button type="button" class="btn-admin-outline" onclick="closeFormateurModal()">Annuler</button>
+            <button type="submit" class="btn-admin-gold">💾 Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- ═══════ TAB: NEWSLETTER ═══════ -->
+    <section class="admin-tab-content" id="tab-newsletter" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Newsletter <span class="text-gold">&amp; Communication</span></h1>
+          <p class="text-muted">Gérez vos abonnés et envoyez des campagnes email.</p>
+        </div>
+        <button class="btn-admin-gold" onclick="openCampaignModal()">📝 Nouvelle Campagne</button>
+      </div>
+
+      <!-- KPIs Newsletter -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:2rem">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Total Abonnés</span>
+            <span id="kpi-subscribers" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Taux d'Ouverture Moyen</span>
+            <span id="kpi-open-rate" class="kpi-value" style="color:var(--gold-primary)">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Campagnes Envoyées</span>
+            <span id="kpi-campaigns" class="kpi-value">...</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Désabonnements (30j)</span>
+            <span id="kpi-unsubscribes" class="kpi-value" style="color:#e74c3c">...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Abonné</th>
+                <th>Email</th>
+                <th>Source</th>
+                <th>Date d'inscription</th>
+                <th>Statut</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subscribersTableBody">
+              <!-- Subscribers injected here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="noSubResult" style="display:none; text-align:center; padding:4rem; color:var(--text-muted)">
+        <p style="font-size:3rem; margin-bottom:1rem">📧</p>
+        <p>Aucun abonné trouvé.</p>
+      </div>
+    </section>
+
+    <!-- ════ MODAL: COMPOSER CAMPAGNE ════ -->
+    <div class="fmt-modal-overlay" id="campaignModal">
+      <div class="fmt-modal" style="max-width: 700px;">
+        <div class="fmt-modal-header">
+          <h2 id="campaignModalTitle">📝 Nouvelle Campagne Email</h2>
+          <button class="fmt-modal-close" onclick="closeCampaignModal()">✕</button>
+        </div>
+        <form class="fmt-modal-form" onsubmit="handleCampaignSubmit(event)" id="campaignForm">
+          <div class="fmt-form-group">
+            <label>Objet de l'email *</label>
+            <input type="text" id="camp-subject" placeholder="Ex: Découvrez nos nouvelles formations..." required>
+          </div>
+          <div class="fmt-form-group">
+            <label>Audience Cible</label>
+            <select id="camp-audience">
+              <option value="all">Tous les abonnés</option>
+              <option value="students">Étudiants uniquement</option>
+              <option value="leads">Prospects (Non-étudiants)</option>
+            </select>
+          </div>
+          <div class="fmt-form-group">
+            <label>Contenu de l'email *</label>
+            <textarea id="camp-content" class="composer-textarea" placeholder="Rédigez votre email ici..." required></textarea>
+          </div>
+          <div class="fmt-modal-actions">
+            <button type="button" class="btn-admin-outline" onclick="closeCampaignModal()">Annuler</button>
+            <button type="submit" class="btn-admin-gold">🚀 Envoyer la campagne</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ═══════ TAB: SETTINGS ═══════ -->
+    <section class="admin-tab-content" id="tab-settings" style="display:none">
+      <div class="admin-page-header">
+        <div>
+          <h1>Configuration <span class="text-gold">Système</span></h1>
+          <p class="text-muted">Gérez les paramètres globaux et la sécurité de TIA INFO.</p>
+        </div>
+        <button class="btn-admin-gold" onclick="saveSystemSettings()">💾 Enregistrer les modifications</button>
+      </div>
+
+      <div class="settings-grid">
+        <!-- Site Info -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>🌐 Informations du Site</h3>
+          </div>
+          <div class="fmt-modal-form" style="padding:0">
+            <div class="fmt-form-group">
+              <label>Nom de la plateforme</label>
+              <input type="text" id="set-site-name" value="TIA INFO Toamasina">
+            </div>
+            <div class="fmt-form-group">
+              <label>Slogan / Tagline</label>
+              <input type="text" id="set-site-tagline" value="Centre de Formation Professionnelle">
+            </div>
+            <div class="fmt-form-group">
+              <label>Email de contact (Public)</label>
+              <input type="email" id="set-site-email" value="contact@tia-info.mg">
+            </div>
+            <div class="fmt-form-group">
+                <label>Mode Maintenance</label>
+                <div class="switch-group" style="padding: 10px 0;">
+                    <input type="checkbox" id="set-maintenance" class="switch-input">
+                    <label for="set-maintenance">Activer la maintenance (bloque l'accès public)</label>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>🛡️ Sécurité & Accès</h3>
+          </div>
+          <div class="fmt-modal-form" style="padding:0">
+            <div class="fmt-form-group">
+                <label>Inscriptions</label>
+                <div class="switch-group" style="padding: 10px 0;">
+                    <input type="checkbox" id="set-registrations" class="switch-input" checked>
+                    <label for="set-registrations">Autoriser les nouvelles inscriptions</label>
+                </div>
+            </div>
+            <div class="fmt-form-group">
+              <label>Expiration des sessions (heures)</label>
+              <input type="number" id="set-session-timeout" value="24">
+            </div>
+            <div class="fmt-form-group">
+                <label>Vérification des emails</label>
+                <div class="switch-group" style="padding: 10px 0;">
+                    <input type="checkbox" id="set-email-verify" class="switch-input">
+                    <label for="set-email-verify">Forcer la vérification d'email pour les nouveaux comptes</label>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payments -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>💰 Paramètres de Paiement</h3>
+          </div>
+          <div class="fmt-modal-form" style="padding:0">
+            <div class="fmt-form-group">
+              <label>Numéro MVOLA (Telma)</label>
+              <input type="text" id="set-mvola" value="034 12 345 67">
+            </div>
+            <div class="fmt-form-group">
+              <label>Numéro Orange Money</label>
+              <input type="text" id="set-orange" value="032 12 345 67">
+            </div>
+            <div class="fmt-form-group">
+              <label>Numéro Airtel Money</label>
+              <input type="text" id="set-airtel" value="033 12 345 67">
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications & System -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>⚙️ Système & API</h3>
+          </div>
+          <div class="fmt-modal-form" style="padding:0">
+            <div class="fmt-form-group">
+              <label>Clé API Google Maps (Optionnel)</label>
+              <input type="password" id="set-gmaps-key" value="••••••••••••••••">
+            </div>
+            <div class="fmt-form-group">
+              <label>Quota de stockage par étudiant (MB)</label>
+              <input type="number" id="set-storage-quota" value="500">
+            </div>
+            <div class="fmt-form-group">
+                <label>Sauvegarde automatique</label>
+                <div class="switch-group" style="padding: 10px 0;">
+                    <input type="checkbox" id="set-auto-backup" class="switch-input" checked>
+                    <label for="set-auto-backup">Sauvegarder la base de données toutes les 24h</label>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    // Tab switching for admin
+    function switchAdminTab(tabName, linkEl) {
+      document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      const tab = document.getElementById('tab-' + tabName);
+      if (tab) tab.style.display = 'block';
+      if (linkEl) linkEl.classList.add('active');
+
+      // Update breadcrumb
+      const labels = {
+        stats: 'Statistiques Globales', finances: 'Gestion Financière',
+        students: 'Étudiants', courses: 'Catalogue de Formations',
+        formateurs: 'Formateurs', newsletter: 'Newsletter', settings: 'Configuration'
+      };
+      const titleEl = document.getElementById('topbar-page-title');
+      if (titleEl) titleEl.textContent = labels[tabName] || tabName;
+    }
+
+    // Sidebar toggle (collapse)
+    const sidebar = document.getElementById('adminSidebar');
+    const main = document.getElementById('adminMain');
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('expanded');
+    });
+    document.getElementById('topbarMenuBtn').addEventListener('click', () => {
+      sidebar.classList.toggle('mobile-open');
+    });
+
+    // Update user name from session
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('currentUser') || localStorage.getItem('tia_user') || 'null');
+      if (user) {
+        const nameEl = document.getElementById('sidebar-user-name');
+        const displayEl = document.getElementById('user-display-name');
+        if (nameEl) nameEl.textContent = user.prenom || user.nom || 'Administrateur';
+        if (displayEl) displayEl.textContent = user.prenom || 'Admin';
+      }
+      initSettings();
+    });
+
+    function logout() {
+      if (window.authManager) window.authManager.logout();
+      else {
+        localStorage.clear();
+        window.location.href = 'login.html';
+      }
+    }
+
+    /* ════ FONCTIONS FORMATEURS ════ */
+
+    function openFormateurModal(editData) {
+      const modal = document.getElementById('formateurModal');
+      const title = document.getElementById('formateurModalTitle');
+      if (editData) {
+        title.textContent = '✏️ Modifier le Formateur';
+      } else {
+        title.textContent = '➕ Nouveau Formateur';
+        document.getElementById('formateurForm').reset();
+      }
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFormateurModal() {
+      document.getElementById('formateurModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Fermer en cliquant à l'extérieur du modal
+    document.getElementById('formateurModal').addEventListener('click', function(e) {
+      if (e.target === this) closeFormateurModal();
+    });
+
+    function saveFormateur(e) {
+      e.preventDefault();
+      const prenom = document.getElementById('fmt-prenom').value.trim();
+      const nom    = document.getElementById('fmt-nom').value.trim();
+      const email  = document.getElementById('fmt-email').value.trim();
+      const titre  = document.getElementById('fmt-titre').value.trim();
+      const spec   = document.getElementById('fmt-specialite').value;
+      const statut = document.getElementById('fmt-statut').value;
+      const comps  = document.getElementById('fmt-competences').value.split(',').map(s => s.trim()).filter(Boolean);
+
+      // Initiales pour l'avatar
+      const initiales = (prenom[0] || '') + (nom[0] || '');
+      const colors = { informatique:'fmt-blue', langues:'fmt-gold', gestion:'fmt-green', design:'fmt-purple', ia:'fmt-red' };
+      const colorClass = colors[spec] || 'fmt-teal';
+      const statusLabel = statut === 'actif' ? 'Actif' : statut === 'conge' ? 'Congé' : 'Inactif';
+      const statusBadge = statut === 'actif' ? 'status-active' : 'status-pending';
+      const dotClass    = statut === 'actif' ? 'dot-green' : 'dot-grey';
+
+      const tagsHtml = comps.slice(0,3).map(c => `<span class="ftag">${c}</span>`).join('');
+      const id = Date.now();
+
+      const cardHtml = `
+        <div class="formateur-card" data-specialite="${spec}" data-nom="${prenom.toLowerCase()} ${nom.toLowerCase()}">
+          <div class="formateur-card-header">
+            <div class="formateur-avatar-wrap">
+              <div class="formateur-avatar ${colorClass}">${initiales}</div>
+              <div class="formateur-status-dot ${dotClass}"></div>
+            </div>
+            <div class="formateur-card-actions">
+              <button class="fcard-btn" onclick="editFormateur(${id})" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteFormateur(${id}, '${prenom} ${nom}')" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+          <div class="formateur-card-body">
+            <h3 class="formateur-name">${prenom} ${nom}</h3>
+            <span class="formateur-title">${titre}</span>
+            <div class="formateur-tags">${tagsHtml || '<span class="ftag">Non spécifié</span>'}</div>
+            <div class="formateur-stats">
+              <div class="fstat"><span class="fstat-val">0</span><span class="fstat-label">Modules</span></div>
+              <div class="fstat"><span class="fstat-val">0</span><span class="fstat-label">Étudiants</span></div>
+              <div class="fstat"><span class="fstat-val text-gold">—★</span><span class="fstat-label">Note</span></div>
+            </div>
+          </div>
+          <div class="formateur-card-footer">
+            <span class="formateur-contact">📧 ${email}</span>
+            <span class="status-badge ${statusBadge}">${statusLabel}</span>
+          </div>
+        </div>`;
+
+      document.getElementById('formateurGrid').insertAdjacentHTML('afterbegin', cardHtml);
+      closeFormateurModal();
+      showAdminToast(`✅ ${prenom} ${nom} ajouté avec succès !`);
+    }
+
+    function editFormateur(id) {
+      // En production : charger les données depuis l'API
+      openFormateurModal({ id });
+    }
+
+    function deleteFormateur(id, nom) {
+      if (!confirm(`Voulez-vous vraiment supprimer ${nom} de l'équipe ?`)) return;
+      const cards = document.querySelectorAll('.formateur-card');
+      // Trouver et animer la suppression (on simplifie par recherche du nom dans le DOM)
+      cards.forEach(card => {
+        if (card.dataset.nom && card.dataset.nom.includes(nom.toLowerCase().split(' ')[1] || '')) {
+          card.style.transition = 'opacity 0.3s, transform 0.3s';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.9)';
+          setTimeout(() => card.remove(), 300);
+        }
+      });
+      showAdminToast(`🗑️ ${nom} a été supprimé.`);
+    }
+
+    function filterBySpecialite(btn, specialite) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.formateur-card').forEach(card => {
+        if (specialite === 'all' || card.dataset.specialite === specialite) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      checkNoResult();
+    }
+
+    function filterFormateurs(query) {
+      const q = query.toLowerCase().trim();
+      document.querySelectorAll('.formateur-card').forEach(card => {
+        const nom = (card.dataset.nom || '').toLowerCase();
+        const titre = (card.querySelector('.formateur-title') || {}).textContent || '';
+        card.style.display = (nom.includes(q) || titre.toLowerCase().includes(q)) ? '' : 'none';
+      });
+      checkNoResult();
+    }
+
+    function checkNoResult() {
+      const visible = [...document.querySelectorAll('.formateur-card')].filter(c => c.style.display !== 'none');
+      document.getElementById('noFormateurResult').style.display = visible.length === 0 ? 'block' : 'none';
+    }
+
+    function toggleFormateurView() {
+      const grid = document.getElementById('formateurGrid');
+      const isGrid = grid.style.gridTemplateColumns !== '1fr';
+      grid.style.gridTemplateColumns = isGrid ? '1fr' : '';
+    }
+
+    function showAdminToast(msg) {
+      const existing = document.querySelector('.admin-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.className = 'admin-toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s'; }, 2500);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Remplacer le showToast global si absent
+    if (typeof showToast === 'undefined') {
+      window.showToast = showAdminToast;
+    }
+
+    /* ════ FONCTIONS CATALOGUE (COURS) ════ */
+
+    let allCourses = []; // Copie locale pour la simulation
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Attendre que data.js soit chargé
+      setTimeout(() => {
+        if (typeof FORMATIONS !== 'undefined') {
+          allCourses = [...FORMATIONS];
+          initCatalog();
+        }
+      }, 100);
+    });
+
+    function initCatalog() {
+      renderCategoryFilters();
+      renderCategorySelect();
+      renderCourses();
+      updateCatalogKPIs();
+    }
+
+    function renderCategoryFilters() {
+      const filterWrap = document.getElementById('course-category-filters');
+      if (!filterWrap || typeof CATEGORIES === 'undefined') return;
+      
+      // Garder le bouton "Toutes"
+      filterWrap.innerHTML = '<button class="filter-chip active" onclick="filterCoursesByCategory(this, \'all\')">Toutes</button>';
+      
+      Object.values(CATEGORIES).forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-chip';
+        btn.innerHTML = `${cat.icon} ${cat.label}`;
+        btn.onclick = (e) => filterCoursesByCategory(btn, cat.id);
+        filterWrap.appendChild(btn);
+      });
+    }
+
+    function renderCategorySelect() {
+      const select = document.getElementById('course-categorie');
+      if (!select || typeof CATEGORIES === 'undefined') return;
+      
+      select.innerHTML = '<option value="">Choisir une catégorie...</option>';
+      Object.values(CATEGORIES).forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat.id;
+        opt.textContent = `${cat.icon} ${cat.label}`;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderCourses(filteredList) {
+      const grid = document.getElementById('courseGrid');
+      const list = filteredList || allCourses;
+      if (!grid) return;
+
+      grid.innerHTML = '';
+      list.forEach(course => {
+        const cat = CATEGORIES[course.categorie] || { label: course.categorie, icon: '📁' };
+        const card = `
+          <div class="course-card" data-id="${course.id}" data-category="${course.categorie}">
+            <div class="course-thumb">
+              ${course.populaire ? '<span class="course-card-populaire">Populaire</span>' : ''}
+              <span class="course-card-badge">${cat.icon} ${cat.label}</span>
+              <img src="../${course.image}" alt="${course.titre}" onerror="this.src='../img/Nos_formations.jpg'">
+            </div>
+            <div class="course-card-content">
+              <h3 class="course-card-title">${course.titre}</h3>
+              <p class="course-card-desc">${course.description}</p>
+              <div class="course-card-meta">
+                <span class="course-price">${course.prix}</span>
+                <span class="course-duration">⏱️ ${course.duree}</span>
+              </div>
+            </div>
+            <div class="course-card-actions">
+              <button class="fcard-btn" onclick="openCourseModal(${course.id})" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteCourse(${course.id})" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', card);
+      });
+
+      document.getElementById('noCourseResult').style.display = list.length === 0 ? 'block' : 'none';
+    }
+
+    function updateCatalogKPIs() {
+      document.getElementById('kpi-total-courses').textContent = allCourses.length;
+      document.getElementById('kpi-popular-courses').textContent = allCourses.filter(c => c.populaire).length;
+      document.getElementById('kpi-categories-count').textContent = Object.keys(CATEGORIES).length;
+      
+      // Prix moyen (simplifié)
+      const prices = allCourses.map(c => parseInt(c.prix.replace(/\s/g, '')) || 0);
+      const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
+      document.getElementById('kpi-avg-price').textContent = avg.toLocaleString() + ' Ar';
+    }
+
+    function filterCourses(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = allCourses.filter(c => 
+        c.titre.toLowerCase().includes(q) || 
+        c.description.toLowerCase().includes(q)
+      );
+      renderCourses(filtered);
+    }
+
+    function filterCoursesByCategory(btn, catId) {
+      document.querySelectorAll('#course-category-filters .filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const filtered = catId === 'all' ? allCourses : allCourses.filter(c => c.categorie === catId);
+      renderCourses(filtered);
+    }
+
+    function openCourseModal(id) {
+      const modal = document.getElementById('courseModal');
+      const titleEl = document.getElementById('courseModalTitle');
+      const form = document.getElementById('courseForm');
+      
+      form.reset();
+      document.getElementById('course-img-preview').innerHTML = '<span>Aperçu de l\'image</span>';
+
+      if (id) {
+        const course = allCourses.find(c => c.id === id);
+        if (course) {
+          titleEl.textContent = '✏️ Modifier la Formation';
+          document.getElementById('course-id').value = course.id;
+          document.getElementById('course-titre').value = course.titre;
+          document.getElementById('course-categorie').value = course.categorie;
+          document.getElementById('course-populaire').checked = course.populaire;
+          document.getElementById('course-prix').value = course.prix;
+          document.getElementById('course-duree').value = course.duree;
+          document.getElementById('course-description').value = course.description;
+          document.getElementById('course-image').value = course.image;
+          updateCoursePreview(course.image);
+        }
+      } else {
+        titleEl.textContent = '➕ Nouvelle Formation';
+        document.getElementById('course-id').value = '';
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCourseModal() {
+      document.getElementById('courseModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateCoursePreview(url) {
+      const preview = document.getElementById('course-img-preview');
+      if (url) {
+        preview.innerHTML = `<img src="../${url}" onerror="this.src='../img/Nos_formations.jpg'">`;
+      } else {
+        preview.innerHTML = '<span>Aperçu de l\'image</span>';
+      }
+    }
+
+    function handleCourseSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('course-id').value;
+      const courseData = {
+        id: id ? parseInt(id) : Date.now(),
+        titre: document.getElementById('course-titre').value,
+        categorie: document.getElementById('course-categorie').value,
+        populaire: document.getElementById('course-populaire').checked,
+        prix: document.getElementById('course-prix').value,
+        duree: document.getElementById('course-duree').value,
+        description: document.getElementById('course-description').value,
+        image: document.getElementById('course-image').value || 'img/Nos_formations.jpg'
+      };
+
+      if (id) {
+        const idx = allCourses.findIndex(c => c.id === parseInt(id));
+        if (idx !== -1) allCourses[idx] = courseData;
+        showAdminToast('✅ Formation mise à jour !');
+      } else {
+        allCourses.unshift(courseData);
+        showAdminToast('✅ Nouvelle formation ajoutée !');
+      }
+
+      renderCourses();
+      updateCatalogKPIs();
+      closeCourseModal();
+    }
+
+    function deleteCourse(id) {
+      if (!confirm('Voulez-vous vraiment supprimer cette formation ?')) return;
+      allCourses = allCourses.filter(c => c.id !== id);
+      renderCourses();
+      updateCatalogKPIs();
+      showAdminToast('🗑️ Formation supprimée.');
+    }
+
+    function exportCatalog() {
+      showAdminToast('📥 Export CSV bientôt disponible...');
+    }
+
+    /* ════ FONCTIONS ÉTUDIANTS ════ */
+
+    let allStudents = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        // Mock data initialization
+        allStudents = [
+          {
+            id: 1,
+            prenom: "Nicolas",
+            nom: "Razakamahefa",
+            email: "nihcolah512@gmail.com",
+            formations: [2, 8],
+            progression: { 2: 85, 8: 15 },
+            statut: "actif",
+            date: "2026-03-20"
+          },
+          {
+            id: 2,
+            prenom: "Marie",
+            nom: "Andria",
+            email: "marie.andria@gmail.com",
+            formations: [4],
+            progression: { 4: 100 },
+            statut: "actif",
+            date: "2026-02-15"
+          },
+          {
+            id: 3,
+            prenom: "Jean",
+            nom: "Rakoto",
+            email: "jean.rakoto@orange.mg",
+            formations: [1, 2],
+            progression: { 1: 40, 2: 10 },
+            statut: "inactif",
+            date: "2026-01-10"
+          }
+        ];
+        initStudents();
+      }, 200);
+    });
+
+    function initStudents() {
+      renderStudentTable();
+      updateStudentKPIs();
+      renderEnrollmentList();
+    }
+
+    function renderStudentTable(filteredList) {
+      const tbody = document.getElementById('studentTableBody');
+      const list = filteredList || allStudents;
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      list.forEach(std => {
+        const avgProg = calculateAvgProg(std.progression);
+        const progClass = getProgClass(avgProg);
+        const statusClass = std.statut === 'actif' ? 'status-active' : std.statut === 'suspendu' ? 'status-suspended' : 'status-pending';
+        const statusLabel = std.statut.charAt(0).toUpperCase() + std.statut.slice(1);
+        
+        // Course badges
+        const badges = std.formations.map(fid => {
+           const f = (typeof FORMATIONS !== 'undefined') ? FORMATIONS.find(x => x.id === fid) : null;
+           return `<span class="s-badge" title="${f ? f.titre : 'Formation'}">#${fid}</span>`;
+        }).join('');
+
+        const row = `
+          <tr>
+            <td>
+              <div class="table-user">
+                <div class="table-avatar">${std.prenom[0]}${std.nom[0]}</div>
+                <div>
+                  <div style="font-weight:600">${std.prenom} ${std.nom}</div>
+                  <div style="font-size:0.7rem; color:var(--text-muted)">ID: STD-${std.id.toString().padStart(3,'0')}</div>
+                </div>
+              </div>
+            </td>
+            <td class="text-muted">${std.email}</td>
+            <td>
+              <div class="student-badges">${badges || '<span class="text-muted" style="font-size:0.7rem">Aucune</span>'}</div>
+              <div style="font-size:0.7rem; margin-top:4px">${std.formations.length} formation(s)</div>
+            </td>
+            <td>
+              <div class="mini-progress"><div class="${progClass}" style="width:${avgProg}%"></div></div>
+              <span class="mini-percent">${avgProg}%</span>
+            </td>
+            <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+            <td style="text-align:right">
+              <button class="fcard-btn" onclick="openStudentModal(${std.id})" title="Modifier">✏️</button>
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteStudent(${std.id})" title="Supprimer">🗑️</button>
+            </td>
+          </tr>
+        `;
+        tbody.insertAdjacentHTML('beforeend', row);
+      });
+
+      document.getElementById('noStudentResult').style.display = list.length === 0 ? 'block' : 'none';
+    }
+
+    function calculateAvgProg(progObj) {
+      const vals = Object.values(progObj);
+      if (vals.length === 0) return 0;
+      return Math.round(vals.reduce((a,b) => a+b, 0) / vals.length);
+    }
+
+    function getProgClass(val) {
+      if (val >= 90) return 'prog-gold';
+      if (val >= 70) return 'prog-high';
+      if (val >= 40) return 'prog-mid';
+      return 'prog-low';
+    }
+
+    function updateStudentKPIs() {
+      const total = allStudents.length;
+      const active = allStudents.filter(s => s.statut === 'actif').length;
+      const completed = allStudents.filter(s => calculateAvgProg(s.progression) === 100).length;
+      
+      document.getElementById('kpi-total-students').textContent = total;
+      document.getElementById('kpi-active-students').textContent = active;
+      document.getElementById('kpi-completions').textContent = completed;
+      
+      const rate = total > 0 ? Math.round((active / total) * 100) : 0;
+      document.getElementById('kpi-success-rate').textContent = rate + '%';
+    }
+
+    function filterStudents(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = allStudents.filter(s => 
+        (s.prenom + ' ' + s.nom).toLowerCase().includes(q) || 
+        s.email.toLowerCase().includes(q)
+      );
+      renderStudentTable(filtered);
+    }
+
+    function filterStudentsByStatus(btn, status) {
+      document.querySelectorAll('#tab-students .filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const filtered = status === 'all' ? allStudents : allStudents.filter(s => s.statut === status);
+      renderStudentTable(filtered);
+    }
+
+    function renderEnrollmentList() {
+      const listEl = document.getElementById('std-enrollment-list');
+      if (!listEl || typeof FORMATIONS === 'undefined') return;
+      
+      listEl.innerHTML = '';
+      FORMATIONS.forEach(f => {
+        const item = `
+          <label class="enroll-item">
+            <input type="checkbox" name="enroll-choice" value="${f.id}">
+            <span>${f.titre}</span>
+          </label>
+        `;
+        listEl.insertAdjacentHTML('beforeend', item);
+      });
+    }
+
+    function openStudentModal(id) {
+      const modal = document.getElementById('studentModal');
+      const titleEl = document.getElementById('studentModalTitle');
+      const form = document.getElementById('studentForm');
+      
+      form.reset();
+      
+      if (id) {
+        const std = allStudents.find(s => s.id === id);
+        if (std) {
+          titleEl.textContent = '✏️ Modifier l\'Étudiant';
+          document.getElementById('student-id').value = std.id;
+          document.getElementById('std-prenom').value = std.prenom;
+          document.getElementById('std-nom').value = std.nom;
+          document.getElementById('std-email').value = std.email;
+          document.getElementById('std-statut').value = std.statut;
+          document.getElementById('std-date').value = std.date;
+          
+          // Checkboxes
+          const checks = document.querySelectorAll('input[name="enroll-choice"]');
+          checks.forEach(cb => {
+            cb.checked = std.formations.includes(parseInt(cb.value));
+          });
+        }
+      } else {
+        titleEl.textContent = '➕ Nouvel Étudiant';
+        document.getElementById('student-id').value = '';
+        document.getElementById('std-date').value = new Date().toISOString().split('T')[0];
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeStudentModal() {
+      document.getElementById('studentModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleStudentSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('student-id').value;
+      
+      const selectedFormations = Array.from(document.querySelectorAll('input[name="enroll-choice"]:checked'))
+                                     .map(cb => parseInt(cb.value));
+
+      const stdData = {
+        id: id ? parseInt(id) : (allStudents.length > 0 ? Math.max(...allStudents.map(s => s.id)) + 1 : 1),
+        prenom: document.getElementById('std-prenom').value,
+        nom: document.getElementById('std-nom').value,
+        email: document.getElementById('std-email').value,
+        statut: document.getElementById('std-statut').value,
+        date: document.getElementById('std-date').value,
+        formations: selectedFormations,
+        progression: id ? (allStudents.find(s => s.id === parseInt(id))?.progression || {}) : {}
+      };
+
+      // Initialize progression for new enrollments if needed
+      selectedFormations.forEach(fid => {
+        if (stdData.progression[fid] === undefined) stdData.progression[fid] = 0;
+      });
+
+      if (id) {
+        const idx = allStudents.findIndex(s => s.id === parseInt(id));
+        if (idx !== -1) allStudents[idx] = stdData;
+        showAdminToast('✅ Profil étudiant mis à jour !');
+      } else {
+        allStudents.unshift(stdData);
+        showAdminToast('✅ Nouvel étudiant ajouté !');
+      }
+
+      renderStudentTable();
+      updateStudentKPIs();
+      closeStudentModal();
+    }
+
+    function deleteStudent(id) {
+      if (!confirm('Voulez-vous vraiment supprimer cet étudiant ?')) return;
+      allStudents = allStudents.filter(s => s.id !== id);
+      renderStudentTable();
+      updateStudentKPIs();
+      showAdminToast('🗑️ Étudiant supprimé.');
+    }
+
+    function exportStudents() {
+      showAdminToast('📥 Export CSV en cours...');
+    }
+
+    /* ════ FONCTIONS RECHERCHE GLOBALE ════ */
+    function handleGlobalSearch(query) {
+      // Determine which tab is actively displayed
+      const activeTabs = Array.from(document.querySelectorAll('.admin-tab-content')).filter(t => t.style.display === 'block');
+      if (activeTabs.length === 0) return;
+      const activeTabId = activeTabs[0].id;
+
+      // Dispatch search to specific module functions if they exist
+      if (activeTabId === 'tab-students' && typeof filterStudents === 'function') {
+        filterStudents(query);
+      } else if (activeTabId === 'tab-courses' && typeof filterCourses === 'function') {
+        filterCourses(query);
+      } else if (activeTabId === 'tab-formateurs' && typeof searchFormateur === 'function') {
+        // searchFormateur was implemented without parameter previously, assuming it reads an input. Let's adapt if needed,
+        // Actually, the previous implementation relied on the module's own search bar.
+        // We'll update the module's search input value to match and trigger its event.
+        const fInput = document.getElementById('search-formateur');
+        if (fInput) { fInput.value = query; searchFormateur(); }
+      } else if (activeTabId === 'tab-newsletter' && typeof filterSubscribers === 'function') {
+        filterSubscribers(query);
+      }
+    }
+
+    /* ════ FONCTIONS NOTIFICATIONS ════ */
+    
+    let mockNotifications = [
+      { id: 1, text: "Nouvelle inscription : Jean Rakoto a rejoint le cours Web Fullstack.", date: "Il y a 10 min", read: false, icon: "👤" },
+      { id: 2, text: "Alerte système : Sauvegarde de la base de données terminée avec succès.", date: "Il y a 2 heures", read: false, icon: "💾" },
+      { id: 3, text: "Rapport hebdomadaire disponible.", date: "Hier", read: true, icon: "📊" }
+    ];
+
+    function toggleNotifications(e) {
+      if(e) e.stopPropagation();
+      const dropdown = document.getElementById('notif-dropdown');
+      dropdown.classList.toggle('show');
+      if(dropdown.classList.contains('show')) {
+        renderNotifications();
+      }
+    }
+
+    function renderNotifications() {
+      const list = document.getElementById('notif-list');
+      const dot = document.getElementById('notif-dot');
+      list.innerHTML = '';
+      
+      const unreadCount = mockNotifications.filter(n => !n.read).length;
+      if(unreadCount > 0) {
+        dot.style.display = 'block';
+      } else {
+        dot.style.display = 'none';
+      }
+
+      if (mockNotifications.length === 0) {
+        list.innerHTML = '<div class="notif-empty">Aucune notification.</div>';
+        return;
+      }
+
+      mockNotifications.forEach(n => {
+        const item = `
+          <div class="notif-item ${n.read ? '' : 'unread'}" onclick="markNotifRead(${n.id}, event)">
+            <div class="notif-icon">${n.icon}</div>
+            <div class="notif-content">
+              <p class="notif-text">${n.text}</p>
+              <span class="notif-date">${n.date}</span>
+            </div>
+          </div>
+        `;
+        list.insertAdjacentHTML('beforeend', item);
+      });
+    }
+
+    function markNotifRead(id, e) {
+      if(e) e.stopPropagation();
+      const notif = mockNotifications.find(n => n.id === id);
+      if(notif) {
+        notif.read = true;
+        renderNotifications();
+      }
+    }
+
+    function markAllNotifsRead(e) {
+      if(e) e.stopPropagation();
+      mockNotifications.forEach(n => n.read = true);
+      renderNotifications();
+    }
+
+    // Attach Notif Toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('notif-btn');
+      if(btn) btn.addEventListener('click', toggleNotifications);
+      
+      // Close notif dropdown on outside click
+      document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('notif-dropdown');
+        if(dropdown && dropdown.classList.contains('show') && !e.target.closest('.topbar-notif')) {
+          dropdown.classList.remove('show');
+        }
+      });
+      // Initial render for red dot
+      renderNotifications();
+    });
+
+    /* ════ FONCTIONS NEWSLETTER ════ */
+    
+    let allSubscribers = [
+      { id: 1, nom: "Alice Andria", email: "alice.a@test.mg", source: "Page d'accueil", date: "2026-03-01", statut: "actif" },
+      { id: 2, nom: "Marc Vato", email: "marc.v@test.mg", source: "Footer", date: "2026-03-15", statut: "actif" },
+      { id: 3, nom: "Sophie Lova", email: "sophie.l@test.mg", source: "Inscription Cours", date: "2026-03-20", statut: "desabonne" }
+    ];
+
+    let newsletterStats = { sent: 12, openRate: "42%" };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        initNewsletter();
+      }, 300);
+    });
+
+    function initNewsletter() {
+      renderSubscribers();
+      updateNewsletterKPIs();
+    }
+
+    function renderSubscribers(filteredList) {
+      const tbody = document.getElementById('subscribersTableBody');
+      const list = filteredList || allSubscribers;
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      list.forEach(sub => {
+        const statusClass = sub.statut === 'actif' ? 'status-active' : 'status-suspended';
+        const statusLabel = sub.statut === 'actif' ? 'Abonné' : 'Désabonné';
+        const row = `
+          <tr>
+            <td style="font-weight:600">${sub.nom}</td>
+            <td class="text-muted">${sub.email}</td>
+            <td><span style="font-size:0.8rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">${sub.source}</span></td>
+            <td>${sub.date}</td>
+            <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+            <td style="text-align:right">
+              <button class="fcard-btn fcard-btn-danger" onclick="deleteSubscriber(${sub.id})" title="Supprimer">🗑️</button>
+            </td>
+          </tr>
+        `;
+        tbody.insertAdjacentHTML('beforeend', row);
+      });
+
+      document.getElementById('noSubResult').style.display = list.length === 0 ? 'block' : 'none';
+    }
+
+    function updateNewsletterKPIs() {
+      const total = allSubscribers.length;
+      const unsub = allSubscribers.filter(s => s.statut === 'desabonne').length;
+      
+      document.getElementById('kpi-subscribers').textContent = total;
+      document.getElementById('kpi-open-rate').textContent = newsletterStats.openRate;
+      document.getElementById('kpi-campaigns').textContent = newsletterStats.sent;
+      document.getElementById('kpi-unsubscribes').textContent = unsub;
+    }
+
+    function filterSubscribers(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = allSubscribers.filter(s => 
+        s.nom.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)
+      );
+      renderSubscribers(filtered);
+    }
+
+    function deleteSubscriber(id) {
+      if (!confirm('Voulez-vous vraiment supprimer cet abonné ?')) return;
+      allSubscribers = allSubscribers.filter(s => s.id !== id);
+      renderSubscribers();
+      updateNewsletterKPIs();
+      showAdminToast('🗑️ Abonné supprimé.');
+    }
+
+    function openCampaignModal() {
+      document.getElementById('campaignForm').reset();
+      document.getElementById('campaignModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCampaignModal() {
+      document.getElementById('campaignModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleCampaignSubmit(e) {
+      e.preventDefault();
+      const subject = document.getElementById('camp-subject').value;
+      // In a real app, send data to backend.
+      newsletterStats.sent++;
+      updateNewsletterKPIs();
+      closeCampaignModal();
+      showAdminToast(`🚀 Campagne "${subject}" en cours d'envoi...`);
+    }
+
+    /* ════ FONCTIONS CONFIGURATION ════ */
+    function initSettings() {
+      const saved = localStorage.getItem('tia_settings');
+      if (saved) {
+        const settings = JSON.parse(saved);
+        if (document.getElementById('set-site-name'))  document.getElementById('set-site-name').value = settings.siteName || '';
+        if (document.getElementById('set-site-tagline')) document.getElementById('set-site-tagline').value = settings.siteTagline || '';
+        if (document.getElementById('set-site-email'))   document.getElementById('set-site-email').value = settings.siteEmail || '';
+        if (document.getElementById('set-maintenance'))  document.getElementById('set-maintenance').checked = settings.maintenance || false;
+        if (document.getElementById('set-registrations')) document.getElementById('set-registrations').checked = settings.registrations !== undefined ? settings.registrations : true;
+        if (document.getElementById('set-session-timeout')) document.getElementById('set-session-timeout').value = settings.sessionTimeout || 24;
+        if (document.getElementById('set-email-verify'))  document.getElementById('set-email-verify').checked = settings.emailVerify || false;
+        if (document.getElementById('set-mvola'))   document.getElementById('set-mvola').value = settings.mvola || '';
+        if (document.getElementById('set-orange'))  document.getElementById('set-orange').value = settings.orange || '';
+        if (document.getElementById('set-airtel'))  document.getElementById('set-airtel').value = settings.airtel || '';
+        if (document.getElementById('set-storage-quota')) document.getElementById('set-storage-quota').value = settings.storageQuota || 500;
+        if (document.getElementById('set-auto-backup'))  document.getElementById('set-auto-backup').checked = settings.autoBackup !== undefined ? settings.autoBackup : true;
+      }
+    }
+
+    function saveSystemSettings() {
+      const settings = {
+        siteName: document.getElementById('set-site-name').value,
+        siteTagline: document.getElementById('set-site-tagline').value,
+        siteEmail: document.getElementById('set-site-email').value,
+        maintenance: document.getElementById('set-maintenance').checked,
+        registrations: document.getElementById('set-registrations').checked,
+        sessionTimeout: document.getElementById('set-session-timeout').value,
+        emailVerify: document.getElementById('set-email-verify').checked,
+        mvola: document.getElementById('set-mvola').value,
+        orange: document.getElementById('set-orange').value,
+        airtel: document.getElementById('set-airtel').value,
+        storageQuota: document.getElementById('set-storage-quota').value,
+        autoBackup: document.getElementById('set-auto-backup').checked
+      };
+
+      localStorage.setItem('tia_settings', JSON.stringify(settings));
+      showAdminToast('✅ Paramètres système sauvegardés avec succès !');
+    }
+  </script>
+</body>
+</html>
+
+

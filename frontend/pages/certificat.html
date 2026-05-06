@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificat de Réussite — TIA INFO</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/certificate.css">
+</head>
+<body class="bg-noir no-scrollbar">
+    <main class="cert-page">
+        <div id="certificate" class="cert-container animate-fade-in">
+            <img src="../img/Logo_Tia_Infos.jpg" alt="Watermark" class="cert-bg-logo no-print">
+            
+            <header class="cert-header">
+                <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" class="cert-logo">
+                <h1 class="cert-title">CERTIFICAT</h1>
+                <p class="cert-subtitle">DE RÉUSSITE PROFESSIONNELLE</p>
+            </header>
+
+            <section class="cert-body">
+                <p class="cert-present">Ce certificat est décerné avec fierté à :</p>
+                <div id="student-name" class="cert-name">Nicolas Razakamahefa</div>
+                <p class="cert-present-spaced">Pour avoir achevé avec excellence la formation :</p>
+                <div class="cert-course">Spécialisation : <span id="course-title">DÉVELOPPEMENT WEB FULLSTACK</span></div>
+                <p class="cert-subtitle cert-promo">Promotion <span id="cert-year">2026</span> — Toamasina, Madagascar</p>
+            </section>
+
+            <footer class="cert-footer">
+                <div class="cert-sig-box">
+                    <div class="cert-sig">M. Razakamahefa</div>
+                    <div class="cert-sig-line"></div>
+                    <p class="cert-director">DIRECTEUR GÉNÉRAL</p>
+                </div>
+
+                <div class="cert-qr-box">
+                    <div class="cert-qr" id="cert-qr-wrap">
+                        <!-- Simulation QR Code via SVG Simple pui remplacement via JS -->
+                        <svg viewBox="0 0 100 100" class="cert-qr-svg">
+                            <rect width="100" height="100" fill="#fff"/>
+                            <rect x="10" y="10" width="20" height="20" fill="#000"/>
+                            <rect x="70" y="10" width="20" height="20" fill="#000"/>
+                            <rect x="10" y="70" width="20" height="20" fill="#000"/>
+                            <rect x="40" y="40" width="20" height="20" fill="#000"/>
+                            <rect x="40" y="10" width="10" height="10" fill="#000"/>
+                            <rect x="10" y="40" width="10" height="10" fill="#000"/>
+                        </svg>
+                    </div>
+                    <p class="cert-id" id="cert-id-text">ID: TIA-CERT-2026-FST-001</p>
+                    <p class="cert-id-sub">SCANNÉ POUR VÉRIFICATION</p>
+                </div>
+
+                <div class="cert-sig-box">
+                    <div class="cert-sig">Signature Formateur</div>
+                    <div class="cert-sig-line"></div>
+                    <p class="cert-director">RESPONSABLE PÉDAGOGIQUE</p>
+                </div>
+            </footer>
+        </div>
+
+        <div class="btn-print no-print cert-print-controls">
+            <button onclick="window.print()" class="btn-gold cert-btn-main">
+                🖨️ IMPRIMER LE CERTIFICAT (PDF)
+            </button>
+            <button onclick="window.location.href='dashboard.html'" class="btn-gold cert-btn-back">
+                ← Retour au Dashboard
+            </button>
+        </div>
+    </main>
+        <!-- FOOTER -->
+          <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="../../" class="footer-logo" style="text-decoration:none">
+          <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="../../">Accueil</a>
+          <a href="about.html">� Propos</a>
+          <a href="formations.html">Formations</a>
+          <a href="evenements.html">�v�nements</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+            <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="formations.html?cat=tech">???? Tech & Code</a>
+          <a href="formations.html?cat=langues">?? Langues</a>
+          <a href="formations.html?cat=gestion">?? Gestion</a>
+          <a href="formations.html?cat=design">?? Design</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualit�s.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit � la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>� 2026 TIA INFO Toamasina � Tous droits r�serv�s � Toamasina, Madagascar</p>
+    </div>
+  </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/db.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        // Logique spécifique de remplissage dynamique du certificat
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const courseId = parseInt(params.get('fid')) || 2; // ID 2 par défaut (Web Fullstack)
+
+            // Charger l'utilisateur
+            const user = JSON.parse(localStorage.getItem('tia_user'));
+            if (user) {
+                document.getElementById('student-name').innerText = user.username;
+            }
+
+            // Charger les détails de la formation
+            const course = FORMATIONS.find(f => f.id === courseId);
+            if (course) {
+                document.getElementById('course-title').innerText = course.titre.toUpperCase();
+            }
+
+            // Générer un ID de certificat unique
+            const randomID = Math.floor(Math.random() * 8999) + 1000;
+            document.getElementById('cert-id-text').innerText = `ID: TIA-CERT-2026-${courseId}-${randomID}`;
+            document.getElementById('cert-year').innerText = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
+
+

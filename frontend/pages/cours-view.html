@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning — Suivi de Cours — TIA INFO</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .course-viewer-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            height: calc(100vh - 80px);
+            margin-top: 80px;
+        }
+        .content-sidebar {
+            background: var(--bg-dark-secondary);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        .content-main {
+            padding: 2.5rem;
+            overflow-y: auto;
+            background: var(--bg-dark);
+        }
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+        .chapter-item {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .chapter-item:hover { background: rgba(255,255,255,0.05); }
+        .chapter-item.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold-primary);
+        }
+        .chapter-num {
+            width: 25px; height: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+        }
+        .active .chapter-num { background: var(--gold-gradient); color: #000; font-weight: bold; }
+        
+        .lesson-header { margin-bottom: 2rem; }
+        .lesson-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .lesson-meta { color: var(--text-muted); font-size: 0.9rem; }
+        
+        .lesson-text {
+            line-height: 1.8;
+            color: #d1d1d1;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- Viewer Tabs --- */
+        .viewer-tabs {
+            display: flex;
+            gap: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 2rem;
+        }
+        .v-tab {
+            padding: 1rem 0.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .v-tab:hover { color: #fff; }
+        .v-tab.active {
+            color: var(--gold-primary);
+            border-bottom-color: var(--gold-primary);
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+
+        /* --- Notes Section --- */
+        .notes-area {
+            width: 100%;
+            height: 300px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            resize: vertical;
+            outline: none;
+        }
+        .notes-area:focus { border-color: var(--gold-primary); }
+        .notes-status {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* --- Forum Section --- */
+        .forum-input-box {
+            background: rgba(255,255,255,0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .comment-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .comment-avatar {
+            width: 40px; height: 40px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #000; font-weight: bold;
+        }
+        .comment-content h5 { margin-bottom: 0.3rem; color: var(--gold-primary); }
+        .comment-content p { color: var(--text-muted); line-height: 1.5; }
+        .comment-date { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.5rem; }
+    </style>
+</head>
+<body class="bg-noir">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-logo">
+                <img src="../img/Logo_Tia_Infos.jpg" alt="Logo">
+                <div class="logo-sub">
+                    <span class="logo-info">TIA INFO</span>
+                    <span class="logo-tagline">LECTEUR</span>
+                </div>
+            </a>
+            <div class="nav-right">
+                <a href="dashboard.html" class="btn-gold-sm">← Retour au Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-viewer-grid">
+        <aside class="content-sidebar">
+            <h3 style="margin-bottom: 1.5rem;">Programme du cours</h3>
+            <div id="chapter-list">
+                <!-- Dynamically filled -->
+                <p class="text-muted">Chargement du programme...</p>
+            </div>
+        </aside>
+
+        <main class="content-main">
+            <div id="lesson-content">
+                <div class="lesson-header">
+                    <h1 class="lesson-title" id="display-title">Sélectionnez une leçon</h1>
+                    <div class="lesson-meta">Module 1 · Durée estimée 15 min</div>
+                </div>
+
+                <div class="video-container" id="video-display">
+                    <div style="text-align: center;">
+                        <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">▶️</span>
+                        <p>La vidéo du cours s'affichera ici.</p>
+                    </div>
+                </div>
+
+                <div class="viewer-tabs">
+                    <div class="v-tab active" onclick="switchViewerTab('lesson')">Cours</div>
+                    <div class="v-tab" onclick="switchViewerTab('notes')">Mes Notes ✍️</div>
+                    <div class="v-tab" onclick="switchViewerTab('forum')">Forum 💬</div>
+                </div>
+
+                <!-- Tab: Lesson -->
+                <div id="tab-lesson" class="tab-panel active">
+                    <div class="lesson-text" id="display-text">
+                        <p>Chargement du contenu...</p>
+                    </div>
+                </div>
+
+                <!-- Tab: Notes -->
+                <div id="tab-notes" class="tab-panel">
+                    <textarea class="notes-area" id="notes-input" placeholder="Prenez vos notes ici... Elles sont sauvegardées automatiquement." oninput="autoSaveNotes()"></textarea>
+                    <div class="notes-status" id="save-status">Dernière sauvegarde : Jamais</div>
+                </div>
+
+                <!-- Tab: Forum -->
+                <div id="tab-forum" class="tab-panel">
+                    <div class="forum-input-box">
+                        <h4 style="margin-bottom:1rem">Poser une question</h4>
+                        <textarea class="notes-area" id="forum-input" placeholder="Votre question sur ce chapitre..." style="height:100px; margin-bottom:1rem"></textarea>
+                        <button class="btn-gold" onclick="postComment()">Publier la question</button>
+                    </div>
+                    <div id="comment-list">
+                        <!-- Dynamically filled -->
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button class="btn-gold-sm" style="background:transparent; border:1px solid rgba(255,255,255,0.2)" onclick="prevChapter()">Précédent</button>
+                    <button class="btn-gold" id="btn-complete" onclick="completeChapter()">Marquer comme terminé ✅</button>
+                    <button class="btn-gold-sm" style="background:transparent; border:1px solid rgba(255,255,255,0.2)" onclick="nextChapter()">Suivant</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js" type="module"></script>
+    <script type="module">
+        import { FORMATIONS } from '../js/data.js';
+        import { api } from '../js/api.js';
+
+        let currentCourse = null;
+        let currentChapterIndex = 0;
+        let chapters = [
+            { id: 1, title: 'Introduction au module', content: 'Bienvenue dans cette première partie du cours.' },
+            { id: 2, title: 'Concepts fondamentaux', content: 'Nous allons explorer ici les bases techniques indispensables.' },
+            { id: 3, title: 'Mise en pratique #1', content: 'C\'est le moment de coder vos premières lignes.' },
+            { id: 4, title: 'Quiz de validation', content: 'Voyons ce que vous avez retenu.' }
+        ];
+
+        window.addEventListener('load', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+
+            if (courseId) {
+                try {
+                    // Start loading state
+                    document.getElementById('chapter-list').innerHTML = '<p class="text-muted">Chargement du programme...</p>';
+                    
+                    // Fetch real data from API
+                    const courseData = await api.getCourseDetails(courseId);
+                    currentCourse = courseData;
+                    
+                    if (courseData.cours && courseData.cours.length > 0) {
+                        chapters = courseData.cours;
+                    } else {
+                        console.warn("No real chapters found, using demo fallback");
+                        // keep the demo chapters defined above if needed, 
+                        // but let's encourage real data
+                    }
+
+                    document.title = `${currentCourse.titre} — TIA INFO`;
+                    renderChapters();
+                    loadChapter(0);
+                } catch (err) {
+                    console.error("Failed to load course details:", err);
+                    // Fallback to demo data if API fails
+                    currentCourse = FORMATIONS.find(f => f.id == courseId);
+                    if (currentCourse) {
+                        document.title = `${currentCourse.titre} — TIA INFO`;
+                        renderChapters();
+                        loadChapter(0);
+                    }
+                }
+            }
+        });
+
+        function renderChapters() {
+            const list = document.getElementById('chapter-list');
+            list.innerHTML = chapters.map((ch, index) => `
+                <div class="chapter-item ${index === currentChapterIndex ? 'active' : ''}" onclick="window.loadChapter(${index})">
+                    <div class="chapter-num">${index + 1}</div>
+                    <span>${ch.title}</span>
+                </div>
+            `).join('');
+        }
+
+        window.loadChapter = (index) => {
+            if (!chapters || chapters.length === 0) return;
+            
+            currentChapterIndex = index;
+            const ch = chapters[index];
+            
+            // Update Title and Meta
+            document.getElementById('display-title').innerText = ch.titre || ch.title;
+            const metaInfo = document.querySelector('.lesson-meta');
+            if (metaInfo) metaInfo.innerText = `${ch.type ? ch.type.toUpperCase() : 'Module'} · ${ch.duree || 15} min`;
+
+            // Handle Content Types (Video vs Text/PDF)
+            const videoDisplay = document.getElementById('video-display');
+            const displayText = document.getElementById('display-text');
+            
+            if (ch.type === 'video') {
+                videoDisplay.style.display = 'flex';
+                // Simulation d'un lecteur vidéo premium (YouTube ID check or direct link)
+                const videoUrl = ch.contenu && ch.contenu.includes('http') ? ch.contenu : 'https://www.youtube.com/embed/dQw4w9WgXcQ'; 
+                videoDisplay.innerHTML = `<iframe width="100%" height="100%" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                displayText.innerHTML = `<p>Regardez la vidéo attentivement avant de passer au chapitre suivant.</p>`;
+            } else {
+                videoDisplay.style.display = 'none';
+                displayText.innerHTML = ch.contenu ? `<div class="rich-text">${ch.contenu}</div>` : `<p>Pas de contenu textuel pour ce module.</p>`;
+                if (ch.type === 'pdf') {
+                    displayText.innerHTML += `<div style="margin-top:2rem"><a href="${ch.contenu}" class="btn-gold" target="_blank">📄 Télécharger le support PDF</a></div>`;
+                }
+            }
+            
+            // Re-render sidebar to update active class
+            renderChapters();
+            
+            // Load Notes
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+            const savedNote = localStorage.getItem(`notes_${courseId}_${index}`);
+            document.getElementById('notes-input').value = savedNote || '';
+            document.getElementById('save-status').innerText = savedNote ? "(Restauré de la session)" : "Prêt pour vos notes";
+        };
+
+        window.completeChapter = async () => {
+            const progress = Math.round(((currentChapterIndex + 1) / chapters.length) * 100);
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+
+            try {
+                if (localStorage.getItem('access_token')) {
+                    await api.updateProgress(courseId, progress);
+                } else {
+                    // Update Local Demo progress
+                    const savedProgress = JSON.parse(localStorage.getItem('demo_student_progress') || '{}');
+                    savedProgress[courseId] = Math.max(savedProgress[courseId] || 0, progress);
+                    localStorage.setItem('demo_student_progress', JSON.stringify(savedProgress));
+                }
+                
+                alert(`Progression enregistrée : ${progress}% ! 🚀`);
+                if (currentChapterIndex < chapters.length - 1) {
+                    window.nextChapter();
+                }
+            } catch (err) {
+                console.error("Erreur progression:", err);
+            }
+        };
+
+        window.nextChapter = () => {
+            if (currentChapterIndex < chapters.length - 1) {
+                window.loadChapter(currentChapterIndex + 1);
+            }
+        };
+
+        window.prevChapter = () => {
+            if (currentChapterIndex > 0) {
+                window.loadChapter(currentChapterIndex - 1);
+            }
+        };
+
+        // --- NEW: TAB SWITCHING ---
+        window.switchViewerTab = (tabId) => {
+            document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            
+            const selectedTab = [...document.querySelectorAll('.v-tab')].find(t => t.innerText.toLowerCase().includes(tabId));
+            if (selectedTab) selectedTab.classList.add('active');
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+
+            if (tabId === 'forum') renderComments();
+        };
+
+        // --- NEW: NOTES SYSTEM ---
+        let saveTimeout = null;
+        window.autoSaveNotes = () => {
+            document.getElementById('save-status').innerText = "Enregistrement...";
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(async () => {
+                const noteContent = document.getElementById('notes-input').value;
+                const urlParams = new URLSearchParams(window.location.search);
+                const courseId = urlParams.get('id');
+                const key = `notes_${courseId}_${currentChapterIndex}`;
+                
+                localStorage.setItem(key, noteContent);
+                document.getElementById('save-status').innerText = `Sauvegardé à ${new Date().toLocaleTimeString()}`;
+                
+                // Real DB option (future scale)
+                // if (localStorage.getItem('access_token')) {
+                //    await api.request('/users/notes', { method: 'POST', body: JSON.stringify({ courseId, chapter: currentChapterIndex, content: noteContent }) });
+                // }
+            }, 1000);
+        };
+
+        // --- NEW: FORUM SYSTEM ---
+        let comments = [
+            { user: 'B.', text: 'Très clair, merci !', date: 'Il y a 2h' },
+            { user: 'S.', text: 'Est-ce que nous aurons des exercices après ce module ?', date: 'Il y a 5h' }
+        ];
+
+        window.renderComments = () => {
+            const list = document.getElementById('comment-list');
+            list.innerHTML = comments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-avatar">${c.user}</div>
+                    <div class="comment-content">
+                        <h5>Étudiant ${c.user}</h5>
+                        <p>${c.text}</p>
+                        <div class="comment-date">${c.date}</div>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        window.postComment = async () => {
+            const input = document.getElementById('forum-input');
+            if (!input.value.trim()) return;
+            
+            const user = JSON.parse(localStorage.getItem('currentUser')) || { prenom: 'Moi' };
+            comments.unshift({
+                user: user.prenom[0],
+                text: input.value,
+                date: 'À l\'instant'
+            });
+            input.value = '';
+            renderComments();
+        };
+
+        // Load correct notes when changing chapter
+        const originalLoadChapter = window.loadChapter;
+        window.loadChapter = (index) => {
+            originalLoadChapter(index);
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+            const savedNote = localStorage.getItem(`notes_${courseId}_${index}`);
+            document.getElementById('notes-input').value = savedNote || '';
+            document.getElementById('save-status').innerText = savedNote ? "(Restauré de la session)" : "Prêt pour vos notes";
+        };
+    </script>
+</body>
+</html>

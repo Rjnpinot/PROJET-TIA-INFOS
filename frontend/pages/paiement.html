@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Sécurisé — TIA INFO</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/paiement.css">
+</head>
+<body class="bg-noir">
+    <main class="pay-page">
+        <div class="pay-card" id="main-pay-card">
+            <header class="pay-header">
+                <img src="../img/Logo_Tia_Infos.jpg" alt="Logo" class="pay-logo">
+                <h1 class="pay-title">Paiement <span class="gradient-text">Sécurisé</span></h1>
+                <p class="pay-subtitle">Inscrivez-vous à votre formation en un clic.</p>
+            </header>
+
+            <div class="pay-amount-box">
+                <p class="pay-amount-label">Montant à payer</p>
+                <div id="display-price" class="pay-amount">0 Ar</div>
+                <p id="display-course-name" class="pay-course-name">Chargement...</p>
+            </div>
+
+            <div class="pay-form">
+                <label class="pay-methods-label">Choisissez votre mode de paiement :</label>
+                <div class="pay-methods">
+                    <button class="pay-method-btn active" onclick="selectMethod('mvola', this)" data-op="mvola">
+                        <img src="https://it-it.facebook.com/images/topic/105779029457632/" alt="MVola" onerror="this.src='/img/Logo_Tia_Infos.jpg'">
+                        <span>MVOLA</span>
+                    </button>
+                    <button class="pay-method-btn" onclick="selectMethod('orange', this)" data-op="orange">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" alt="Orange Money">
+                        <span>ORANGE</span>
+                    </button>
+                    <button class="pay-method-btn" onclick="selectMethod('airtel', this)" data-op="airtel">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Airtel_logo_2010.svg" alt="Airtel Money">
+                        <span>AIRTEL</span>
+                    </button>
+                </div>
+
+                <div class="pay-form-group">
+                    <label>Saisissez votre numéro de téléphone</label>
+                    <input type="tel" id="pay-phone" class="pay-input" placeholder="034 XX XXX XX" maxlength="10">
+                </div>
+
+                <div class="pay-form-group">
+                    <label>Nom complet (titulaire du compte)</label>
+                    <input type="text" id="pay-name" class="pay-input" placeholder="Ex: Nicolas R.">
+                </div>
+
+                <button onclick="processPayment()" id="btn-pay" class="btn-gold pay-btn-confirm">
+                    CONFIRMER LE PAIEMENT 🔒
+                </button>
+                <a href="formations.html" class="pay-cancel-link">Annuler et retourner au catalogue</a>
+            </div>
+        </div>
+
+        <!-- Simulation USSD / Validation -->
+        <div id="ussd-modal" class="ussd-modal">
+            <div class="ussd-content">
+                <div id="ussd-step-loading">
+                    <h2 id="ussd-title">Initialisation...</h2>
+                    <p id="ussd-sub">Veuillez patienter pendant la connexion sécurisée.</p>
+                    <div class="spinner"></div>
+                    <p class="ussd-loading-sub">Veuillez ne pas fermer cette fenêtre.</p>
+                </div>
+                
+                <div id="ussd-step-success" style="display:none">
+                    <div class="ussd-success-icon" id="check-icon">✓</div>
+                    <h2 class="ussd-success-title">Paiement Réussi !</h2>
+                    <p class="ussd-success-text">Votre inscription a été validée. Votre reçu PDF a été généré.</p>
+                    <button onclick="finishPayment()" class="btn-gold ussd-exit-btn">Accéder à mes cours 🚀</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FOOTER -->
+      <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="../../" class="footer-logo" style="text-decoration:none">
+          <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="../../">Accueil</a>
+          <a href="about.html">� Propos</a>
+          <a href="formations.html">Formations</a>
+          <a href="evenements.html">�v�nements</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+            <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="formations.html?cat=tech">???? Tech & Code</a>
+          <a href="formations.html?cat=langues">?? Langues</a>
+          <a href="formations.html?cat=gestion">?? Gestion</a>
+          <a href="formations.html?cat=design">?? Design</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualit�s.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit � la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>� 2026 TIA INFO Toamasina � Tous droits r�serv�s � Toamasina, Madagascar</p>
+    </div>
+  </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/db.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        let selectedOp = 'mvola';
+        let currentCourse = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const fid = parseInt(params.get('fid'));
+            
+            currentCourse = FORMATIONS.find(f => f.id === fid);
+            if (!currentCourse) {
+                window.location.href = 'formations.html';
+                return;
+            }
+
+            document.getElementById('display-price').innerText = currentCourse.prix;
+            document.getElementById('display-course-name').innerText = currentCourse.titre;
+
+            // Pré-remplir le nom si l'utilisateur est connecté
+            const user = JSON.parse(localStorage.getItem('tia_user'));
+            if (user) {
+                document.getElementById('pay-name').value = user.username;
+            }
+        });
+
+        function selectMethod(op, btn) {
+            selectedOp = op;
+            document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        async function processPayment() {
+            const phone = document.getElementById('pay-phone').value;
+            const name = document.getElementById('pay-name').value;
+
+            if (phone.length < 10) {
+                showToast("Veuillez saisir un numéro valide.");
+                return;
+            }
+
+            // Ouverture de la simulation USSD
+            const modal = document.getElementById('ussd-modal');
+            modal.style.display = 'flex';
+            
+            // Étape 1 : Initialisation
+            setTimeout(() => {
+                document.getElementById('ussd-title').innerText = "Attente Confirmation";
+                document.getElementById('ussd-sub').innerText = `Vérifiez votre téléphone (${phone}). Un message USSD de ${selectedOp.toUpperCase()} a été envoyé. Entrez votre code secret.`;
+            }, 2000);
+
+            // Étape 2 : Simulation Success
+            setTimeout(async () => {
+                document.getElementById('ussd-step-loading').style.display = 'none';
+                document.getElementById('ussd-step-success').style.display = 'block';
+                
+                // Mettre à jour IndexedDB via l'inscription effective
+                if (window.dbManager) {
+                    const user = JSON.parse(localStorage.getItem('tia_user'));
+                    if (user) {
+                        if (!user.formations.includes(currentCourse.id)) {
+                           user.formations.push(currentCourse.id);
+                           user.progression[currentCourse.id] = 0;
+                           localStorage.setItem('tia_user', JSON.stringify(user));
+                           await window.dbManager.saveUser(user);
+                           await window.dbManager.enroll(currentCourse.id);
+                        }
+                    }
+                }
+            }, 6000);
+        }
+
+        function finishPayment() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
+
+

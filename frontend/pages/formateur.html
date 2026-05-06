@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Formateur — TIA INFO</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/formateur.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="bg-noir">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../../" class="nav-logo">
+                <img src="../img/Logo_Tia_Infos.jpg" alt="Logo">
+                <div class="logo-sub">
+                    <span class="logo-info">TIA INFO</span>
+                    <span class="logo-tagline">FORMATEUR</span>
+                </div>
+            </a>
+            <div class="prof-nav-right">
+                <span class="prof-user-name">M. Razakamahefa</span>
+                <div class="prof-avatar">MR</div>
+                <button onclick="logout()" class="btn-gold-sm" style="background:transparent; color:var(--gold-primary); border:1px solid var(--gold-primary)">Quitter 🚪</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="prof-grid">
+        <aside class="prof-sidebar">
+            <ul class="prof-nav">
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link active" onclick="switchDashTab('stats-prof', this)">📊 Mon Dashboard</a></li>
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link" onclick="switchDashTab('courses-prof', this)">📘 Mes Formations</a></li>
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link" onclick="switchDashTab('students-prof', this)">👥 Mes Étudiants</a></li>
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link" onclick="switchDashTab('quiz-prof', this)">📝 Gérer les Quiz</a></li>
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link" onclick="switchDashTab('grading-prof', this)">📋 Évaluations</a></li>
+                <li class="prof-nav-item"><a href="#" class="prof-nav-link" onclick="switchDashTab('planning-prof', this)">📅 Planning</a></li>
+            </ul>
+        </aside>
+
+        <section class="prof-main-content">
+            <!-- Stats Tab -->
+            <div id="tab-stats-prof">
+                <div class="section-header" style="margin-bottom:3rem">
+                    <h1>Aperçu <span class="gradient-text">Formateur</span></h1>
+                    <p>Suivez l'impact de vos cours et l'engagement de vos étudiants.</p>
+                </div>
+
+                <div class="prof-stats-grid">
+                    <div class="prof-stat-card">
+                        <span class="prof-stat-label">Étudiants Inscrits</span>
+                        <span class="prof-stat-value" id="stat-students">42</span>
+                    </div>
+                    <div class="prof-stat-card">
+                        <span class="prof-stat-label">Taux de Réussite</span>
+                        <span class="prof-stat-value">88%</span>
+                    </div>
+                    <div class="prof-stat-card">
+                        <span class="prof-stat-label">Heures de Vidéo</span>
+                        <span class="prof-stat-value">24h 45m</span>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-bottom:1.5rem">
+                    <h2>Engagement <span class="gradient-text">Global</span></h2>
+                </div>
+                <div class="prof-stats-chart" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:20px; padding:2rem; margin-bottom:3rem">
+                    <!-- CSS Bar Chart Mockup -->
+                    <div style="display:flex; align-items:flex-end; gap:10px; height:150px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1)">
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:40%" title="Lundi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:60%" title="Mardi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:35%" title="Mercredi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:90%" title="Jeudi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:75%" title="Vendredi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:20%" title="Samedi"></div>
+                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:10%" title="Dimanche"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-top:10px; color:var(--text-muted); font-size:0.8rem">
+                        <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-bottom:1.5rem">
+                    <h2>Dernières <span class="gradient-text">Inscriptions</span></h2>
+                </div>
+                <div class="admin-table-container">
+                    <table class="prof-student-table">
+                        <thead><tr><th>Nom</th><th>Formation</th><th>Date</th><th>Progression</th></tr></thead>
+                        <tbody id="latest-enrollments-body">
+                            <!-- Dynamically filled -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Courses Tab -->
+            <div id="tab-courses-prof" style="display:none">
+                <div class="section-header" style="margin-bottom:2rem">
+                    <h2>Mes <span class="gradient-text">Supports de Cours</span></h2>
+                    <p>Éditez ou ajoutez de nouveaux chapitres.</p>
+                </div>
+                <div class="prof-course-card">
+                    <div class="prof-course-info">
+                        <h3>📁 Module 1 : Introduction au HTML5</h3>
+                        <p class="prof-course-meta">5 Vidéos · 2 PDFs · 1 Quiz</p>
+                    </div>
+                    <div class="prof-course-actions">
+                        <button class="btn-gold-sm" onclick="showToast('Ouverture de l\'éditeur...')">Modifier ⚙️</button>
+                    </div>
+                </div>
+                <div class="prof-course-card">
+                    <div class="prof-course-info">
+                        <h3>📁 Module 2 : Styles avec CSS3</h3>
+                        <p class="prof-course-meta">8 Vidéos · 4 PDFs · 2 Quiz</p>
+                    </div>
+                    <div class="prof-course-actions">
+                        <button class="btn-gold-sm">Modifier ⚙️</button>
+                    </div>
+                </div>
+                <button class="btn-gold" style="width:100%; border-radius:15px; padding:1.2rem; background:transparent; border:1px dashed var(--gold-primary); color:var(--gold-primary)">+ AJOUTER UN NOUVEAU MODULE</button>
+            </div>
+
+            <!-- Students Tab -->
+            <div id="tab-students-prof" style="display:none">
+                <div class="section-header" style="margin-bottom:2rem">
+                    <h2>Mes <span class="gradient-text">Étudiants</span></h2>
+                    <p>Liste complète des inscrits à vos modules.</p>
+                </div>
+                <div class="admin-table-container">
+                    <table class="prof-student-table" id="prof-student-table">
+                        <thead><tr><th>Étudiant</th><th>Cours</th><th>Dernière activité</th><th>Score Quiz</th><th>Messagerie</th></tr></thead>
+                        <tbody>
+                            <!-- Dynamically filled -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quiz Prof Tab -->
+            <div id="tab-quiz-prof" style="display:none">
+                <!-- Dynamically filled -->
+            </div>
+
+            <!-- Grading Tab -->
+            <div id="tab-grading-prof" style="display:none">
+                <!-- Dynamically filled -->
+            </div>
+
+            <!-- Planning Tab -->
+            <div id="tab-planning-prof" style="display:none">
+                <!-- Dynamically filled -->
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="../../" class="footer-logo" style="text-decoration:none">
+                    <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+                    <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+                </a>
+                <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon" title="Facebook">FB</a>
+                    <a href="#" class="social-icon" title="Instagram">IG</a>
+                    <a href="#" class="social-icon" title="LinkedIn">IN</a>
+                    <a href="#" class="social-icon" title="WhatsApp">WA</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <div>
+                    <a href="../../">Accueil</a>
+                    <a href="about.html">À Propos</a>
+                    <a href="formations.html">Formations</a>
+                    <a href="evenements.html">Événements</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Modules</h4>
+                <div>
+                    <a href="formations.html?cat=tech">👨💻 Tech & Code</a>
+                    <a href="formations.html?cat=langues">🌍 Langues</a>
+                    <a href="formations.html?cat=gestion">📊 Gestion</a>
+                    <a href="formations.html?cat=design">🎨 Design</a>
+                </div>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
+                    <div style="position:relative">
+                        <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+                        <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2026 TIA INFO Toamasina · Tous droits réservés · Toamasina, Madagascar</p>
+        </div>
+    </footer>
+
+    <!-- MODALES FORMATEUR -->
+    <div id="course-modal" class="modal-overlay" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Éditeur de <span class="gradient-text">Module</span></h2>
+                <button class="modal-close" onclick="closeModal('course-modal')">×</button>
+            </div>
+            <form id="course-form" onsubmit="event.preventDefault(); saveCourse()">
+                <div class="form-group">
+                    <label>Titre du Chapitre</label>
+                    <input type="text" id="course-title" placeholder="Ex: Introduction au React" required>
+                </div>
+                <div class="form-group">
+                    <label>Description / Objectifs</label>
+                    <textarea id="course-desc" rows="3" placeholder="Ce que l'étudiant va apprendre..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Type de support principal</label>
+                    <select id="course-type">
+                        <option value="video">Vidéo 🎥</option>
+                        <option value="pdf">Document PDF 📄</option>
+                        <option value="quiz">Quiz Interactif 📝</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Lien Source (URL Vidéo ou PDF)</label>
+                    <input type="text" id="course-url" placeholder="https://...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-gold-sm" style="background:transparent; color:white; border:1px solid #444" onclick="closeModal('course-modal')">Annuler</button>
+                    <button type="submit" class="btn-gold">Enregistrer le Module</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="quiz-modal" class="modal-overlay" style="display:none">
+        <div class="modal-content quiz-modal-lg">
+            <div class="modal-header">
+                <h2>Éditeur de <span class="gradient-text">Quiz</span></h2>
+                <button class="modal-close" onclick="closeModal('quiz-modal')">×</button>
+            </div>
+            <div id="quiz-editor-container">
+                <div class="form-group">
+                    <label>Titre du Quiz</label>
+                    <input type="text" id="quiz-edit-title" required>
+                </div>
+                <div id="quiz-questions-list">
+                    <!-- Dynamic questions here -->
+                </div>
+                <button type="button" class="btn-gold-sm" style="margin-top:1rem" onclick="addQuizQuestionEdit()">+ Ajouter une question</button>
+            </div>
+            <div class="modal-footer" style="margin-top:2rem">
+                <button class="btn-gold" onclick="saveQuiz()">Sauvegarder le Quiz Complet</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="grading-modal" class="modal-overlay" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Correction <span class="gradient-text">de Devoir</span></h2>
+                <button class="modal-close" onclick="closeModal('grading-modal')">×</button>
+            </div>
+            <div class="grading-info">
+                <p>Étudiant : <strong id="grade-student-name">...</strong></p>
+                <p>Module : <span id="grade-course-title">...</span></p>
+            </div>
+            <div class="form-group" style="margin-top:1.5rem">
+                <label>Note (/100)</label>
+                <input type="number" id="grade-value" min="0" max="100" value="80">
+            </div>
+            <div class="form-group">
+                <label>Commentaire du formateur</label>
+                <textarea id="grade-comment" rows="4" placeholder="Bravo pour ce travail ! Toutefois..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-gold" onclick="submitGrade()">Valider la Note</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/db.js"></script>
+    <script type="module">
+        import { 
+            switchDashTab, logout, sendMessage, openStudentChat, renderTrainerDashboard,
+            openCourseEditor, saveCourse, openQuizEditor, addQuizQuestionEdit, saveQuiz,
+            openGradingModal, submitGrade, closeModal
+        } from '../js/app.js';
+
+        window.switchDashTab = switchDashTab;
+        window.logout = logout;
+        window.sendMessage = sendMessage;
+        window.openStudentChat = openStudentChat;
+        
+        // Trainer Module Exports
+        window.openCourseEditor = openCourseEditor;
+        window.saveCourse = saveCourse;
+        window.openQuizEditor = openQuizEditor;
+        window.addQuizQuestionEdit = addQuizQuestionEdit;
+        window.saveQuiz = saveQuiz;
+        window.openGradingModal = openGradingModal;
+        window.submitGrade = submitGrade;
+        window.closeModal = closeModal;
+
+        window.addEventListener('load', () => {
+             renderTrainerDashboard();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription — TIA INFO</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="apple-touch-icon" href="../img/Logo_Tia_Infos.jpg">
+</head>
+<body class="bg-noir">
+  <div class="auth-card">
+    <img src="../img/Logo_Tia_Infos.jpg" alt="Logo TIA INFO" class="auth-logo">
+    <h1>Inscription<span>Créer votre compte étudiant</span></h1>
+    <form onsubmit="handleAuth(event, 'register')" autocomplete="on" aria-label="Formulaire d'inscription">
+      <div class="form-group-row" style="display:flex; gap:1rem;">
+        <div class="form-group" style="flex:1">
+          <label for="reg-prenom">Prénom</label>
+          <input type="text" id="reg-prenom" name="prenom" placeholder="Jean" required autocomplete="given-name" aria-required="true">
+        </div>
+        <div class="form-group" style="flex:1">
+          <label for="reg-nom">Nom</label>
+          <input type="text" id="reg-nom" name="nom" placeholder="Dupont" required autocomplete="family-name" aria-required="true">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="reg-email">Email académique</label>
+        <input type="email" id="reg-email" name="email" placeholder="votre@email.com" required autocomplete="email" aria-required="true">
+      </div>
+      <div class="form-group" style="position:relative;">
+        <label for="reg-pass">Mot de passe</label>
+        <input type="password" id="reg-pass" name="password" placeholder="Créer votre mot de passe" required autocomplete="new-password" aria-required="true">
+        <button type="button" id="toggle-password" aria-label="Afficher/Masquer le mot de passe" style="position:absolute; right:10px; top:38px; background:none; border:none; color:var(--gold-primary); font-size:1.1rem; cursor:pointer;">👁️</button>
+      </div>
+      <div id="register-error" style="color:#e74c3c; font-size:0.95rem; min-height:1.5em; margin-bottom:1.2rem; display:none"></div>
+      <button type="submit" class="btn-gold" style="width:100%; font-size:1.1rem;">Créer mon compte</button>
+    </form>
+    <div class="auth-footer" style="margin-top:2.5rem;">
+      <p>Déjà membre ? <a href="login.html">Se connecter</a></p>
+      <a href="../../" class="back-link">← Retour à l'accueil</a>
+    </div>
+    <div id="message-container" style="margin-top:2rem; padding:1rem; border-radius:8px; text-align:center; display:none;"></div>
+  </div>
+  <script>
+    // Afficher/Masquer le mot de passe
+    document.addEventListener('DOMContentLoaded', function() {
+      const passInput = document.getElementById('reg-pass');
+      const toggleBtn = document.getElementById('toggle-password');
+      if (toggleBtn && passInput) {
+        toggleBtn.addEventListener('click', function() {
+          if (passInput.type === 'password') {
+            passInput.type = 'text';
+            toggleBtn.textContent = '🙈';
+          } else {
+            passInput.type = 'password';
+            toggleBtn.textContent = '👁️';
+          }
+        });
+      }
+    });
+  </script>
+
+  <script src="../js/db.js"></script>
+  <script type="module" src="../js/auth.js"></script>
+  <script type="module" src="../js/app.js"></script>
+  <script type="module">
+    import { handleAuth } from '../js/app.js';
+    window.handleAuth = handleAuth;
+  </script>
+  <script>
+    // Fonction showMessage pour register.html (overrides celle d'app.js)
+    function showMessage(msg, type = 'success') {
+      const container = document.getElementById('message-container');
+      if (!container) return;
+      
+      container.style.display = 'block';
+      if (type === 'success') {
+        container.style.background = '#10b981';
+        container.style.color = '#fff';
+      } else if (type === 'error') {
+        container.style.background = '#ef4444';
+        container.style.color = '#fff';
+      } else {
+        container.style.background = '#f59e0b';
+        container.style.color = '#000';
+      }
+      container.textContent = msg;
+      
+      if (type === 'success') {
+        setTimeout(() => {
+          container.style.display = 'none';
+        }, 3500);
+      }
+    }
+    
+    // Override showToast pour register.html
+    window.showToast = showMessage;
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de Bord — Étudiant | TIA INFO</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="apple-touch-icon" href="../img/Logo_Tia_Infos.jpg">
+</head>
+<body class="bg-noir">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../../" class="nav-logo">
+        <img src="../img/Logo_Tia_Infos.jpg" alt="Logo" />
+        <div class="logo-sub">
+          <span class="logo-info">TIA INFO</span>
+          <span class="logo-tagline">TOAMASINA</span>
+        </div>
+      </a>
+      <div class="dash-nav-right" style="display:flex; align-items:center; gap:1rem;">
+        <span id="user-display-name" style="color:var(--gold-primary); font-weight:600; font-size:0.9rem;">Chargement...</span>
+        <button onclick="logout()" class="btn-gold-sm" style="background:transparent; color:rgba(255,80,80,0.8); border:1px solid rgba(255,80,80,0.3); font-size:0.8rem;">Déconnexion 🚪</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-grid">
+
+    <!-- SIDEBAR ULTRA-MODERNE -->
+    <aside class="dash-sidebar">
+      <div class="dash-sidebar-inner">
+
+        <!-- User Badge -->
+        <div class="dash-user-badge">
+          <div class="dash-avatar-wrap">
+            <div class="dash-avatar">🎓</div>
+          </div>
+          <h3 id="sidebar-user-name" class="dash-user-name">Étudiant</h3>
+          <p class="dash-user-role">Espace Étudiant</p>
+        </div>
+
+        <div class="dash-divider"></div>
+
+        <!-- Nav Label -->
+        <p class="dash-nav-label">Navigation</p>
+
+        <!-- Nav Menu -->
+        <nav>
+          <ul class="dash-nav" style="position:relative">
+            <li class="dash-nav-indicator" id="nav-indicator"></li>
+            <li class="dash-nav-item active-item">
+              <a href="#" class="dash-nav-link active" onclick="switchDashTab('courses', this)">
+                <span class="dash-nav-icon">📘</span>
+                <span class="dash-nav-text">Mes Formations</span>
+                <span class="dash-nav-badge">Actif</span>
+              </a>
+            </li>
+            <li class="dash-nav-item">
+              <a href="#" class="dash-nav-link" onclick="switchDashTab('resources', this)">
+                <span class="dash-nav-icon">📂</span>
+                <span class="dash-nav-text">Mes Ressources</span>
+              </a>
+            </li>
+            <li class="dash-nav-item">
+              <a href="#" class="dash-nav-link" onclick="switchDashTab('messaging', this)">
+                <span class="dash-nav-icon">💬</span>
+                <span class="dash-nav-text">Messagerie Admin</span>
+              </a>
+            </li>
+            <li class="dash-nav-item">
+              <a href="#" class="dash-nav-link" onclick="switchDashTab('notifs', this)">
+                <span class="dash-nav-icon">🔔</span>
+                <span class="dash-nav-text">Notifications</span>
+              </a>
+            </li>
+            <li class="dash-nav-item">
+              <a href="#" class="dash-nav-link">
+                <span class="dash-nav-icon">⚙️</span>
+                <span class="dash-nav-text">Paramètres</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Logout Button -->
+        <div class="dash-sidebar-footer">
+          <button onclick="logout()" class="dash-logout-btn">
+            <span>🚪</span>
+            <span>Déconnexion</span>
+          </button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <section class="dash-main-content">
+
+      <!-- Tab: Mes Cours -->
+      <div id="tab-courses">
+        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+          <h1 style="font-size:2.2rem;">Mes <span class="gradient-text">Cours</span></h1>
+          <p style="color:var(--text-muted);">Suivez votre progression et accédez à vos ressources pédagogiques.</p>
+        </div>
+        
+        <!-- Stats Summary -->
+        <div id="dashboard-stats-summary" class="stats-grid-compact" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem; margin-bottom:2.5rem;">
+          <!-- Dynamically filled -->
+        </div>
+        <div id="enrolled-courses-container">
+          <!-- Dynamically filled -->
+        </div>
+      </div>
+
+      <!-- Tab: Ressources -->
+      <div id="tab-resources" style="display:none">
+        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+          <h1 style="font-size:2.2rem;">Bibliothèque <span class="gradient-text">BestCours</span></h1>
+          <p style="color:var(--text-muted);">Accédez aux meilleures ressources gratuites du web via notre partenaire.</p>
+        </div>
+
+        <!-- Resource Filters -->
+        <div class="resource-filters" style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem; align-items:center;">
+          <div class="search-box-modern" style="flex:1; min-width:250px; position:relative;">
+            <input type="text" id="resource-search" placeholder="Rechercher une ressource (ex: Python, React...)" 
+              style="width:100%; padding:1rem 1.5rem; border-radius:15px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2); color:white;"
+              onkeyup="filterResources()">
+          </div>
+          <select id="resource-category" onchange="filterResources()"
+            style="padding:1rem; border-radius:15px; background:rgba(25,25,25,0.9); border:1px solid rgba(212,175,55,0.2); color:white; cursor:pointer;">
+            <option value="all">Toutes les catégories</option>
+            <option value="Développement Web">Développement Web</option>
+            <option value="Intelligence Artificielle">Intelligence Artificielle</option>
+            <option value="Réseaux">Réseaux & Sécurité</option>
+            <option value="Bases de Données">Bases de Données</option>
+          </select>
+        </div>
+
+        <div class="resource-grid" id="resource-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1.5rem;">
+          <!-- Dynamically filled -->
+        </div>
+      </div>
+
+
+      <!-- Tab: Messagerie -->
+      <div id="tab-messaging" style="display:none">
+        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+          <h1 style="font-size:2.2rem;">Messagerie <span class="gradient-text">Support</span></h1>
+          <p style="color:var(--text-muted);">Posez vos questions directement à l'équipe pédagogique.</p>
+        </div>
+        <div style="background:rgba(15,15,15,0.7); padding:2rem; border-radius:24px; border:1px solid rgba(212,175,55,0.15); backdrop-filter:blur(10px);">
+          <div id="chat-messages" style="height:380px; overflow-y:auto; margin-bottom:1.5rem; padding-right:1rem;"></div>
+          <form onsubmit="sendMessage(event)" style="display:flex; gap:1rem;">
+            <input type="text" id="msg-input" placeholder="Écrivez votre message..." style="flex:1; padding:1rem 1.5rem; border-radius:50px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2); color:white; font-family:'Inter',sans-serif; outline:none;">
+            <button type="submit" class="btn-gold">Envoyer 📧</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab: Notifications -->
+      <div id="tab-notifs" style="display:none">
+        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+          <h1 style="font-size:2.2rem;">Mes <span class="gradient-text">Notifications</span></h1>
+          <p style="color:var(--text-muted);">Retrouvez vos dernières alertes et mises à jour pédagogiques.</p>
+        </div>
+        <div style="background:rgba(15,15,15,0.6); padding:3rem; border-radius:24px; border:1px solid rgba(255,255,255,0.05); text-align:center; color:var(--text-muted);">
+          <div id="notifications-list" class="notifications-list">
+            <!-- Dynamically filled -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="../../" class="footer-logo" style="text-decoration:none">
+          <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="../../">Accueil</a>
+          <a href="about.html">À Propos</a>
+          <a href="formations.html">Formations</a>
+          <a href="evenements.html">Événements</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="formations.html?cat=tech">👨‍💻 Tech & Code</a>
+          <a href="formations.html?cat=langues">🌍 Langues</a>
+          <a href="formations.html?cat=gestion">📊 Gestion</a>
+          <a href="formations.html?cat=design">🎨 Design</a>
+        </div>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TIA INFO Toamasina · Tous droits réservés · Toamasina, Madagascar</p>
+    </div>
+  </footer>
+
+  <script src="../js/db.js"></script>
+  <script type="module" src="../js/auth.js"></script>
+  <script type="module">
+    import { switchDashTab, logout, sendMessage, downloadResource, filterResources } from '../js/app.js';
+    window.switchDashTab = switchDashTab;
+    window.logout = logout;
+    window.sendMessage = sendMessage;
+    window.downloadResource = downloadResource;
+    window.filterResources = filterResources;
+
+
+    // Initialize indicator on load
+    window.addEventListener('load', () => {
+      const activeItem = document.querySelector('.dash-nav-item.active-item');
+      if (activeItem && typeof updateIndicator === 'function') updateIndicator(activeItem);
+      
+      // Check session
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (!user) window.location.href = 'login.html';
+    });
+
+    const navIndicator = document.getElementById('nav-indicator');
+    window.updateIndicator = function(item) {
+      if (!item || !navIndicator) return;
+      navIndicator.style.opacity = '1';
+      navIndicator.style.top = item.offsetTop + 'px';
+      navIndicator.style.height = item.offsetHeight + 'px';
+    };
+
+    document.querySelectorAll('.dash-nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.dash-nav-item').forEach(li => li.classList.remove('active-item'));
+        document.querySelectorAll('.dash-nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        const parentItem = this.closest('.dash-nav-item');
+        parentItem.classList.add('active-item');
+        window.updateIndicator(parentItem);
+      });
+    });
+  </script>
+</body>
+</html>

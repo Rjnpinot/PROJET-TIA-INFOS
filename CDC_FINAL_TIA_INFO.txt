@@ -1,0 +1,144 @@
+TIA INFO TOAMASINA
+Centre de Formation Professionnelle
+--------------------------------------------------------------------------------
+CAHIER DES CHARGES - VERSION FINALE (2026)
+Plateforme Numérique Complète (Web, Mobile & Offline)
+--------------------------------------------------------------------------------
+
+1. PRÉSENTATION DU PROJET
+-------------------------
+
+1.1 Contexte et Cadre du Projet
+TIA INFO Toamasina est un centre de formation professionnelle spécialisé dans les technologies numériques, les langues étrangères et la gestion des entreprises. Fondé en 2020, le centre propose actuellement 16 formations certifiantes et accueille plus de 500 diplômés dans la région de Toamasina, capitale économique de Madagascar.
+Face à la transformation digitale accélérée du secteur éducatif et aux nouvelles habitudes des apprenants (mobile-first, apprentissage à distance, flexibilité horaire), TIA INFO souhaite moderniser et digitaliser l'ensemble de son écosystème de formation.
+
+1.2 Objectifs Généraux
+- Créer une plateforme numérique complète accessible sur Web, Mobile (iOS & Android) et en mode hors-ligne.
+- Centraliser la gestion des formations, inscriptions, paiements et suivi pédagogique.
+- Améliorer l'expérience utilisateur pour les étudiants, formateurs et l'administration.
+- Permettre une gestion autonome du contenu sans compétences techniques avancées.
+- Intégrer des méthodes de paiement locales malgaches (MVola, Orange Money, Airtel Money).
+- Générer des certificats numériques vérifiables à la fin de chaque formation.
+
+1.3 Périmètre du Projet
+Le projet couvre la conception, le développement, le déploiement et la maintenance d'une plateforme e-learning complète incluant : un site web public, une application mobile Progressive Web App (PWA), un espace étudiant sécurisé, un espace formateur, un panel d'administration avancé, et un système de paiement intégré.
+
+
+2. ANALYSE DES BESOINS
+----------------------
+
+2.1 Parties Prenantes (Stakeholders)
+- Étudiants : Accès aux cours, quiz, certificats et suivi de progression.
+- Formateurs : Création de contenu, suivi des élèves, notation.
+- Administrateurs : Gestion globale, rapports financiers, validation des paiements.
+- Staff Technique : Maintenance et évolution de la plateforme.
+
+2.2 Besoins Fonctionnels Détaillés
+
+2.2.1 Module Étudiant
+- Création et gestion de compte (inscription, connexion, récupération mot de passe).
+- Tableau de bord personnalisé avec progression par cours.
+- Accès aux cours en vidéo, PDF, Quiz interactifs.
+- Système de messagerie avec les formateurs et l'administration.
+- Téléchargement et génération de certificats avec QR code de vérification.
+- Notifications push (nouvelles leçons, événements, échéances de paiement).
+- Mode hors-ligne : accès aux cours téléchargés sans connexion internet.
+- Historique des paiements et factures téléchargeables.
+
+2.2.2 Module Formateur
+- Espace de création de cours (texte, vidéo, PDF, quiz, devoirs).
+- Suivi de la progression de chaque étudiant inscrit.
+- Système de notation et de commentaires sur les devoirs.
+- Agenda personnel et planning des sessions.
+- Statistiques d'engagement par cours (vues, taux de complétion).
+- Messagerie intégrée avec les étudiants.
+
+2.2.3 Module Administration
+- Dashboard exécutif : KPIs clés (revenus, inscriptions, taux de complétion).
+- Gestion complète du catalogue de formations (CRUD).
+- Gestion des utilisateurs (étudiants, formateurs, staff).
+- Validation et suivi des paiements (MVola, Orange Money, Airtel Money, Espèces).
+- Génération de rapports financiers et pédagogiques (PDF, Excel).
+- Gestion des événements et masterclasses.
+- Newsletter et système de communication de masse.
+- Paramètres système (tarifs, horaires, informations du centre).
+
+2.2.4 Module Site Vitrine Public
+- Page d'accueil dynamique avec actualités et formations mises en avant.
+- Catalogue complet des 16 formations avec filtres par catégorie.
+- Pages de détail formation (programme, prérequis, tarif, formateur).
+- Page événements avec système d'inscription en ligne.
+- Page contact avec formulaire, carte interactive et informations pratiques.
+
+
+3. ARCHITECTURE TECHNIQUE
+-------------------------
+
+3.1 Architecture Générale
+Le projet adopte une architecture moderne en couches séparées (frontend / backend / base de données) avec une API RESTful permettant de servir à la fois le site web, l'application mobile (PWA) et des intégrations futures.
+
+3.2 Stack Technologique
+- Frontend : HTML5, CSS3 (Vanilla), JavaScript (ES6+), Progressive Web App (PWA).
+- Backend : Node.js avec Express.
+- Base de Données : MySQL (17 tables principales).
+- Sécurité : JWT (JSON Web Tokens), Chiffrement HTTPS, Bcrypt pour les mots de passe.
+- Stockage : Système de fichiers local pour les uploads (images, PDF).
+
+3.3 Structure des Données
+La base de données MySQL gère les entités suivantes :
+- Utilisateurs (rôles, profils)
+- Formations (catégories, chapitres, leçons)
+- Inscriptions (suivi de progression)
+- Paiements (transactions, modes de paiement)
+- Quiz (questions, réponses, scores)
+- Certificats (génération, validation QR code)
+- Événements & Masterclasses
+- Notifications & Newsletter
+
+
+4. FONCTIONNALITÉS DÉTAILLÉES
+-----------------------------
+
+4.1 Système d'Authentification
+- Inscription et connexion sécurisée par JWT.
+- Rôles : Super Admin, Admin, Secrétaire, Formateur, Étudiant.
+- Récupération de mot de passe par email.
+
+4.2 Catalogue de Formations
+- 16 formations réparties en 7 catégories.
+- Pages détaillées avec programme, objectifs et tarifs.
+- Système d'avis et notation (étoiles + commentaires).
+
+4.3 Système de Paiement Intégré
+- Intégration simulée et réelle des APIs MVola, Orange Money, Airtel Money.
+- Génération automatique de reçus PDF.
+- Suivi des tranches de paiement pour les formations longues.
+
+4.4 Module Cours en Ligne (LMS)
+- Lecteur vidéo avec reprise de lecture.
+- Téléchargement de ressources (PDF, exercices).
+- Quiz interactifs avec score minimum pour validation.
+
+4.5 Génération de Certificats
+- Création automatique en PDF aux couleurs TIA INFO.
+- QR Code unique pour vérification d'authenticité.
+
+4.6 Mode Hors-ligne (PWA)
+- Installation sur mobile et bureau.
+- Mise en cache des cours via Service Workers et IndexedDB.
+
+
+5. PLANNING ET PHASAGE
+----------------------
+
+Phase 1 : Analyse et Conception (4 semaines)
+Phase 2 : Développement Backend & Base de données (8 semaines)
+Phase 3 : Développement Frontend & Modules (10 semaines)
+Phase 4 : Tests, Sécurité et Optimisation (4 semaines)
+Phase 5 : Déploiement et Formation (2 semaines)
+Phase 6 : Support et Maintenance (Période de garantie)
+
+
+--------------------------------------------------------------------------------
+FIN DU DOCUMENT
+--------------------------------------------------------------------------------

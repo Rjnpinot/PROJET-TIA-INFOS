@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz — TIA INFO</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/quiz.css">
+</head>
+<body class="bg-noir">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../../" class="nav-logo">
+                <img src="../img/Logo_Tia_Infos.jpg" alt="Logo">
+                <div class="logo-sub">
+                    <span class="logo-info">TIA INFO</span>
+                    <span class="logo-tagline">ÉVALUATION</span>
+                </div>
+            </a>
+            <div class="quiz-timer" id="quiz-timer">⏱ 00:00</div>
+        </div>
+    </nav>
+
+    <main class="quiz-page">
+        <div class="quiz-container">
+            <header class="quiz-header">
+                <h1>Quiz : <span class="gradient-text" id="quiz-course-title">Développement Web</span></h1>
+                <p id="quiz-sub">Répondez aux questions pour valider votre formation.</p>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quiz-progress" style="width: 0%"></div>
+                </div>
+            </header>
+
+            <div id="quiz-area">
+                <!-- Questions are injected here dynamically -->
+            </div>
+
+            <div id="quiz-results-area" style="display:none">
+                <!-- Results appear here -->
+            </div>
+        </div>
+    </main>
+        <!-- FOOTER -->
+          <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="../../" class="footer-logo" style="text-decoration:none">
+          <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="../../">Accueil</a>
+          <a href="about.html">� Propos</a>
+          <a href="formations.html">Formations</a>
+          <a href="evenements.html">�v�nements</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+
+            <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="formations.html?cat=tech">???? Tech & Code</a>
+          <a href="formations.html?cat=langues">?? Langues</a>
+          <a href="formations.html?cat=gestion">?? Gestion</a>
+          <a href="formations.html?cat=design">?? Design</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualit�s.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit � la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>� 2026 TIA INFO Toamasina � Tous droits r�serv�s � Toamasina, Madagascar</p>
+    </div>
+  </footer>
+
+    <script src="../js/db.js"></script>
+    <script type="module">
+        import { QUIZZES_DATA } from '../js/data.js';
+        import { saveQuizScore } from '../js/app.js';
+        // ─── Quiz Engine (Dynamic) ──────────────────────────
+        let currentQuiz = null;
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let timerInterval = null;
+        let timeLeft = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const qid = params.get('qid') || "ch1";
+            const fid = params.get('fid'); // Formation origin
+
+            currentQuiz = QUIZZES_DATA[qid];
+            if (!currentQuiz) {
+                showToast("Quiz non trouvé", "error");
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+                return;
+            }
+
+            document.getElementById('quiz-course-title').innerText = currentQuiz.title || currentQuiz.tiitle;
+            timeLeft = 300; // 5 min default
+            startTimer();
+            renderQuestion();
+        });
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const s = String(timeLeft % 60).padStart(2, '0');
+                document.getElementById('quiz-timer').innerText = `⏱ ${m}:${s}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        function renderQuestion() {
+            const area = document.getElementById('quiz-area');
+            const q = currentQuiz.questions[currentQuestion];
+            const total = currentQuiz.questions.length;
+            const progress = ((currentQuestion) / total) * 100;
+            document.getElementById('quiz-progress').style.width = progress + '%';
+
+            const letters = ['A', 'B', 'C', 'D'];
+            area.innerHTML = `
+                <div class="quiz-card">
+                    <div class="quiz-question-number">Question ${currentQuestion + 1} sur ${total}</div>
+                    <div class="quiz-question-text">${q.q}</div>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, i) => `
+                            <button class="quiz-option" onclick="selectAnswer(${i}, this)" data-idx="${i}">
+                                <span class="quiz-option-letter">${letters[i]}</span>
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="quiz-footer">
+                    <span class="quiz-question-number">${currentQuestion + 1} / ${total}</span>
+                    <button class="btn-gold quiz-btn-next" id="btn-next" onclick="nextQuestion()" disabled>Suivant →</button>
+                </div>
+            `;
+        }
+
+        function selectAnswer(idx, el) {
+            const q = currentQuiz.questions[currentQuestion];
+            const allOptions = document.querySelectorAll('.quiz-option');
+            allOptions.forEach(o => {
+                o.disabled = true;
+                o.style.pointerEvents = 'none';
+            });
+
+            userAnswers[currentQuestion] = idx;
+
+            if (idx === q.correct) {
+                el.classList.add('correct');
+                score++;
+            } else {
+                el.classList.add('incorrect');
+                allOptions[q.correct].classList.add('correct');
+            }
+
+            document.getElementById('btn-next').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= currentQuiz.questions.length) {
+                clearInterval(timerInterval);
+                showResults();
+            } else {
+                renderQuestion();
+            }
+        }
+        function showResults() {
+            document.getElementById('quiz-area').style.display = 'none';
+            const resultsArea = document.getElementById('quiz-results-area');
+            resultsArea.style.display = 'block';
+
+            const total = currentQuiz.questions.length;
+            const pct = Math.round((score / total) * 100);
+            const passed = pct >= (currentQuiz.passingScore || 70);
+
+            // Sauvegarde du score
+            const params = new URLSearchParams(window.location.search);
+            const fid = params.get('fid');
+            const qid = params.get('qid') || "ch1";
+            if (typeof saveQuizScore === 'function') {
+                saveQuizScore(fid, qid, score, total, passed);
+            }
+
+            document.getElementById('quiz-progress').style.width = '100%';
+
+            resultsArea.innerHTML = `
+                <div class="quiz-card quiz-results">
+                    <h2>${passed ? '🎉 Félicitations !' : '😔 Dommage...'}</h2>
+                    <div class="quiz-score-circle ${passed ? 'pass' : 'fail'}">${pct}%</div>
+                    <p class="quiz-result-msg">
+                        Vous avez obtenu <strong>${score}/${total}</strong> bonnes réponses.
+                        ${passed ? 'Vous avez validé ce module ! Votre certificat est disponible.' : `Le score minimum requis est de ${currentQuiz.passingScore || 70}%. Réessayez !`}
+                    </p>
+                    <div class="quiz-result-actions">
+                        ${passed ? `<a href="certificat.html?fid=${fid || 2}" class="btn-gold quiz-btn-next">📜 Obtenir le Certificat</a>` : ''}
+                        <button onclick="window.locationReload()" class="btn-gold quiz-btn-next" style="background:transparent; border:2px solid var(--gold-primary); color:#fff">🔄 Recommencer</button>
+                        <a href="dashboard.html" class="btn-gold quiz-btn-next" style="background:transparent; border:2px solid var(--gold-primary); color:#fff">← Dashboard</a>
+                    </div>
+                </div>
+            `;
+        }
+        // Expose functions used in HTML if any (selectAnswer, nextQuestion)
+        window.selectAnswer = selectAnswer;
+        window.nextQuestion = nextQuestion;
+        window.locationReload = () => location.reload();
+    </script>
+</body>
+</html>
+

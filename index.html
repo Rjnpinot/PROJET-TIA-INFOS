@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TIA INFO Toamasina — Centre de Formation Professionnelle." />
+  <title>TIA INFO — Accueil</title>
+  <link rel="stylesheet" href="frontend/css/global.css">
+  <link rel="stylesheet" href="frontend/css/home.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="frontend/img/Logo_Tia_Infos.jpg">
+</head>
+<body class="bg-noir">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="./" class="nav-logo">
+        <img src="frontend/img/Logo_Tia_Infos.jpg" alt="Logo" />
+        <div class="logo-sub">
+          <span class="logo-info">TIA INFO</span>
+          <span class="logo-tagline">TOAMASINA</span>
+        </div>
+      </a>
+      
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="./" class="nav-link active">Accueil</a>
+        <a href="frontend/pages/formations.html" class="nav-link">Nos Formations</a>
+        <a href="frontend/pages/evenements.html" class="nav-link">Événements</a>
+         <a href="frontend/pages/about.html" class="nav-link">À Propos</a>
+        <a href="frontend/pages/contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="btn-connexion" onclick="window.location.href='frontend/pages/login.html'" class="btn-gold-sm">Connexion</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero bg-animated" id="hero">
+      <div class="hero-slideshow">
+        <div class="slide" style="background-image: url('frontend/img/Photo_aceuil.jpg')"></div>
+        <div class="slide" style="background-image: url('frontend/img/ouverture_tia_infos.jpg')"></div>
+        <div class="slide" style="background-image: url('frontend/img/pexels-edwardeyer-6319744.jpg')"></div>
+        <div class="slide" style="background-image: url('frontend/img/pexels-olia-danilevich-4974922.jpg')"></div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content" data-animate>
+        <span class="hero-badge">🎓 Excellence & Innovation</span>
+        <h1 class="hero-title">Bâtissez votre <span class="gradient-text">Avenir Numérique</span> avec TIA INFO</h1>
+        <p class="hero-sub">Le centre de formation leader à Toamasina. Maîtrisez le code, l'IA et le management pour transformer votre carrière.</p>
+        <div class="hero-cta">
+          <a href="frontend/pages/formations.html" class="btn-gold">Découvrir nos cours</a>
+          <a href="frontend/pages/about.html" class="btn-gold" style="background:transparent; border:2px solid var(--gold-primary); color:var(--gold-primary)">Notre Vision</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Actualités -->
+      <div class="section">
+        <div class="section-header">
+          <h2>Nos <span class="gradient-text">Actualités</span></h2>
+          <p>Restez informé des derniers événements et nouveautés de TIA INFO</p>
+        </div>
+        <div class="news-grid">
+          <div class="news-card">
+            <div class="news-img" style="background-image: url('frontend/img/Masterclass_ia.jpg')"></div>
+            <div class="news-body">
+              <span class="news-date">07 Février 2026</span>
+              <h4>Masterclass Intelligence Artificielle</h4>
+              <p>Une journée intensive pour maîtriser les outils IA de demain.</p>
+              <a href="frontend/pages/evenements.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">Lire plus →</a>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img" style="background-image: url('frontend/img/Logo_Tia_Infos.jpg')"></div>
+            <div class="news-body">
+              <span class="news-date">15 Janvier 2026</span>
+              <h4>Nouvelle Session de Langues</h4>
+              <p>Inscriptions ouvertes pour l'Anglais et le Français professionnel.</p>
+              <a href="frontend/pages/formations.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">En savoir plus →</a>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img" style="background-image: url('frontend/img/ouverture_tia_infos.jpg')"></div>
+            <div class="news-body">
+              <span class="news-date">01 Janvier 2026</span>
+              <h4>TIA INFO Kids : Nouvelle promo</h4>
+              <p>Le codage pour les enfants devient plus accessible que jamais.</p>
+              <a href="frontend/pages/formations.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">Découvrir →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formations Phares -->
+      <div class="section section-dark">
+        <div class="section-header">
+          <h2>Nos <span class="gradient-text">Formations Phares</span></h2>
+          <p>Les parcours les plus demandés par nos étudiants cette année</p>
+        </div>
+        <div class="formations-grid" id="home-formations-grid"></div>
+      </div>
+
+      <!-- Toutes nos Formations -->
+      <div class="section">
+        <div class="section-header">
+          <h2>Toutes nos <span class="gradient-text">Formations</span></h2>
+          <p>Explorez notre catalogue complet de 16 formations certifiantes</p>
+        </div>
+        <div class="formations-grid" id="all-formations-grid-home"></div>
+        <div style="text-align:center; margin-top:3rem;">
+          <a href="frontend/pages/formations.html" class="btn-gold-lg" title="Voir tout le catalogue">Consulter Tout le Catalogue →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="./" class="footer-logo" style="text-decoration:none">
+          <img src="frontend/img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
+          <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
+        </a>
+        <p>Expert en technologies, codage et langues depuis 2026. TIA INFO accompagne les talents de Toamasina vers l'excellence professionnelle.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" title="Facebook">FB</a>
+          <a href="#" class="social-icon" title="Instagram">IG</a>
+          <a href="#" class="social-icon" title="LinkedIn">IN</a>
+          <a href="#" class="social-icon" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <div>
+          <a href="./">Accueil</a>
+          <a href="frontend/pages/about.html">À Propos</a>
+          <a href="frontend/pages/formations.html">Formations</a>
+          <a href="frontend/pages/evenements.html">Événements</a>
+          <a href="frontend/pages/contact.html">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Modules</h4>
+        <div>
+          <a href="frontend/pages/formations.html?cat=tech">👨💻 Tech & Code</a>
+          <a href="frontend/pages/formations.html?cat=langues">🌍 Langues</a>
+          <a href="frontend/pages/formations.html?cat=gestion">📊 Gestion</a>
+          <a href="frontend/pages/formations.html?cat=design">🎨 Design</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
+          <div style="position:relative">
+            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
+            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2026 TIA INFO Toamasina · Tous droits réservés · Toamasina, Madagascar</p>
+    </div>
+  </footer>
+
+  <script src="frontend/js/db.js"></script>
+  <script type="module" src="frontend/js/auth.js"></script>
+  <script type="module" src="frontend/js/app.js"></script>
+  <script type="module">
+    import { toggleMenu, handleAuth } from './frontend/js/app.js';
+    window.toggleMenu = toggleMenu;
+    window.handleAuth = handleAuth;
+  </script>
+</body>
+</html>

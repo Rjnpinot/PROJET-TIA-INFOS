@@ -1,0 +1,273 @@
+[1] [No Style] TIA INFO TOAMASINA
+[2] [No Style] Centre de Formation Professionnelle
+[3] [No Style] 
+CAHIER DES CHARGES
+Plateforme Numérique Complète
+Application Web, Mobile & Offline
+[6] [Heading 1] 1. PRÉSENTATION DU PROJET
+[7] [Heading 2] 1.1 Contexte et Cadre du Projet
+[8] [No Style] TIA INFO Toamasina est un centre de formation professionnelle spécialisé dans les technologies numériques, les langues étrangères et la gestion des entreprises. Fondé en 2020, le centre propose actuellement 16 formations certifiantes et accueille plus de 500 diplômés dans la région de Toamasina, capitale économique de Madagascar.
+[9] [No Style] Face à la transformation digitale accélérée du secteur éducatif et aux nouvelles habitudes des apprenants (mobile-first, apprentissage à distance, flexibilité horaire), TIA INFO souhaite moderniser et digitaliser l'ensemble de son écosystème de formation.
+[10] [Heading 2] 1.2 Objectifs Généraux
+[11] [List Paragraph] Créer une plateforme numérique complète accessible sur Web, Mobile (iOS & Android) et en mode hors-ligne
+[12] [List Paragraph] Centraliser la gestion des formations, inscriptions, paiements et suivi pédagogique
+[13] [List Paragraph] Améliorer l'expérience utilisateur pour les étudiants, formateurs et l'administration
+[14] [List Paragraph] Permettre une gestion autonome du contenu sans compétences techniques avancées
+[15] [List Paragraph] Intégrer des méthodes de paiement locales malgaches (MVola, Orange Money, Airtel Money)
+[16] [List Paragraph] Générer des certificats numériques vérifiables à la fin de chaque formation
+[17] [Heading 2] 1.3 Périmètre du Projet
+[18] [No Style] Le projet couvre la conception, le développement, le déploiement et la maintenance d'une plateforme e-learning complète incluant : un site web public, une application mobile Progressive Web App (PWA), un espace étudiant sécurisé, un espace formateur, un panel d'administration avancé, et un système de paiement intégré.
+[20] [Heading 1] 2. ANALYSE DES BESOINS
+[21] [Heading 2] 2.1 Parties Prenantes (Stakeholders)
+[23] [Heading 2] 2.2 Besoins Fonctionnels Détaillés
+[24] [Heading 3] 2.2.1 Module Étudiant
+[25] [List Paragraph] Création et gestion de compte (inscription, connexion, récupération mot de passe)
+[26] [List Paragraph] Tableau de bord personnalisé avec progression par cours
+[27] [List Paragraph] Accès aux cours en vidéo, PDF, Quiz interactifs
+[28] [List Paragraph] Système de messagerie avec les formateurs et l'administration
+[29] [List Paragraph] Téléchargement et génération de certificats avec QR code de vérification
+[30] [List Paragraph] Notifications push (nouvelles leçons, événements, échéances de paiement)
+[31] [List Paragraph] Mode hors-ligne : accès aux cours téléchargés sans connexion internet
+[32] [List Paragraph] Historique des paiements et factures téléchargeables
+[33] [Heading 3] 2.2.2 Module Formateur
+[34] [List Paragraph] Espace de création de cours (texte, vidéo, PDF, quiz, devoirs)
+[35] [List Paragraph] Suivi de la progression de chaque étudiant inscrit
+[36] [List Paragraph] Système de notation et de commentaires sur les devoirs
+[37] [List Paragraph] Agenda personnel et planning des sessions
+[38] [List Paragraph] Statistiques d'engagement par cours (vues, taux de complétion)
+[39] [List Paragraph] Messagerie intégrée avec les étudiants
+[40] [Heading 3] 2.2.3 Module Administration
+[41] [List Paragraph] Dashboard exécutif : KPIs clés (revenus, inscriptions, taux de complétion)
+[42] [List Paragraph] Gestion complète du catalogue de formations (CRUD)
+[43] [List Paragraph] Gestion des utilisateurs (étudiants, formateurs, staff)
+[44] [List Paragraph] Validation et suivi des paiements (MVola, Orange Money, Airtel Money, Espèces)
+[45] [List Paragraph] Génération de rapports financiers et pédagogiques (PDF, Excel)
+[46] [List Paragraph] Gestion des événements et masterclasses
+[47] [List Paragraph] Newsletter et système de communication de masse
+[48] [List Paragraph] Paramètres système (tarifs, horaires, informations du centre)
+[49] [Heading 3] 2.2.4 Module Site Vitrine Public
+[50] [List Paragraph] Page d'accueil dynamique avec actualités et formations mises en avant
+[51] [List Paragraph] Catalogue complet des 16 formations avec filtres par catégorie
+[52] [List Paragraph] Pages de détail formation (programme, prérequis, tarif, formateur)
+[53] [List Paragraph] Page événements avec système d'inscription en ligne
+[54] [List Paragraph] Page contact avec formulaire, carte interactive et informations pratiques
+[55] [List Paragraph] Page À Propos avec présentation de l'équipe et des partenaires
+[56] [List Paragraph] Formulaire de préinscription en ligne
+[57] [Heading 2] 2.3 Besoins Non-Fonctionnels
+[59] [Heading 1] 3. ARCHITECTURE TECHNIQUE
+[60] [Heading 2] 3.1 Architecture Générale
+[61] [No Style] Le projet adopte une architecture moderne en couches séparées (frontend / backend / base de données) avec une API RESTful permettant de servir à la fois le site web, l'application mobile et des intégrations futures.
+[62] [Heading 2] 3.2 Stack Technologique Recommandé
+[64] [Heading 2] 3.3 Modèle de Données — Base de Données
+[65] [No Style] La base de données MySQL est structurée en 17 tables principales couvrant tous les aspects fonctionnels de la plateforme :
+[66] [Heading 3] Tables Principales
+[68] [Heading 1] 4. FONCTIONNALITÉS DÉTAILLÉES
+[69] [Heading 2] 4.1 Système d'Authentification & Gestion des Comptes
+[70] [List Paragraph] Inscription par email avec vérification (lien de confirmation envoyé par mail)
+[71] [List Paragraph] Connexion sécurisée avec JWT (token d'accès 24h + refresh token 30 jours)
+[72] [List Paragraph] Connexion via Google OAuth 2.0 (optionnel, phase 2)
+[73] [List Paragraph] Récupération de mot de passe par email avec lien temporaire (15 minutes)
+[74] [List Paragraph] Gestion de profil : photo, biographie, numéro de téléphone
+[75] [List Paragraph] Gestion des rôles : Super Admin, Admin, Secrétaire, Formateur, Étudiant
+[76] [List Paragraph] Historique des connexions et sécurité (2FA optionnel)
+[77] [Heading 2] 4.2 Catalogue et Gestion des Formations
+[78] [No Style] Le catalogue comprend les 16 formations actuelles réparties en 7 catégories :
+[80] [Heading 3] Fonctionnalités par Formation
+[81] [List Paragraph] Page détaillée : programme complet, prérequis, objectifs pédagogiques, formateur, tarif
+[82] [List Paragraph] Galerie de photos et vidéo de présentation
+[83] [List Paragraph] Système d'avis et de notation (étoiles + commentaires) des anciens étudiants
+[84] [List Paragraph] Bouton d'inscription directe avec choix du mode de paiement
+[85] [List Paragraph] Partage sur réseaux sociaux (Facebook, WhatsApp, LinkedIn)
+[86] [List Paragraph] Suggestion de formations similaires ou complémentaires
+[87] [Heading 2] 4.3 Système de Paiement Intégré
+[88] [No Style] Intégration des principaux moyens de paiement disponibles à Madagascar :
+[90] [Heading 3] Fonctionnalités du Système de Paiement
+[91] [List Paragraph] Génération automatique de reçu PDF à chaque paiement validé
+[92] [List Paragraph] Envoi de confirmation par SMS et email
+[93] [List Paragraph] Tableau de bord financier avec graphiques (revenus mensuels, par formation, par mode de paiement)
+[94] [List Paragraph] Relances automatiques pour les paiements en retard
+[95] [List Paragraph] Export comptable en format Excel/CSV
+[96] [Heading 2] 4.4 Module Cours en Ligne (LMS)
+[97] [List Paragraph] Lecteur vidéo intégré avec reprise automatique à la dernière position
+[98] [List Paragraph] Téléchargement de ressources PDF, exercices et corrigés
+[99] [List Paragraph] Quiz interactifs à la fin de chaque chapitre avec correction immédiate
+[100] [List Paragraph] Examen final avec score minimum requis (ex: 70%) pour valider la formation
+[101] [List Paragraph] Forum de questions/réponses par cours avec réponses du formateur
+[102] [List Paragraph] Prise de notes intégrée par leçon
+[103] [List Paragraph] Barre de progression visuelle par formation
+[104] [List Paragraph] Mode sombre / mode clair
+[105] [Heading 2] 4.5 Génération de Certificats Numériques
+[106] [List Paragraph] Certificat généré automatiquement à la validation de la formation (score ≥ seuil)
+[107] [List Paragraph] Design personnalisé aux couleurs TIA INFO (noir & or)
+[108] [List Paragraph] QR Code unique permettant la vérification de l'authenticité en ligne
+[109] [List Paragraph] Téléchargement en PDF haute résolution (A4 et A5)
+[110] [List Paragraph] Partage direct sur LinkedIn, Facebook et WhatsApp
+[111] [List Paragraph] Registre public des certifiés (avec consentement de l'étudiant)
+[112] [Heading 2] 4.6 Application Mobile Progressive Web App (PWA)
+[113] [List Paragraph] Installation sur iOS (Safari → Ajouter à l'écran d'accueil) et Android (Chrome)
+[114] [List Paragraph] Icône personnalisée TIA INFO sur l'écran d'accueil
+[115] [List Paragraph] Mode hors-ligne complet : cours téléchargés accessibles sans connexion
+[116] [List Paragraph] Notifications push pour les nouvelles leçons, événements et rappels
+[117] [List Paragraph] Synchronisation automatique au retour de la connexion
+[118] [List Paragraph] Interface optimisée tactile et responsive (mobile-first)
+[119] [List Paragraph] Taille d'installation légère (< 5 MB initial)
+[120] [Heading 2] 4.7 Gestion des Événements et Masterclasses
+[121] [List Paragraph] Calendrier des événements avec vue mensuelle et liste
+[122] [List Paragraph] Page de détail événement avec description, programme, intervenants
+[123] [List Paragraph] Inscription en ligne avec paiement ou gratuit
+[124] [List Paragraph] Envoi de rappels automatiques (J-7, J-1, J) par SMS et email
+[125] [List Paragraph] Génération de badges participants téléchargeables
+[126] [List Paragraph] Retransmission en direct (live streaming) — Phase 2
+[127] [List Paragraph] Replay des événements passés disponible pour les inscrits
+[128] [Heading 2] 4.8 Système de Notification
+[129] [List Paragraph] Notifications in-app (cloche avec badge de comptage)
+[130] [List Paragraph] Notifications push (Web Push API) sur tous les appareils
+[131] [List Paragraph] SMS automatiques pour les confirmations critiques
+[132] [List Paragraph] Newsletter mensuelle avec actualités du centre
+[133] [List Paragraph] Préférences de notification configurables par l'utilisateur
+[135] [Heading 1] 5. PAGES ET INTERFACES À CRÉER
+[137] [Heading 1] 6. PLANNING ET PHASAGE DU PROJET
+[138] [Heading 2] 6.1 Méthodologie
+[139] [No Style] Le projet sera conduit selon une approche Agile Scrum avec des sprints de 2 semaines. Des livrables intermédiaires fonctionnels seront présentés à la fin de chaque phase pour validation par le client avant de poursuivre.
+[140] [Heading 2] 6.2 Découpage en Phases
+[142] [No Style] Durée totale estimée : 32 semaines (8 mois) — avec une équipe de 2 développeurs full-stack + 1 designer UX/UI.
+[144] [Heading 1] 7. ESTIMATION BUDGÉTAIRE
+[145] [Heading 2] 7.1 Coûts de Développement
+[147] [Heading 2] 7.2 Coûts Récurrents (Annuels)
+[149] [Heading 1] 8. SÉCURITÉ ET CONFORMITÉ
+[150] [Heading 2] 8.1 Mesures de Sécurité
+[151] [List Paragraph] Chiffrement HTTPS/TLS 1.3 sur toutes les communications
+[152] [List Paragraph] Hachage bcrypt (salt factor 12) pour tous les mots de passe
+[153] [List Paragraph] Tokens JWT avec expiration courte (24h) + refresh tokens sécurisés
+[154] [List Paragraph] Protection CSRF sur tous les formulaires
+[155] [List Paragraph] Validation et sanitisation de toutes les entrées utilisateur (XSS, SQL Injection)
+[156] [List Paragraph] Rate limiting sur les endpoints sensibles (connexion, inscription)
+[157] [List Paragraph] Headers de sécurité HTTP (CSP, HSTS, X-Frame-Options)
+[158] [List Paragraph] Sauvegarde automatique quotidienne de la base de données
+[159] [List Paragraph] Journalisation (logs) de toutes les actions administratives
+[160] [List Paragraph] Audit de sécurité trimestriel
+[161] [Heading 2] 8.2 Protection des Données
+[162] [List Paragraph] Collecte minimale des données personnelles (conformité RGPD / loi malgache)
+[163] [List Paragraph] Politique de confidentialité claire et accessible
+[164] [List Paragraph] Droit d'accès, de rectification et de suppression pour les utilisateurs
+[165] [List Paragraph] Chiffrement des données sensibles en base (numéros de téléphone, etc.)
+[166] [List Paragraph] Consentement explicite pour les newsletters et communications marketing
+[168] [Heading 1] 9. CRITÈRES D'ACCEPTATION
+[169] [Heading 2] 9.1 Tests d'Acceptation Fonctionnels
+[170] [No Style] Chaque fonctionnalité sera validée selon les critères suivants avant livraison :
+[172] [Heading 2] 9.2 Livrables Finaux Attendus
+[173] [List Paragraph] Code source complet versionné sur GitHub (repository privé)
+[174] [List Paragraph] Documentation technique (API, base de données, architecture)
+[175] [List Paragraph] Guide d'utilisation administrateur (PDF)
+[176] [List Paragraph] Guide d'utilisation étudiant (PDF)
+[177] [List Paragraph] Formation de l'équipe TIA INFO (2 jours)
+[178] [List Paragraph] Déploiement en production sur serveur VPS
+[179] [List Paragraph] Période de garantie et support : 3 mois après livraison
+[181] [Heading 1] 10. CONTACTS ET SIGNATURES
+[182] [Heading 2] 10.1 Informations Client
+
+tia-info-platform/
+│
+├── backend/                          # ✅ SERVEUR NODE.JS COMPLET
+│   ├── package.json                  # Dépendances backend
+│   ├── package-lock.json
+│   ├── server.js                     # ✅ Serveur principal (Express + Socket.io)
+│   ├── .env                          # ✅ Variables d'environnement
+│   │
+│   ├── routes/                       # ✅ Routes API REST
+│   │   ├── auth.js                   # Authentification (login, register, reset)
+│   │   ├── courses.js                # Gestion des formations
+│   │   ├── payments.js               # ✅ Paiements MVola/Orange/Airtel
+│   │   ├── users.js                  # Gestion utilisateurs
+│   │   └── newsletter.js             # Newsletter email
+│   │
+│   ├── controllers/                  # Logique métier
+│   │   ├── authController.js
+│   │   ├── paymentController.js
+│   │   └── courseController.js
+│   │
+│   ├── models/                       # Modèles de données
+│   │   ├── User.js
+│   │   ├── Course.js
+│   │   ├── Enrollment.js
+│   │   └── Payment.js
+│   │
+│   ├── middleware/                   # Middlewares
+│   │   ├── auth.js                   # Vérification JWT
+│   │   └── upload.js                 # Upload fichiers
+│   │
+│   ├── utils/                        # Utilitaires
+│   │   ├── emailService.js           # ✅ Envoi d'emails réel
+│   │   ├── paymentSimulator.js       # ✅ API MVola/Orange/Airtel
+│   │   ├── pdfGenerator.js           # ✅ Génération PDF (certificats/reçus)
+│   │   └── excelGenerator.js         # ✅ Export Excel
+│   │
+│   ├── sql/                          # Base de données
+│   │   └── database.sql              # ✅ Structure MySQL complète (16 formations)
+│   │
+│   └── uploads/                      # Fichiers uploadés (images, PDF)
+│       └── (fichiers générés)
+│
+├── frontend/                         # ✅ FRONTEND CORRIGÉ
+│   │
+│   ├── index.html                    # ✅ Page d'accueil corrigée
+│   ├── manifest.json                 # ✅ PWA configurée
+│   ├── sw.js                         # ✅ Service Worker (hors-ligne)
+│   │
+│   ├── css/                          # ✅ TOUS LES STYLES
+│   │   ├── global.css                # Styles globaux noir & or
+│   │   ├── home.css                  # Page d'accueil
+│   │   ├── auth.css                  # Login/Register
+│   │   ├── dashboard.css             # Tableau de bord étudiant
+│   │   ├── admin.css                 # Panel admin
+│   │   ├── formateur.css             # Espace formateur
+│   │   ├── certificate.css           # Certificats PDF
+│   │   ├── paiement.css              # Paiement mobile
+│   │   ├── quiz.css                  # Quiz interactifs
+│   │   ├── contact.css               # Page contact
+│   │   ├── formations.css            # Catalogue formations
+│   │   └── notifications.css         # Système notifications
+│   │
+│   ├── js/                           # ✅ SCRIPTS CORRIGÉS
+│   │   ├── app.js                    # ✅ Logique principale CORRIGÉE
+│   │   ├── auth.js                   # ✅ Authentification CORRIGÉE
+│   │   ├── db.js                     # IndexedDB (mode hors-ligne)
+│   │   ├── api.js                    # ✅ Appels API REST
+│   │   ├── notifications.js          # ✅ Notifications push
+│   │   └── data.js                   # Données statiques (fallback)
+│   │
+│   ├── pages/                        # ✅ TOUTES LES PAGES HTML
+│   │   ├── login.html                # Connexion
+│   │   ├── register.html             # Inscription
+│   │   ├── dashboard.html            # Tableau de bord étudiant
+│   │   ├── admin.html                # Panel administrateur
+│   │   ├── formateur.html            # Espace formateur
+│   │   ├── formations.html           # Catalogue formations
+│   │   ├── evenements.html           # Événements masterclass
+│   │   ├── contact.html              # Contact
+│   │   ├── about.html                # À propos
+│   │   ├── paiement.html             # ✅ Paiement mobile
+│   │   ├── quiz.html                 # ✅ Quiz interactif
+│   │   ├── certificat.html           # ✅ Génération certificat
+│   │   ├── reset-password.html       # Réinitialisation mot de passe
+│   │   └── verify.html               # Vérification email
+│   │
+│   └── img/                          # Images
+│       ├── Logo_Tia_Infos.jpg
+│       ├── Photo_aceuil.jpg
+│       ├── Masterclass_ia.jpg
+│       ├── informatique-bureautique.jpg
+│       ├── Cours_de_langue.jpg
+│       ├── Marketing_digital.jpg
+│       ├── nos-formations.jpg
+│       ├── ouverture_tia_infos.jpg
+│       └── Appel_aux_association-de_jeune.jpg
+│
+├── docs/                             # 📚 DOCUMENTATION
+│   ├── GUIDE_ADMIN.pdf
+│   ├── GUIDE_ETUDIANT.pdf
+│   ├── DOC_TECHNIQUE_API.md
+│   └── MANUAL_DEPLOIEMENT.md
+│
+├── .gitignore
+└── README.md                         # ✅ Documentation complète

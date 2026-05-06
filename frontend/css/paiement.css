@@ -1,0 +1,178 @@
+/* =========================================
+   TIA INFO — PAYMENT PAGE STYLES
+   Thème Noir & Or avec Glassmorphism
+   ========================================= */
+
+.pay-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: radial-gradient(circle at top right, #1a1a1a, #0a0a0a);
+}
+
+.pay-card {
+    background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 32px;
+    width: 100%;
+    max-width: 500px;
+    padding: 3rem;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.pay-header {
+    margin-bottom: 2.5rem;
+}
+
+.pay-amount-box {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px dashed var(--gold-primary);
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin: 1.5rem 0;
+}
+
+.pay-amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold-primary);
+}
+
+.pay-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.pay-method-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pay-method-btn img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.pay-method-btn span {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.pay-method-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.pay-method-btn.active {
+    border-color: var(--gold-primary);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.pay-method-btn.active span {
+    color: var(--gold-primary);
+}
+
+.pay-form-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.pay-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.pay-input {
+    width: 100%;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.pay-input:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Modal Simulation USSD */
+.ussd-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.ussd-content {
+    background: #111;
+    border: 1px solid var(--gold-primary);
+    border-radius: 24px;
+    padding: 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(212, 175, 55, 0.1);
+    border-left-color: var(--gold-primary);
+    border-radius: 50%;
+    margin: 2rem auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #4BB543;
+    margin-bottom: 1.5rem;
+    display: none;
+}
+.pay-logo { height:50px; border-radius:10px; margin-bottom:1rem; }
+.pay-title { font-size:1.8rem; margin:0; }
+.pay-subtitle { color:var(--text-muted); font-size:0.9rem; margin-top:0.5rem; }
+.pay-amount-label { margin:0; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); }
+.pay-course-name { margin-top:0.5rem; font-weight:700; color:#fff; }
+.pay-methods-label { display:block; text-align:left; margin-bottom:1rem; font-size:0.9rem; font-weight:bold; color:var(--text-muted); }
+.pay-btn-confirm { width:100%; padding:1.2rem; border-radius:15px; font-size:1.1rem; margin-top:1rem; }
+.pay-cancel-link { display:block; margin-top:1.5rem; color:var(--text-muted); text-decoration:none; font-size:0.9rem; }
+.ussd-success-icon { font-size: 4rem; color: #4BB543; margin-bottom: 1.5rem; display: block; }
+.ussd-success-title { color:#4BB543; }
+.ussd-success-text { margin:1.5rem 0; }
+.ussd-exit-btn { width:100%; }
+.ussd-loading-sub { color:var(--text-muted); font-size:0.8rem; }

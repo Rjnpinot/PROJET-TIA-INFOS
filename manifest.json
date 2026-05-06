@@ -1,0 +1,22 @@
+{
+  "name": "TIA INFO Toamasina",
+  "short_name": "TIA INFO",
+  "description": "Centre de Formation Professionnelle à Toamasina",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#d4af37",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "frontend/img/Logo_Tia_Infos.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "frontend/img/TiaInfo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
