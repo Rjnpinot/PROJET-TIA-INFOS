@@ -388,6 +388,16 @@ body {
 .video-placeholder { text-align: center; }
 .icon-xl { font-size: 4rem; display: block; margin-bottom: 1rem; }
 .forum-textarea { height: 100px; }
+.pos-relative { position: relative; }
+.d-none { display: none; }
+.initial-width { width: 0%; }
+.h-10 { height: 10%; }
+.h-20 { height: 20%; }
+.h-35 { height: 35%; }
+.h-40 { height: 40%; }
+.h-60 { height: 60%; }
+.h-75 { height: 75%; }
+.h-90 { height: 90%; }
 .mt-1-5 { margin-top: 1.5rem; }
 .search-input-glass { padding: 1rem 1.5rem; border-radius: 50px; width: 100%; max-width: 500px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); color: #fff; font-size: 1rem; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .icon-lg { font-size: 2rem; }
