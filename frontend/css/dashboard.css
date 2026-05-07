@@ -90,8 +90,8 @@
     padding: 1.5rem 1.2rem;
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 32px;
-    backdrop-filter: blur(40px) saturate(180%);
     -webkit-backdrop-filter: blur(40px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(180%);
     box-shadow: 
         inset 0 1px 0 rgba(255,255,255,0.08),
         inset 0 -1px 0 rgba(0,0,0,0.3);
@@ -325,6 +325,25 @@
 }
 
 /* --- Course Cards --- */
+.dash-tab { display: none; }
+.section-header { margin-bottom: 2rem; text-align: left; }
+.section-header h1 { font-size: 2.2rem; }
+.section-header p { color: var(--text-muted); }
+.stats-grid-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+.resource-filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; align-items: center; }
+.search-box-modern { flex: 1; min-width: 250px; position: relative; }
+/* Override global inputs specifically for dashboard headers */
+.btn-logout-header { background: transparent; color: rgba(255, 80, 80, 0.8); border: 1px solid rgba(255, 80, 80, 0.3); font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+.btn-logout-header:hover { background: rgba(255, 80, 80, 0.1); color: #ff5050; }
+.dash-nav-right { display: flex; align-items: center; gap: 1rem; }
+#user-display-name { color: var(--gold-primary); font-weight: 600; font-size: 0.9rem; }
+.filter-select-glass { padding: 1rem; border-radius: 15px; background: rgba(25, 25, 25, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); color: white; cursor: pointer; }
+.chat-container-glass { background: rgba(15, 15, 15, 0.7); padding: 2rem; border-radius: 24px; border: 1px solid rgba(212, 175, 55, 0.15); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.chat-messages-area { height: 380px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 1rem; }
+.chat-form-glass { display: flex; gap: 1rem; }
+.chat-input-glass { flex: 1; padding: 1rem 1.5rem; border-radius: 50px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 175, 55, 0.2); color: white; font-family: 'Inter', sans-serif; outline: none; transition: 0.3s; }
+.chat-input-glass:focus { border-color: var(--gold-primary); background: rgba(255, 255, 255, 0.08); }
+.notif-container-glass { background: rgba(15, 15, 15, 0.6); padding: 3rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; color: var(--text-muted); }
 .course-progress-card {
     background: rgba(15, 15, 15, 0.6);
     border: 1px solid rgba(255,255,255,0.06);
@@ -332,8 +351,8 @@
     border-radius: 24px;
     margin-bottom: 1.5rem;
     transition: 0.4s;
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .course-progress-card:hover {
@@ -375,8 +394,8 @@
     flex-direction: column;
     gap: 1.2rem;
     transition: 0.3s;
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .resource-card:hover {

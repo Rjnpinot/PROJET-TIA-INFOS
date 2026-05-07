@@ -21,9 +21,9 @@
           <span class="logo-tagline">TOAMASINA</span>
         </div>
       </a>
-      <div class="dash-nav-right" style="display:flex; align-items:center; gap:1rem;">
-        <span id="user-display-name" style="color:var(--gold-primary); font-weight:600; font-size:0.9rem;">Chargement...</span>
-        <button onclick="logout()" class="btn-gold-sm" style="background:transparent; color:rgba(255,80,80,0.8); border:1px solid rgba(255,80,80,0.3); font-size:0.8rem;">Déconnexion 🚪</button>
+      <div class="dash-nav-right">
+        <span id="user-display-name">Chargement...</span>
+        <button onclick="logout()" class="btn-logout-header">Déconnexion 🚪</button>
       </div>
     </div>
   </nav>
@@ -102,13 +102,13 @@
 
       <!-- Tab: Mes Cours -->
       <div id="tab-courses">
-        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
-          <h1 style="font-size:2.2rem;">Mes <span class="gradient-text">Cours</span></h1>
-          <p style="color:var(--text-muted);">Suivez votre progression et accédez à vos ressources pédagogiques.</p>
+        <div class="section-header">
+          <h1>Mes <span class="gradient-text">Cours</span></h1>
+          <p>Suivez votre progression et accédez à vos ressources pédagogiques.</p>
         </div>
         
         <!-- Stats Summary -->
-        <div id="dashboard-stats-summary" class="stats-grid-compact" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem; margin-bottom:2.5rem;">
+        <div id="dashboard-stats-summary" class="stats-grid-compact">
           <!-- Dynamically filled -->
         </div>
         <div id="enrolled-courses-container">
@@ -117,21 +117,20 @@
       </div>
 
       <!-- Tab: Ressources -->
-      <div id="tab-resources" style="display:none">
-        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
-          <h1 style="font-size:2.2rem;">Bibliothèque <span class="gradient-text">BestCours</span></h1>
-          <p style="color:var(--text-muted);">Accédez aux meilleures ressources gratuites du web via notre partenaire.</p>
+      <div id="tab-resources" class="dash-tab">
+        <div class="section-header">
+          <h1>Bibliothèque <span class="gradient-text">BestCours</span></h1>
+          <p>Accédez aux meilleures ressources gratuites du web via notre partenaire.</p>
         </div>
 
         <!-- Resource Filters -->
-        <div class="resource-filters" style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem; align-items:center;">
-          <div class="search-box-modern" style="flex:1; min-width:250px; position:relative;">
+        <div class="resource-filters">
+          <div class="search-box-modern">
             <input type="text" id="resource-search" placeholder="Rechercher une ressource (ex: Python, React...)" 
-              style="width:100%; padding:1rem 1.5rem; border-radius:15px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2); color:white;"
+              class="search-input-glass"
               onkeyup="filterResources()">
           </div>
-          <select id="resource-category" onchange="filterResources()"
-            style="padding:1rem; border-radius:15px; background:rgba(25,25,25,0.9); border:1px solid rgba(212,175,55,0.2); color:white; cursor:pointer;">
+          <select id="resource-category" class="filter-select-glass" onchange="filterResources()" title="Catégorie de ressource">
             <option value="all">Toutes les catégories</option>
             <option value="Développement Web">Développement Web</option>
             <option value="Intelligence Artificielle">Intelligence Artificielle</option>
@@ -140,34 +139,34 @@
           </select>
         </div>
 
-        <div class="resource-grid" id="resource-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1.5rem;">
+        <div class="resource-grid" id="resource-grid">
           <!-- Dynamically filled -->
         </div>
       </div>
 
 
       <!-- Tab: Messagerie -->
-      <div id="tab-messaging" style="display:none">
-        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
-          <h1 style="font-size:2.2rem;">Messagerie <span class="gradient-text">Support</span></h1>
-          <p style="color:var(--text-muted);">Posez vos questions directement à l'équipe pédagogique.</p>
+      <div id="tab-messaging" class="dash-tab">
+        <div class="section-header">
+          <h1>Messagerie <span class="gradient-text">Support</span></h1>
+          <p>Posez vos questions directement à l'équipe pédagogique.</p>
         </div>
-        <div style="background:rgba(15,15,15,0.7); padding:2rem; border-radius:24px; border:1px solid rgba(212,175,55,0.15); backdrop-filter:blur(10px);">
-          <div id="chat-messages" style="height:380px; overflow-y:auto; margin-bottom:1.5rem; padding-right:1rem;"></div>
-          <form onsubmit="sendMessage(event)" style="display:flex; gap:1rem;">
-            <input type="text" id="msg-input" placeholder="Écrivez votre message..." style="flex:1; padding:1rem 1.5rem; border-radius:50px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2); color:white; font-family:'Inter',sans-serif; outline:none;">
+        <div class="chat-container-glass">
+          <div id="chat-messages" class="chat-messages-area"></div>
+          <form onsubmit="sendMessage(event)" class="chat-form-glass">
+            <input type="text" id="msg-input" placeholder="Écrivez votre message..." class="chat-input-glass">
             <button type="submit" class="btn-gold">Envoyer 📧</button>
           </form>
         </div>
       </div>
 
       <!-- Tab: Notifications -->
-      <div id="tab-notifs" style="display:none">
-        <div class="section-header" style="margin-bottom:2rem; text-align:left;">
-          <h1 style="font-size:2.2rem;">Mes <span class="gradient-text">Notifications</span></h1>
-          <p style="color:var(--text-muted);">Retrouvez vos dernières alertes et mises à jour pédagogiques.</p>
+      <div id="tab-notifs" class="dash-tab">
+        <div class="section-header">
+          <h1>Mes <span class="gradient-text">Notifications</span></h1>
+          <p>Retrouvez vos dernières alertes et mises à jour pédagogiques.</p>
         </div>
-        <div style="background:rgba(15,15,15,0.6); padding:3rem; border-radius:24px; border:1px solid rgba(255,255,255,0.05); text-align:center; color:var(--text-muted);">
+        <div class="notif-container-glass">
           <div id="notifications-list" class="notifications-list">
             <!-- Dynamically filled -->
           </div>
@@ -214,11 +213,11 @@
       </div>
       <div class="footer-newsletter">
         <h4>Newsletter</h4>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+        <p class="footer-newsletter-desc">Inscrivez-vous pour recevoir nos actualités.</p>
         <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
-          <div style="position:relative">
-            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
-            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          <div class="newsletter-input-wrapper">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input" />
+            <button type="submit" class="btn-gold-sm newsletter-btn">OK</button>
           </div>
         </form>
       </div>

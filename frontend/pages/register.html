@@ -14,12 +14,12 @@
     <img src="../img/Logo_Tia_Infos.jpg" alt="Logo TIA INFO" class="auth-logo">
     <h1>Inscription<span>Créer votre compte étudiant</span></h1>
     <form onsubmit="handleAuth(event, 'register')" autocomplete="on" aria-label="Formulaire d'inscription">
-      <div class="form-group-row" style="display:flex; gap:1rem;">
-        <div class="form-group" style="flex:1">
+      <div class="form-group-row">
+        <div class="form-group form-group-flex">
           <label for="reg-prenom">Prénom</label>
           <input type="text" id="reg-prenom" name="prenom" placeholder="Jean" required autocomplete="given-name" aria-required="true">
         </div>
-        <div class="form-group" style="flex:1">
+        <div class="form-group form-group-flex">
           <label for="reg-nom">Nom</label>
           <input type="text" id="reg-nom" name="nom" placeholder="Dupont" required autocomplete="family-name" aria-required="true">
         </div>
@@ -28,19 +28,19 @@
         <label for="reg-email">Email académique</label>
         <input type="email" id="reg-email" name="email" placeholder="votre@email.com" required autocomplete="email" aria-required="true">
       </div>
-      <div class="form-group" style="position:relative;">
+      <div class="form-group-relative">
         <label for="reg-pass">Mot de passe</label>
         <input type="password" id="reg-pass" name="password" placeholder="Créer votre mot de passe" required autocomplete="new-password" aria-required="true">
-        <button type="button" id="toggle-password" aria-label="Afficher/Masquer le mot de passe" style="position:absolute; right:10px; top:38px; background:none; border:none; color:var(--gold-primary); font-size:1.1rem; cursor:pointer;">👁️</button>
+        <button type="button" id="toggle-password" aria-label="Afficher/Masquer le mot de passe" class="toggle-password-btn">👁️</button>
       </div>
-      <div id="register-error" style="color:#e74c3c; font-size:0.95rem; min-height:1.5em; margin-bottom:1.2rem; display:none"></div>
-      <button type="submit" class="btn-gold" style="width:100%; font-size:1.1rem;">Créer mon compte</button>
+      <div id="register-error" class="auth-error-msg"></div>
+      <button type="submit" class="btn-gold btn-gold-full">Créer mon compte</button>
     </form>
-    <div class="auth-footer" style="margin-top:2.5rem;">
+    <div class="auth-footer auth-footer-reg">
       <p>Déjà membre ? <a href="login.html">Se connecter</a></p>
       <a href="../../" class="back-link">← Retour à l'accueil</a>
     </div>
-    <div id="message-container" style="margin-top:2rem; padding:1rem; border-radius:8px; text-align:center; display:none;"></div>
+    <div id="message-container" class="message-container-alert"></div>
   </div>
   <script>
     // Afficher/Masquer le mot de passe

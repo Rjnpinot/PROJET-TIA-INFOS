@@ -14,8 +14,8 @@ body {
 
 .auth-card {
     background: rgba(18, 18, 18, 0.7);
-    backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 3.5rem;
     border-radius: 32px;
@@ -153,3 +153,15 @@ body {
         padding: 2.5rem 1.5rem;
     }
 }
+
+/* --- Registration Specific --- */
+.form-group-row { display: flex; gap: 1rem; }
+.form-group-flex { flex: 1; }
+.form-group-relative { text-align: left; margin-bottom: 1.8rem; position: relative; }
+.toggle-password-btn { position: absolute; right: 10px; top: 38px; background: none; border: none; color: var(--gold-primary); font-size: 1.1rem; cursor: pointer; }
+.auth-error-msg { color: #e74c3c; font-size: 0.95rem; min-height: 1.5em; margin-bottom: 1.2rem; display: none; }
+.btn-gold-full { width: 100%; font-size: 1.1rem; }
+.auth-footer-reg { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.message-container-alert { margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; }
+.verify-resend-container { margin-top: 1rem; display: none; text-align: center; }
+.warning-text { color: #e67e22; }

@@ -35,7 +35,7 @@
                 <!-- Questions are injected here dynamically -->
             </div>
 
-            <div id="quiz-results-area" style="display:none">
+            <div id="quiz-results-area" class="quiz-results-hidden">
                 <!-- Results appear here -->
             </div>
         </div>
@@ -44,7 +44,7 @@
           <footer class="footer">
     <div class="footer-main">
       <div class="footer-brand">
-        <a href="../../" class="footer-logo" style="text-decoration:none">
+        <a href="../../" class="footer-logo text-decor-none">
           <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
           <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
         </a>
@@ -80,11 +80,11 @@
 
       <div class="footer-newsletter">
         <h4>Newsletter</h4>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualit�s.</p>
+        <p class="footer-newsletter-desc">Inscrivez-vous pour recevoir nos actualit�s.</p>
         <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit � la newsletter !')">
-          <div style="position:relative">
-            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
-            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          <div class="newsletter-input-wrapper">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input" />
+            <button type="submit" class="btn-gold-sm newsletter-btn">OK</button>
           </div>
         </form>
       </div>
@@ -225,8 +225,8 @@
                     </p>
                     <div class="quiz-result-actions">
                         ${passed ? `<a href="certificat.html?fid=${fid || 2}" class="btn-gold quiz-btn-next">📜 Obtenir le Certificat</a>` : ''}
-                        <button onclick="window.locationReload()" class="btn-gold quiz-btn-next" style="background:transparent; border:2px solid var(--gold-primary); color:#fff">🔄 Recommencer</button>
-                        <a href="dashboard.html" class="btn-gold quiz-btn-next" style="background:transparent; border:2px solid var(--gold-primary); color:#fff">← Dashboard</a>
+                        <button onclick="window.locationReload()" class="quiz-btn-next btn-outline-gold-light">🔄 Recommencer</button>
+                        <a href="dashboard.html" class="quiz-btn-next btn-outline-gold-light">← Dashboard</a>
                     </div>
                 </div>
             `;

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Événements — TIA INFO</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIA INFO - Événements</title>
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="../css/contact.css">
   <link rel="manifest" href="../../manifest.json">
   <link rel="apple-touch-icon" href="../img/Logo_Tia_Infos.jpg">
 </head>
@@ -33,30 +34,45 @@
       </div>
 
       <div class="nav-actions">
-        <button id="btn-connexion" onclick="window.location.href='login.html'" class="btn-gold-sm">Connexion</button>
+        <button id="btn-connexion" onclick="window.location.href='login.html'" class="btn-gold-sm btn-glow">Connexion</button>
       </div>
     </div>
   </nav>
 
   <main class="module-main">
     <section class="page active">
-      <div class="hero">
-        <h1>Nos <span class="gradient-text">Événements</span></h1>
+      <div class="page-hero-sm animate-fade-in">
+        <h1>Nos <span class="gradient-text gradient-glow">Événements</span></h1>
         <p>Restez informé de nos derniers événements technologiques à Toamasina.</p>
       </div>
 
-      <div class="section">
-        <div class="news-grid" id="events-grid">
-           <!-- Dynamically filled from app.js / data.js -->
+      <div class="section bg-mesh">
+        <div class="container">
+            <div class="news-grid" id="events-grid">
+               <!-- Dynamically filled from app.js / data.js -->
+            </div>
+            
+            <!-- Default Events (Fallback si app.js ne charge pas la section events-grid) -->
+            <div class="news-grid mt-2" id="events-fallback">
+              <div class="news-card" data-animate>
+                <div class="news-img parallax-img bg-event-default"></div>
+                <div class="news-body">
+                  <span class="news-date shimmer-text">07 Février 2026</span>
+                  <h4 class="event-card-title">Masterclass Intelligence Artificielle</h4>
+                  <p class="event-card-desc">Une journée intensive pour maîtriser les outils IA de demain et optimiser votre productivité.</p>
+                  <a href="#" class="news-link event-card-link">Participer →</a>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </section>
   </main>
-  <!-- FOOTER -->
-    <footer class="footer">
+  
+  <footer class="footer">
     <div class="footer-main">
       <div class="footer-brand">
-        <a href="../../" class="footer-logo" style="text-decoration:none">
+        <a href="../../" class="footer-logo text-decor-none">
           <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
           <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
         </a>
@@ -73,43 +89,47 @@
         <h4>Navigation</h4>
         <div>
           <a href="../../">Accueil</a>
-          <a href="about.html">� Propos</a>
+          <a href="about.html">À Propos</a>
           <a href="formations.html">Formations</a>
-          <a href="evenements.html">�v�nements</a>
+          <a href="evenements.html">Événements</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>
 
-            <div class="footer-links">
+      <div class="footer-links">
         <h4>Modules</h4>
         <div>
-          <a href="formations.html?cat=tech">???? Tech & Code</a>
-          <a href="formations.html?cat=langues">?? Langues</a>
-          <a href="formations.html?cat=gestion">?? Gestion</a>
-          <a href="formations.html?cat=design">?? Design</a>
+          <a href="formations.html?cat=tech">👨‍💻 Tech & Code</a>
+          <a href="formations.html?cat=langues">🌍 Langues</a>
+          <a href="formations.html?cat=gestion">📊 Gestion</a>
+          <a href="formations.html?cat=design">🎨 Design</a>
         </div>
       </div>
 
       <div class="footer-newsletter">
         <h4>Newsletter</h4>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualit�s.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit � la newsletter !')">
-          <div style="position:relative">
-            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
-            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+        <p class="footer-newsletter-desc">Inscrivez-vous pour recevoir nos actualités.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
+          <div class="newsletter-input-wrapper">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input" />
+            <button type="submit" class="btn-gold-sm newsletter-btn">OK</button>
           </div>
         </form>
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>� 2026 TIA INFO Toamasina � Tous droits r�serv�s � Toamasina, Madagascar</p>
+      <p>© 2026 TIA INFO Toamasina · Tous droits réservés · Toamasina, Madagascar</p>
     </div>
   </footer>
 
-  <script src="../js/data.js"></script>
-  <script src="../js/app.js"></script>
+  <script src="../js/db.js"></script>
+  <script type="module" src="../js/auth.js"></script>
+  <script type="module" src="../js/app.js"></script>
+  <script type="module">
+    import { toggleMenu, handleAuth } from '../js/app.js';
+    window.toggleMenu = toggleMenu;
+    window.handleAuth = handleAuth;
+  </script>
 </body>
 </html>
-
-

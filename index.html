@@ -40,90 +40,177 @@
   </nav>
 
   <main>
-    <section class="hero bg-animated" id="hero">
-      <div class="hero-slideshow">
-        <div class="slide" style="background-image: url('frontend/img/Photo_aceuil.jpg')"></div>
-        <div class="slide" style="background-image: url('frontend/img/ouverture_tia_infos.jpg')"></div>
-        <div class="slide" style="background-image: url('frontend/img/pexels-edwardeyer-6319744.jpg')"></div>
-        <div class="slide" style="background-image: url('frontend/img/pexels-olia-danilevich-4974922.jpg')"></div>
-      </div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content" data-animate>
-        <span class="hero-badge">🎓 Excellence & Innovation</span>
-        <h1 class="hero-title">Bâtissez votre <span class="gradient-text">Avenir Numérique</span> avec TIA INFO</h1>
-        <p class="hero-sub">Le centre de formation leader à Toamasina. Maîtrisez le code, l'IA et le management pour transformer votre carrière.</p>
-        <div class="hero-cta">
-          <a href="frontend/pages/formations.html" class="btn-gold">Découvrir nos cours</a>
-          <a href="frontend/pages/about.html" class="btn-gold" style="background:transparent; border:2px solid var(--gold-primary); color:var(--gold-primary)">Notre Vision</a>
+    <!-- HERO SECTION REVISITÉE AVEC ANCIEN BACKGROUND -->
+    <section class="hero" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content" data-animate>
+          <div class="hero-badge-wrap">
+            <span class="hero-badge shimmer-effect">🎓 Excellence & Innovation</span>
+          </div>
+          <h1 class="hero-title">Bâtissez votre <span class="gradient-text gradient-glow">Avenir Numérique</span> avec TIA INFO</h1>
+          <p class="hero-sub">Le centre de formation leader à Toamasina. Maîtrisez le code, l'IA et le management pour transformer votre carrière et devenir l'élite de demain.</p>
+          
+          <div class="hero-stats delay-2" data-animate>
+            <div class="stat-item">
+              <span class="stat-num">500+</span>
+              <span class="stat-text">Étudiants formés</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">16</span>
+              <span class="stat-text">Formations certifiantes</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">95%</span>
+              <span class="stat-text">Taux de réussite</span>
+            </div>
+          </div>
+
+          <div class="hero-cta delay-4" data-animate>
+            <a href="frontend/pages/formations.html" class="btn-gold btn-glow">Découvrir nos cours <i class="fas fa-arrow-right"></i></a>
+            <a href="frontend/pages/about.html" class="btn-gold-outline">Notre Vision</a>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- NOUVELLE SECTION: POURQUOI TIA INFO -->
+    <div class="section features-section bg-mesh">
+      <div class="section-header" data-animate>
+        <span class="section-subtitle">Pédagogie d'Avant-Garde</span>
+        <h2>Pourquoi choisir <span class="gradient-text">TIA INFO ?</span></h2>
+        <p>Nous faisons plus que transmettre des connaissances, nous forgeons l'élite numérique de Madagascar à travers des méthodes éprouvées.</p>
+      </div>
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-card" data-animate>
+            <div class="feature-icon">🚀</div>
+            <h3>Approche 100% Pratique</h3>
+            <p>Fini la théorie interminable. Apprenez en construisant de réels projets d'entreprise qui enrichiront votre portfolio dès le premier jour.</p>
+          </div>
+          <div class="feature-card delay-1" data-animate>
+            <div class="feature-icon">👨‍🏫</div>
+            <h3>Experts de l'Industrie</h3>
+            <p>Nos formateurs sont des professionnels actifs du secteur, vous garantissant un apprentissage aligné sur les réalités du marché actuel.</p>
+          </div>
+          <div class="feature-card delay-2" data-animate>
+            <div class="feature-icon">💼</div>
+            <h3>Insertion Professionnelle</h3>
+            <p>Accompagnement dédié, création de CV, préparation aux entretiens et mise en relation directe avec notre réseau d'entreprises partenaires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Nos Actualités -->
-      <div class="section">
-        <div class="section-header">
+    <div class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-subtitle">En direct du campus</span>
           <h2>Nos <span class="gradient-text">Actualités</span></h2>
           <p>Restez informé des derniers événements et nouveautés de TIA INFO</p>
         </div>
         <div class="news-grid">
-          <div class="news-card">
-            <div class="news-img" style="background-image: url('frontend/img/Masterclass_ia.jpg')"></div>
+          <div class="news-card" data-animate>
+            <div class="news-img parallax-img news-img-masterclass"></div>
             <div class="news-body">
-              <span class="news-date">07 Février 2026</span>
+              <span class="news-date shimmer-text">07 Février 2026</span>
               <h4>Masterclass Intelligence Artificielle</h4>
-              <p>Une journée intensive pour maîtriser les outils IA de demain.</p>
-              <a href="frontend/pages/evenements.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">Lire plus →</a>
+              <p>Une journée intensive pour maîtriser les outils IA de demain et optimiser votre productivité.</p>
+              <a href="frontend/pages/evenements.html" class="news-link">Lire plus →</a>
             </div>
           </div>
-          <div class="news-card">
-            <div class="news-img" style="background-image: url('frontend/img/Logo_Tia_Infos.jpg')"></div>
+          <div class="news-card delay-1" data-animate>
+            <div class="news-img parallax-img news-img-logo"></div>
             <div class="news-body">
-              <span class="news-date">15 Janvier 2026</span>
+              <span class="news-date shimmer-text">15 Janvier 2026</span>
               <h4>Nouvelle Session de Langues</h4>
-              <p>Inscriptions ouvertes pour l'Anglais et le Français professionnel.</p>
-              <a href="frontend/pages/formations.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">En savoir plus →</a>
+              <p>Inscriptions ouvertes pour l'Anglais et le Français professionnel. Places extrêmement limitées.</p>
+              <a href="frontend/pages/formations.html" class="news-link">En savoir plus →</a>
             </div>
           </div>
-          <div class="news-card">
-            <div class="news-img" style="background-image: url('frontend/img/ouverture_tia_infos.jpg')"></div>
+          <div class="news-card delay-2" data-animate>
+            <div class="news-img parallax-img news-img-ouverture"></div>
             <div class="news-body">
-              <span class="news-date">01 Janvier 2026</span>
+              <span class="news-date shimmer-text">01 Janvier 2026</span>
               <h4>TIA INFO Kids : Nouvelle promo</h4>
-              <p>Le codage pour les enfants devient plus accessible que jamais.</p>
-              <a href="frontend/pages/formations.html" style="color:var(--gold-primary); font-size: 0.9rem; font-weight: 600;">Découvrir →</a>
+              <p>Le codage pour les enfants devient plus accessible que jamais avec notre pédagogie ludique.</p>
+              <a href="frontend/pages/formations.html" class="news-link">Découvrir →</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Formations Phares -->
-      <div class="section section-dark">
-        <div class="section-header">
-          <h2>Nos <span class="gradient-text">Formations Phares</span></h2>
-          <p>Les parcours les plus demandés par nos étudiants cette année</p>
+    <!-- Formations Phares (Dynamic) -->
+    <div class="section courses-section bg-mesh">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-subtitle">Excellence Académique</span>
+          <h2>Nos Formations <span class="gradient-text">Phares</span></h2>
+          <p>Les parcours intensifs les plus demandés par nos étudiants cette année</p>
         </div>
         <div class="formations-grid" id="home-formations-grid"></div>
+        <div class="text-center-mt-4" data-animate>
+          <a href="frontend/pages/formations.html" class="btn-gold-lg btn-glow" title="Voir tout le catalogue">Consulter Tout le Catalogue →</a>
+        </div>
       </div>
+    </div>
 
-      <!-- Toutes nos Formations -->
-      <div class="section">
-        <div class="section-header">
-          <h2>Toutes nos <span class="gradient-text">Formations</span></h2>
-          <p>Explorez notre catalogue complet de 16 formations certifiantes</p>
+    <!-- NOUVELLE SECTION: TÉMOIGNAGES -->
+    <div class="section testimonials-section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-subtitle">Paroles d'étudiants</span>
+          <h2>Ce qu'ils disent de <span class="gradient-text">Nous</span></h2>
         </div>
-        <div class="formations-grid" id="all-formations-grid-home"></div>
-        <div style="text-align:center; margin-top:3rem;">
-          <a href="frontend/pages/formations.html" class="btn-gold-lg" title="Voir tout le catalogue">Consulter Tout le Catalogue →</a>
+        <div class="testimonials-grid">
+          <div class="testimonial-card" data-animate>
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">"Grâce à la formation Dev Web de TIA INFO, j'ai pu décrocher mon premier CDI en tant que développeur front-end en seulement 6 mois !"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar author-avatar.sr">SR</div>
+              <div class="author-info">
+                <strong>Stephan R.</strong>
+                <span>Alumni 2025</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card delay-1" data-animate>
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">"Les locaux sont premium, les profs sont passionnés. On sent qu'on n'est pas juste un numéro, mais qu'ils s'investissent dans notre réussite."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar author-avatar.ma">MA</div>
+              <div class="author-info">
+                <strong>Mialy A.</strong>
+                <span>Gestion & Management</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    <!-- NOUVELLE SECTION: CTA FINAL -->
+    <div class="section cta-section">
+      <div class="container">
+        <div class="cta-box" data-animate>
+          <div class="cta-glow-bg"></div>
+          <h2>Prêt à Transformer Votre <span class="gradient-text">Carrière ?</span></h2>
+          <p>Rejoignez la nouvelle élite de Toamasina. Les inscriptions pour la prochaine rentrée sont ouvertes.</p>
+          <div class="cta-actions">
+            <a href="frontend/pages/formations.html" class="btn-gold-lg btn-glow">S'inscrire Maintenant</a>
+            <a href="frontend/pages/contact.html" class="btn-gold-outline">Nous Contacter</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-main">
       <div class="footer-brand">
-        <a href="./" class="footer-logo" style="text-decoration:none">
+        <a href="./" class="footer-logo">
           <img src="frontend/img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
           <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
         </a>
@@ -150,7 +237,7 @@
       <div class="footer-links">
         <h4>Modules</h4>
         <div>
-          <a href="frontend/pages/formations.html?cat=tech">👨💻 Tech & Code</a>
+          <a href="frontend/pages/formations.html?cat=tech">👨‍💻 Tech & Code</a>
           <a href="frontend/pages/formations.html?cat=langues">🌍 Langues</a>
           <a href="frontend/pages/formations.html?cat=gestion">📊 Gestion</a>
           <a href="frontend/pages/formations.html?cat=design">🎨 Design</a>
@@ -159,11 +246,11 @@
 
       <div class="footer-newsletter">
         <h4>Newsletter</h4>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+        <p class="footer-newsletter-desc">Inscrivez-vous pour recevoir nos actualités.</p>
         <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
-          <div style="position:relative">
-            <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
-            <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+          <div class="newsletter-input-wrapper">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input" />
+            <button type="submit" class="btn-gold-sm newsletter-btn">OK</button>
           </div>
         </form>
       </div>

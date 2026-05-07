@@ -21,7 +21,7 @@
             <div class="prof-nav-right">
                 <span class="prof-user-name">M. Razakamahefa</span>
                 <div class="prof-avatar">MR</div>
-                <button onclick="logout()" class="btn-gold-sm" style="background:transparent; color:var(--gold-primary); border:1px solid var(--gold-primary)">Quitter 🚪</button>
+                <button onclick="logout()" class="btn-outline-gold">Quitter 🚪</button>
             </div>
         </div>
     </nav>
@@ -40,8 +40,8 @@
 
         <section class="prof-main-content">
             <!-- Stats Tab -->
-            <div id="tab-stats-prof">
-                <div class="section-header" style="margin-bottom:3rem">
+            <div id="tab-stats-prof" class="dash-tab">
+                <div class="section-header mb-3">
                     <h1>Aperçu <span class="gradient-text">Formateur</span></h1>
                     <p>Suivez l'impact de vos cours et l'engagement de vos étudiants.</p>
                 </div>
@@ -61,26 +61,26 @@
                     </div>
                 </div>
 
-                <div class="section-header" style="margin-bottom:1.5rem">
+                <div class="section-header mb-1-5">
                     <h2>Engagement <span class="gradient-text">Global</span></h2>
                 </div>
-                <div class="prof-stats-chart" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:20px; padding:2rem; margin-bottom:3rem">
+                <div class="prof-stats-chart chart-container">
                     <!-- CSS Bar Chart Mockup -->
-                    <div style="display:flex; align-items:flex-end; gap:10px; height:150px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1)">
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:40%" title="Lundi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:60%" title="Mardi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:35%" title="Mercredi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:90%" title="Jeudi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:75%" title="Vendredi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:20%" title="Samedi"></div>
-                        <div style="flex:1; background:var(--gold-gradient); border-radius:5px 5px 0 0; height:10%" title="Dimanche"></div>
+                    <div class="chart-bars-container">
+                        <div class="chart-bar" style="height:40%" title="Lundi"></div>
+                        <div class="chart-bar" style="height:60%" title="Mardi"></div>
+                        <div class="chart-bar" style="height:35%" title="Mercredi"></div>
+                        <div class="chart-bar" style="height:90%" title="Jeudi"></div>
+                        <div class="chart-bar" style="height:75%" title="Vendredi"></div>
+                        <div class="chart-bar" style="height:20%" title="Samedi"></div>
+                        <div class="chart-bar" style="height:10%" title="Dimanche"></div>
                     </div>
-                    <div style="display:flex; justify-content:space-between; margin-top:10px; color:var(--text-muted); font-size:0.8rem">
+                    <div class="chart-labels">
                         <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
                     </div>
                 </div>
 
-                <div class="section-header" style="margin-bottom:1.5rem">
+                <div class="section-header mb-1-5">
                     <h2>Dernières <span class="gradient-text">Inscriptions</span></h2>
                 </div>
                 <div class="admin-table-container">
@@ -94,8 +94,8 @@
             </div>
 
             <!-- Courses Tab -->
-            <div id="tab-courses-prof" style="display:none">
-                <div class="section-header" style="margin-bottom:2rem">
+            <div id="tab-courses-prof" class="dash-tab">
+                <div class="section-header">
                     <h2>Mes <span class="gradient-text">Supports de Cours</span></h2>
                     <p>Éditez ou ajoutez de nouveaux chapitres.</p>
                 </div>
@@ -117,12 +117,12 @@
                         <button class="btn-gold-sm">Modifier ⚙️</button>
                     </div>
                 </div>
-                <button class="btn-gold" style="width:100%; border-radius:15px; padding:1.2rem; background:transparent; border:1px dashed var(--gold-primary); color:var(--gold-primary)">+ AJOUTER UN NOUVEAU MODULE</button>
+                <button class="btn-dashed-gold">+ AJOUTER UN NOUVEAU MODULE</button>
             </div>
 
             <!-- Students Tab -->
-            <div id="tab-students-prof" style="display:none">
-                <div class="section-header" style="margin-bottom:2rem">
+            <div id="tab-students-prof" class="dash-tab">
+                <div class="section-header">
                     <h2>Mes <span class="gradient-text">Étudiants</span></h2>
                     <p>Liste complète des inscrits à vos modules.</p>
                 </div>
@@ -137,17 +137,17 @@
             </div>
 
             <!-- Quiz Prof Tab -->
-            <div id="tab-quiz-prof" style="display:none">
+            <div id="tab-quiz-prof" class="dash-tab">
                 <!-- Dynamically filled -->
             </div>
 
             <!-- Grading Tab -->
-            <div id="tab-grading-prof" style="display:none">
+            <div id="tab-grading-prof" class="dash-tab">
                 <!-- Dynamically filled -->
             </div>
 
             <!-- Planning Tab -->
-            <div id="tab-planning-prof" style="display:none">
+            <div id="tab-planning-prof" class="dash-tab">
                 <!-- Dynamically filled -->
             </div>
         </section>
@@ -157,7 +157,7 @@
     <footer class="footer">
         <div class="footer-main">
             <div class="footer-brand">
-                <a href="../../" class="footer-logo" style="text-decoration:none">
+                <a href="../../" class="footer-logo text-decor-none">
                     <img src="../img/Logo_Tia_Infos.jpg" alt="TIA INFO Logo" />
                     <span class="logo-text-main">TIA</span><span class="logo-info">INFO</span>
                 </a>
@@ -193,11 +193,11 @@
 
             <div class="footer-newsletter">
                 <h4>Newsletter</h4>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem">Inscrivez-vous pour recevoir nos actualités.</p>
+                <p class="footer-newsletter-desc">Inscrivez-vous pour recevoir nos actualités.</p>
                 <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Inscrit à la newsletter !')">
-                    <div style="position:relative">
-                        <input type="email" placeholder="votre@email.com" required style="width:100%; padding:1rem; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff" />
-                        <button type="submit" class="btn-gold-sm" style="position:absolute; right:5px; top:5px; bottom:5px">OK</button>
+                    <div class="newsletter-input-wrapper">
+                        <input type="email" placeholder="votre@email.com" required class="newsletter-input" />
+                        <button type="submit" class="btn-gold-sm newsletter-btn">OK</button>
                     </div>
                 </form>
             </div>
@@ -237,7 +237,7 @@
                     <input type="text" id="course-url" placeholder="https://...">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-gold-sm" style="background:transparent; color:white; border:1px solid #444" onclick="closeModal('course-modal')">Annuler</button>
+                    <button type="button" class="btn-outline-dark" onclick="closeModal('course-modal')">Annuler</button>
                     <button type="submit" class="btn-gold">Enregistrer le Module</button>
                 </div>
             </form>
@@ -258,9 +258,9 @@
                 <div id="quiz-questions-list">
                     <!-- Dynamic questions here -->
                 </div>
-                <button type="button" class="btn-gold-sm" style="margin-top:1rem" onclick="addQuizQuestionEdit()">+ Ajouter une question</button>
+                <button type="button" class="btn-gold-sm mt-1" onclick="addQuizQuestionEdit()">+ Ajouter une question</button>
             </div>
-            <div class="modal-footer" style="margin-top:2rem">
+            <div class="modal-footer mt-2">
                 <button class="btn-gold" onclick="saveQuiz()">Sauvegarder le Quiz Complet</button>
             </div>
         </div>
@@ -276,7 +276,7 @@
                 <p>Étudiant : <strong id="grade-student-name">...</strong></p>
                 <p>Module : <span id="grade-course-title">...</span></p>
             </div>
-            <div class="form-group" style="margin-top:1.5rem">
+            <div class="form-group mt-1-5">
                 <label>Note (/100)</label>
                 <input type="number" id="grade-value" min="0" max="100" value="80">
             </div>

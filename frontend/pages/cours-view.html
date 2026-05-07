@@ -169,7 +169,7 @@
 
     <div class="course-viewer-grid">
         <aside class="content-sidebar">
-            <h3 style="margin-bottom: 1.5rem;">Programme du cours</h3>
+            <h3 class="prog-title">Programme du cours</h3>
             <div id="chapter-list">
                 <!-- Dynamically filled -->
                 <p class="text-muted">Chargement du programme...</p>
@@ -184,8 +184,8 @@
                 </div>
 
                 <div class="video-container" id="video-display">
-                    <div style="text-align: center;">
-                        <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">▶️</span>
+                    <div class="video-placeholder">
+                        <span class="icon-xl">▶️</span>
                         <p>La vidéo du cours s'affichera ici.</p>
                     </div>
                 </div>
@@ -212,8 +212,8 @@
                 <!-- Tab: Forum -->
                 <div id="tab-forum" class="tab-panel">
                     <div class="forum-input-box">
-                        <h4 style="margin-bottom:1rem">Poser une question</h4>
-                        <textarea class="notes-area" id="forum-input" placeholder="Votre question sur ce chapitre..." style="height:100px; margin-bottom:1rem"></textarea>
+                        <h4 class="mb-1">Poser une question</h4>
+                        <textarea class="notes-area mb-1" id="forum-input" placeholder="Votre question sur ce chapitre..." class="forum-textarea"></textarea>
                         <button class="btn-gold" onclick="postComment()">Publier la question</button>
                     </div>
                     <div id="comment-list">
@@ -222,9 +222,9 @@
                 </div>
 
                 <div class="action-bar">
-                    <button class="btn-gold-sm" style="background:transparent; border:1px solid rgba(255,255,255,0.2)" onclick="prevChapter()">Précédent</button>
+                    <button class="btn-outline-dark" onclick="prevChapter()">Précédent</button>
                     <button class="btn-gold" id="btn-complete" onclick="completeChapter()">Marquer comme terminé ✅</button>
-                    <button class="btn-gold-sm" style="background:transparent; border:1px solid rgba(255,255,255,0.2)" onclick="nextChapter()">Suivant</button>
+                    <button class="btn-outline-dark" onclick="nextChapter()">Suivant</button>
                 </div>
             </div>
         </main>

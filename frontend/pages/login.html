@@ -18,19 +18,19 @@
         <label for="login-email">Email académique</label>
         <input type="email" id="login-email" name="email" placeholder="nom@exemple.com" required autocomplete="email" aria-required="true">
       </div>
-      <div class="form-group" style="position:relative;">
+      <div class="form-group-relative">
         <label for="login-pass">Mot de passe</label>
         <input type="password" id="login-pass" name="password" placeholder="Votre mot de passe" required autocomplete="current-password" aria-required="true">
-        <button type="button" id="toggle-password" aria-label="Afficher/Masquer le mot de passe" style="position:absolute; right:10px; top:38px; background:none; border:none; color:var(--gold-primary); font-size:1.1rem; cursor:pointer;">👁️</button>
+        <button type="button" id="toggle-password" aria-label="Afficher/Masquer le mot de passe" class="toggle-password-btn">👁️</button>
       </div>
-      <div id="login-error" style="color:#e74c3c; font-size:0.95rem; min-height:1.5em; margin-bottom:1.2rem; display:none"></div>
-      <button type="submit" class="btn-gold" style="width:100%; font-size:1.1rem;">Se connecter</button>
-      <div id="verify-resend" style="margin-top:1rem; display:none; text-align:center;">
-        <span style="color:#e67e22">Votre compte n'est pas vérifié ?</span>
+      <div id="login-error" class="auth-error-msg"></div>
+      <button type="submit" class="btn-gold btn-gold-full">Se connecter</button>
+      <div id="verify-resend" class="verify-resend-container">
+        <span class="warning-text">Votre compte n'est pas vérifié ?</span>
         <a href="#" onclick="resendVerificationEmail(event)">Renvoyer l'email de vérification</a>
       </div>
     </form>
-    <div class="auth-footer" style="margin-top:2.5rem;">
+    <div class="auth-footer">
       <p>Pas encore de compte ? <a href="register.html">Créer un compte</a></p>
       <a href="../../" class="back-link">← Retour à l'accueil</a>
     </div>
